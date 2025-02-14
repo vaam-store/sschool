@@ -2,6 +2,15 @@ import { cache } from "react";
 import { notFound } from "next/navigation";
 import { api } from "@app/trpc/server";
 
+export const listCourses = cache(async (page: number, size: number) => {
+  const courses = await api.course.latestCourses({
+    page, size
+  });
+
+  if (!courses) notFound();
+  return courses;
+});
+
 export const getCourse = cache(async (id: string) => {
   const course = await api.course.getCourse({ id });
 

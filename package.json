@@ -60,8 +60,10 @@
     "next-auth": "5.0.0-beta.25",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-feather": "^2.0.10",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
+    "tailwind-merge": "^3.0.1",
     "zod": "^3.23.3",
     "zod-prisma-types": "^3.2.4"
   },
@@ -79,6 +81,7 @@
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "prisma": "^5.14.0",
+    "sass": "^1.85.0",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.5.3"
   },

@@ -1,8 +1,9 @@
 import { signIn } from "@app/server/auth";
+import { Container } from "@app/components/container";
 
 export default async function LoginPage() {
   return (
-    <div className='container mx-auto px-4 mt-4'>
+    <Container className='mt-4'>
       <div className='flex flex-col gap-4'>
         <h2>Login to SSchool</h2>
         <div>
@@ -19,6 +20,6 @@ export default async function LoginPage() {
           </form>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
