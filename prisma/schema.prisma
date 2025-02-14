@@ -1,0 +1,277 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "tracing"]
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../src/generated/zod"
+}
+
+datasource db {
+  provider = "postgresql"
+  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
+}
+
+model Activity {
+  id         String    @id @default(cuid())
+  createdAt  DateTime? @default(now()) @map("created_at")
+  updatedAt  DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta       Json?
+  userId     String    @map("user_id")
+  entityId   String    @map("entity_id")
+  entityType String    @map("entity_type")
+  content    String
+  actionType String    @map("action_type")
+
+  // Relation: Each activity belongs to an user.
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([entityType])
+  @@index([actionType])
+  @@map("activities")
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Course {
+  id          String       @id @default(cuid())
+  createdAt   DateTime?    @default(now()) @map("created_at")
+  updatedAt   DateTime?    @default(now()) @updatedAt @map("updated_at")
+  meta        Json?
+  name        String
+  slug        String
+  description String
+  status      CourseStatus @default(DRAFT)
+
+  // Relations
+  modules     Module[]
+  enrollments Enrollment[]
+
+  @@index([slug])
+  @@index([name])
+  @@map("courses")
+}
+
+model Module {
+  id          String    @id @default(cuid())
+  createdAt   DateTime? @default(now()) @map("created_at")
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta        Json?
+  courseId    String    @map("course_id")
+  title       String
+  description String
+  position    Int
+
+  // Relation: Each module belongs to a course.
+  course  Course   @relation(fields: [courseId], references: [id])
+  lessons Lesson[]
+
+  @@index([title])
+  @@index([courseId])
+  @@map("modules")
+}
+
+model Lesson {
+  id          String    @id @default(cuid())
+  createdAt   DateTime? @default(now()) @map("created_at")
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta        Json?
+  moduleId    String    @map("module_id")
+  title       String
+  content     Json
+  description String?
+  position    Int
+
+  // Relation: Each lesson belongs to a module.
+  module      Module       @relation(fields: [moduleId], references: [id])
+  assignments Assignment[]
+
+  @@index([title])
+  @@index([moduleId])
+  @@map("lessons")
+}
+
+model Assignment {
+  id          String    @id @default(cuid())
+  createdAt   DateTime? @default(now()) @map("created_at")
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta        Json?
+  lessonId    String    @map("lesson_id")
+  title       String
+  description String?
+  dueDate     DateTime  @map("due_date")
+
+  // Relation: Each assignment belongs to a lesson.
+  lesson            Lesson             @relation(fields: [lessonId], references: [id])
+  submissions       Submission[]
+  submissionMembers SubmissionMember[]
+
+  @@index([lessonId])
+  @@index([title])
+  @@map("assignments")
+}
+
+model Submission {
+  id            String    @id @default(cuid())
+  createdAt     DateTime? @default(now()) @map("created_at")
+  updatedAt     DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta          Json?
+  assignmentId  String    @map("assignment_id")
+  dateSubmitted DateTime? @map("date_submitted")
+  status        String
+  content       String
+
+  // Relation: Each submission is linked to an assignment.
+  assignment        Assignment         @relation(fields: [assignmentId], references: [id])
+  submissionMembers SubmissionMember[]
+
+  @@index([assignmentId])
+  @@index([assignmentId, status])
+  @@index([status])
+  @@map("submissions")
+}
+
+model SubmissionMember {
+  assignmentId String    @map("assignment_id")
+  enrollmentId String    @map("enrollment_id")
+  createdAt    DateTime? @default(now()) @map("created_at")
+  updatedAt    DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta         Json?
+  submissionId String    @map("submission_id")
+  role         String
+
+  // Relations:
+  assignment Assignment @relation(fields: [assignmentId], references: [id])
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id])
+  submission Submission @relation(fields: [submissionId], references: [id])
+
+  @@id([assignmentId, enrollmentId])
+  @@index([role])
+  @@index([assignmentId])
+  @@index([enrollmentId])
+  @@map("submission_members")
+}
+
+model Enrollment {
+  id             String    @id @default(cuid())
+  createdAt      DateTime? @default(now()) @map("created_at")
+  updatedAt      DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta           Json?
+  userId         String    @map("user_id")
+  courseId       String    @map("course_id")
+  enrollmentType String    @map("enrollment_type")
+
+  // Relations
+  user              User               @relation(fields: [userId], references: [id])
+  course            Course             @relation(fields: [courseId], references: [id])
+  submissionMembers SubmissionMember[]
+
+  @@index([userId])
+  @@index([courseId])
+  @@index([enrollmentType])
+  @@map("enrollments")
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  createdAt   DateTime? @default(now()) @map("created_at")
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta        Json?
+  userId      String?   @map("user_id")
+  ownerId     String?   @map("owner_id")
+  content     String?
+  // We rename the field to avoid using the reserved word "type" in Prisma.
+  commentType String?   @map("type")
+
+  // Relation: Optionally linked to an user.
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([ownerId])
+  @@index([commentType])
+  @@map("comments")
+}
+
+// Necessary for Next auth
+model Account {
+  id        String    @id @default(cuid())
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  userId                   String
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? // @db.Text
+  access_token             String? // @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? // @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("federated_accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum UserRole {
+  ADMIN
+  INSTRUCTOR
+  STUDENT
+}
+
+model User {
+  id            String    @id @default(cuid())
+  createdAt     DateTime? @default(now()) @map("created_at")
+  updatedAt     DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta          Json?
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  role        UserRole     @default(STUDENT)
+  activities  Activity[]
+  comments    Comment[]
+  enrollments Enrollment[]
+
+  @@index([email])
+  @@index([name])
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@index([token])
+  @@index([identifier])
+}

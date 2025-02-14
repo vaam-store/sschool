@@ -1,0 +1,86 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.2
+    restart: unless-stopped
+    ports:
+      - '9100:9100'
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_HTTP_PORT: 9100
+      KC_LOG_CONSOLE_COLOR: 'true'
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        set -ex
+        cp /opt/keycloak/providers/themes/*.jar /opt/keycloak/providers
+
+        /opt/keycloak/bin/kc.sh build
+        /opt/keycloak/bin/kc.sh start-dev --import-realm
+
+    volumes:
+      - ./.docker/keycloak-config/:/opt/keycloak/data/import/:ro
+      - spi-theme:/opt/keycloak/providers/themes:ro
+        
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sschool}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sschool-password}
+      POSTGRES_DB: ${POSTGRES_DB:-sschool}
+    #volumes:
+    #  - db:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+
+  adminer:
+    image: adminer
+    ports:
+      - ${ADMINER_PORT:-18080}:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DEFAULT_USERNAME: ${POSTGRES_USER:-sschool}
+      ADMINER_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD:-sschool-password}
+      ADMINER_DESIGN: ${ADMINER_DESIGN:-dracula}
+      ADMINER_PLUGINS: ${ADMINER_PLUGINS:-tables-filter tinymce}
+
+  minio:
+    image: bitnami/minio:latest
+    volumes:
+      - minio:/bitnami/minio/data
+    ports:
+      - ${MINIO_PORT:-19000}:9000
+      - ${MINIO_PORT_INTERNAL:-9001}:9001
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio123}
+      MINIO_BROWSER_SESSION_DURATION: ${MINIO_BROWSER_SESSION_DURATION:-7d}
+      MINIO_BROWSER_LOGIN_ANIMATION: ${MINIO_BROWSER_LOGIN_ANIMATION:-off}
+
+  tracking:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - '4318:4318' # OpenTelemetry receiver
+      - '14268:14268' # Jaeger receiver
+      - '16686:16686' # Jaeger UI
+    environment:
+      COLLECTOR_OTLP_ENABLED: 'true'
+
+  download-theme:
+    image: busybox
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -ex;
+        wget -O /spi/adorsys-gis-theme.jar "https://github.com/ADORSYS-GIS/adorsys-gis-theme/releases/download/v1.0.1/theme-1.0.1.jar"
+        echo "Downloaded theme";
+        ls -la /spi;
+    volumes:
+      - spi-theme:/spi
+        
+volumes:
+  db: { }
+  minio: { }
+  spi-theme: { }
