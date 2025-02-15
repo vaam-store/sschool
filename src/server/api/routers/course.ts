@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { CourseStatus, UserRole } from "@prisma/client";
-import { CourseCreateInputSchema } from "@app/generated/zod";
+import {
+  CourseCreateInputSchema,
+  ModuleCreateInputSchema,
+} from "@app/generated/zod";
 
 import {
   createTRPCRouter,
@@ -18,7 +21,7 @@ export const courseRouter = createTRPCRouter({
     )
     .query(async ({ input, ctx }) => {
       const status =
-        ctx.session.user.role === UserRole.ADMIN
+        ctx.session?.user?.role === UserRole.ADMIN
           ? undefined
           : CourseStatus.PUBLISHED;
 
@@ -73,7 +76,7 @@ export const courseRouter = createTRPCRouter({
         orderBy: { position: "asc" },
         where: {
           module: {
-            id: input.courseId,
+            id: input.moduleId,
             course: {
               status,
             },
@@ -133,6 +136,25 @@ export const courseRouter = createTRPCRouter({
     .input(CourseCreateInputSchema)
     .mutation(async ({ ctx, input }) => {
       return ctx.db.course.update({
+        data: input,
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
+  createModule: protectedProcedure
+    .input(ModuleCreateInputSchema)
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.module.create({
+        data: input,
+      });
+    }),
+
+  updateModule: protectedProcedure
+    .input(ModuleCreateInputSchema)
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.module.update({
         data: input,
         where: {
           id: input.id,

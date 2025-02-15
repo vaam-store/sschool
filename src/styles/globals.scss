@@ -21,6 +21,12 @@
     --color-dark-20: #F8F9F9;
 }
 
+.btn {
+    svg {
+        @apply size-[1.2em];
+    }
+}
+
 .big-title {
     &:first-child {
         @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;

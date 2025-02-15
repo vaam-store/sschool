@@ -88,13 +88,13 @@ export function EditCourse({ course }: EditCourseProps) {
                   name="meta.thumbnailImage"
                   accept="image/png,image/jpeg"
                 />
-                <button className="btn btn-primary" type="submit">
+                <button className="btn btn-soft btn-primary" type="submit">
                   Submit
                 </button>
               </Form>
             </div>
 
-            <div className="col-span-2 xl:col-span-4">
+            <div className="hidden sm:block col-span-2 xl:col-span-4">
               <div className="mockup-window border bg-base-300 p-4">
                 <div className="flex justify-center">
                   <div className="max-w-md">

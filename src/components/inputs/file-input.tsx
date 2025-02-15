@@ -4,7 +4,7 @@ import { useUploadFile } from "@app/hooks/upload-file";
 
 export function FileInputComponent({
   ...props
-}: HTMLInputElement & {
+}: Partial<HTMLInputElement> & {
   label: string;
 }) {
   const [field, meta, { setValue }] = useField(props);
@@ -33,7 +33,7 @@ export function FileInputComponent({
           props.className,
         )}
       />
-      
+
       {meta.touched && meta.error && (
         <div className="label">
           <span className="label-text-alt text-error">{meta.error}</span>

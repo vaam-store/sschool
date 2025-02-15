@@ -8,14 +8,14 @@ export async function LoginButton() {
   return (
     <div className='flex flex-row gap-4 items-center'>
       {session && session.user && session.user.role === "ADMIN" && (
-        <Link className="btn btn-circle btn-ghost" href="/courses/add">
-          <Plus className="text-primary" />
+        <Link className="btn btn-circle btn-soft btn-primary" href="/courses/add">
+          <Plus />
         </Link>
       )}
       {session && <div className="hidden sm:block">{session.user.name}</div>}
       <Link
         href={session ? "/logout" : "/login"}
-        className={twMerge("btn btn-circle btn-outline", [
+        className={twMerge("btn btn-circle btn-soft", [
           session && "btn-error",
           !session && "btn-primary",
         ])}

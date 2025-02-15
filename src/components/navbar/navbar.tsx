@@ -1,4 +1,4 @@
-import icon from "./icon.svg";
+import icon from "../icon.svg";
 import { Container } from "@app/components/container";
 import Link from "next/link";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export function AppNavBar() {
             <div className="flex gap-4 lg:hidden">
               <div>
                 <details className="dropdown">
-                  <summary className="btn btn-circle btn-ghost m-1">
+                  <summary className="btn btn-circle btn-soft btn-primary m-1">
                     <Menu />
                   </summary>
 

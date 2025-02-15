@@ -1,5 +1,5 @@
-import AppFooter from "@app/components/footer";
 import { AppNavBar } from "@app/components/navbar";
+import LargeFooter from "../../components/footer/large-footer";
 
 export default function MainLayout({
   children,
@@ -8,7 +8,7 @@ export default function MainLayout({
     <>
       <AppNavBar />
       <div id="main">{children}</div>
-      <AppFooter />
+      <LargeFooter />
     </>
   );
 }

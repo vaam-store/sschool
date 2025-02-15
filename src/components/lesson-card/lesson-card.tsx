@@ -39,7 +39,7 @@ export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
           {canEdit && (
             <Link
               href={`/courses/${course.id}/edit`}
-              className="btn btn-circle btn-ghost"
+              className="btn btn-circle btn-soft btn-primary"
             >
               <Edit />
             </Link>
@@ -47,37 +47,37 @@ export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
           {canEdit && (
             <Link
               href={`/courses/${course.id}/edit`}
-              className="btn btn-circle btn-ghost"
+              className="btn btn-circle btn-soft btn-primary"
             >
               <List />
             </Link>
           )}
 
           {meta.canBookmark && (
-            <button className="btn btn-circle btn-ghost">
-              <Star className="text-accent" />
+            <button className="btn btn-circle btn-soft btn-accent">
+              <Star />
             </button>
           )}
 
           {disableLink && (
-            <button className="btn btn-ghost" color="ghost">
-              <span className="text-primary">View course</span>
-              <ArrowRight className="text-primary" />
+            <button className="btn btn-soft btn-primary" color="ghost">
+              <span>View course</span>
+              <ArrowRight />
             </button>
           )}
 
           {!disableLink && (
             <Link href={`/courses/${course.id}`}>
               <button
-                className={twMerge("btn btn-ghost", [canEdit && "btn-circle"])}
+                className={twMerge("btn btn-soft btn-primary", [canEdit && "btn-circle"])}
                 color="ghost"
               >
                 <span
-                  className={twMerge("text-primary", [canEdit && "hidden"])}
+                  className={twMerge("", [canEdit && "hidden"])}
                 >
                   View course
                 </span>
-                <ArrowRight className="text-primary" />
+                <ArrowRight />
               </button>
             </Link>
           )}
