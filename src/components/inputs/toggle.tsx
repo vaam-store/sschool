@@ -14,6 +14,7 @@ export function ToggleInputComponent<V, F>({
       <label className="label cursor-pointer">
         <span className="label-text">{props.label ?? field.name}</span>
         <input
+          defaultChecked={field.value}
           type="checkbox"
           {...field}
           {...props}
