@@ -3,13 +3,21 @@ import { notFound } from "next/navigation";
 import { api } from "@app/trpc/server";
 
 export const listCourses = cache(async (page: number, size: number) => {
-  const courses = await api.course.latestCourses({
-    page, size
+  return await api.course.latestCourses({
+    page,
+    size,
   });
-
-  if (!courses) notFound();
-  return courses;
 });
+
+export const listModules = cache(
+  async (courseId: string, page: number, size: number) => {
+    return await api.course.latestModules({
+      page,
+      size,
+      courseId,
+    });
+  },
+);
 
 export const getCourse = cache(async (id: string) => {
   const course = await api.course.getCourse({ id });
@@ -31,7 +39,6 @@ export const getLesson = cache(async (id: string) => {
   if (!lesson) notFound();
   return lesson;
 });
-
 
 export interface HasCourse {
   courseId: string;

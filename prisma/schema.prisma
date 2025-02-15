@@ -52,7 +52,6 @@ model Course {
   updatedAt   DateTime?    @default(now()) @updatedAt @map("updated_at")
   meta        Json?
   name        String
-  slug        String
   description String
   status      CourseStatus @default(DRAFT)
 
@@ -60,7 +59,6 @@ model Course {
   modules     Module[]
   enrollments Enrollment[]
 
-  @@index([slug])
   @@index([name])
   @@index([status])
   @@map("courses")

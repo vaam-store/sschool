@@ -1,16 +1,5 @@
-import { api } from "@app/trpc/server";
-import { getCourse, HasCourse } from "@app/hooks/courses";
-
-export async function generateStaticParams() {
-  const courses = await api.course.latestCourses({
-    page: 0,
-    size: 10_000,
-  });
-
-  return courses?.map((course) => ({
-    courseId: course.id,
-  }));
-}
+import { getCourse, type HasCourse } from "@app/hooks/courses";
+import { SingleCourseContent } from "@app/components/single-course";
 
 export async function generateMetadata({
   params,
@@ -32,5 +21,5 @@ export default async function SingleCoursePage({
 }) {
   const { courseId } = await params;
   const course = await getCourse(courseId);
-  return <>Some course page: Created at {course.createdAt}</>;
+  return <SingleCourseContent data={course} />;
 }

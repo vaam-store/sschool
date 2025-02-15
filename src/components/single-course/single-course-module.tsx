@@ -1,5 +1,5 @@
-import { useListModules } from "@openapi/queries";
 import { type Module } from "@prisma/client";
+import { listModules } from "@app/hooks/courses";
 
 export interface SingleCourseModuleProps {
   module: Module;
@@ -20,28 +20,14 @@ export interface SingleCourseModuleListProps {
   courseId: string;
 }
 
-export function SingleCourseModuleList({
+export async function SingleCourseModuleList({
   courseId,
 }: SingleCourseModuleListProps) {
-  const { error, data, isPending } = useListModules({
-    query: {
-      courseId: courseId,
-      limit: 5,
-      offset: 0,
-    },
-  });
-
-  if (isPending) {
-    return <span className="loading loading-spinner" />;
-  }
-
-  if (error) {
-    return <ErrorPage />;
-  }
+  const data = await listModules(courseId, 0, 200);
 
   return (
     <div className="flex flex-col gap-4 md:gap-6">
-      {data!.items.map((module) => (
+      {data.map((module) => (
         <SingleCourseModule key={module.id} module={module} />
       ))}
     </div>

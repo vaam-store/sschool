@@ -5,6 +5,18 @@
 import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '19000',
+        pathname: '/sschool/**',
+        search: '',
+      },
+    ],
+  },
+};
 
 export default config;

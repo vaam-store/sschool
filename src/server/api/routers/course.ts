@@ -17,9 +17,14 @@ export const courseRouter = createTRPCRouter({
       }),
     )
     .query(async ({ input, ctx }) => {
+      const status =
+        ctx.session.user.role === UserRole.ADMIN
+          ? undefined
+          : CourseStatus.PUBLISHED;
+
       return await ctx.db.course.findMany({
         orderBy: { createdAt: "desc" },
-        where: { status: CourseStatus.PUBLISHED },
+        where: { status },
         skip: input.page * input.size,
         take: input.size,
       });
@@ -116,13 +121,21 @@ export const courseRouter = createTRPCRouter({
       return course;
     }),
 
-  create: protectedProcedure
+  createCourse: protectedProcedure
     .input(CourseCreateInputSchema)
     .mutation(async ({ ctx, input }) => {
       return ctx.db.course.create({
-        data: {
-          name: input.name,
-          createdBy: { connect: { id: ctx.session.user.id } },
+        data: input,
+      });
+    }),
+
+  updateCourse: protectedProcedure
+    .input(CourseCreateInputSchema)
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.course.update({
+        data: input,
+        where: {
+          id: input.id,
         },
       });
     }),

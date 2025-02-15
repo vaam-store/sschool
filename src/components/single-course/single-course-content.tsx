@@ -3,6 +3,7 @@ import { ArrowRight } from "react-feather";
 import { SingleCourseModuleList } from "./single-course-module";
 import Link from "next/link";
 import { Container } from "@app/components/container";
+import { Suspense } from "react";
 
 interface SingleCourseContentProps {
   data: Course;
@@ -30,7 +31,9 @@ export function SingleCourseContent({
         </div>
 
         <div>
-          <SingleCourseModuleList courseId={id} />
+          <Suspense fallback={<span className="loading loading-lg" />}>
+            <SingleCourseModuleList courseId={id} />
+          </Suspense>
         </div>
       </Container>
     </>

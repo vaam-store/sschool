@@ -1,6 +1,5 @@
-import { Container } from '@comp/container';
-import { Lesson } from '@openapi/requests';
-import { Helmet } from 'react-helmet';
+import { Container } from "@app/components/container";
+import { type Lesson } from "@prisma/client";
 
 export interface SingleLessonContentProps {
   data: Lesson;
@@ -11,11 +10,6 @@ export default function SingleLessonContent({
 }: SingleLessonContentProps) {
   return (
     <Container>
-      <Helmet>
-        <title>{title}</title>
-        <meta name='description' content={description} />
-      </Helmet>
-
       <p>Found {id}!</p>
     </Container>
   );
