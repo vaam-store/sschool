@@ -2,12 +2,11 @@
 
 import { Container } from "@app/components/container";
 import { type EditCourseModulesProps } from "./type";
-import { forwardRef, useCallback, useState } from "react";
-import type { Module } from "@prisma/client";
-import { ReactSortable, Sortable, Store } from "react-sortablejs";
-import { EditModuleModal } from "@app/components/edit-course-modules/edit-module";
+import { forwardRef, useCallback } from "react";
+import { ReactSortable, type Sortable, type Store } from "react-sortablejs";
+import { EditModuleModal } from "./edit-module";
 import Image from "next/image";
-import { Grid } from "react-feather";
+import { Grid, MoreVertical } from "react-feather";
 import { SingleCourseModule } from "@app/components/single-course/single-course-module";
 import { api } from "@app/trpc/react";
 
@@ -19,26 +18,30 @@ const CustomComponent = forwardRef<HTMLUListElement, any>((props, ref) => {
   );
 });
 
-export function EditCourseModules({ course, modules }: EditCourseModulesProps) {
-  const [state, setState] = useState<Module[]>(() => modules);
+export function EditCourseModules({ course }: EditCourseModulesProps) {
+  const { data = [], refetch } = api.module.latestModules.useQuery({
+    page: 0,
+    size: 10_000,
+    courseId: course.id,
+  });
   const { mutateAsync: updatePosition } =
     api.module.updatePosition.useMutation();
 
   const onChange = useCallback(
     async (
-      newState: typeof state,
+      newState: typeof data,
       _sortable: Sortable | null,
       _store: Store,
     ) => {
-      const res = await updatePosition(
+      await updatePosition(
         newState.map((module, position) => ({
           id: module.id,
           position,
         })),
       );
-      setState(res);
+      await refetch();
     },
-    [updatePosition],
+    [refetch, updatePosition],
   );
 
   return (
@@ -46,20 +49,20 @@ export function EditCourseModules({ course, modules }: EditCourseModulesProps) {
       <h2 className="app-title">Edit modules</h2>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
-        <div>
+        <div className="xl:col-span-2">
           <ReactSortable
             fallbackOnBody={true}
             swapThreshold={0.65}
             animation={150}
             tag={CustomComponent}
-            list={state}
+            list={data}
             setList={onChange}
             handle=".d-handle"
           >
-            {state.map((item) => (
-              <li className="list-row items-center" id={item.id} key={item.id}>
+            {data.map((item) => (
+              <li className="list-row items-center" key={item.id}>
                 <div className="flex flex-row items-center gap-4">
-                  <Grid className="d-handle text-primary hover:cursor-pointer" />
+                  <Grid className="d-handle hover:cursor-pointer" />
                   <div className="relative size-10">
                     <Image
                       fill
@@ -75,25 +78,29 @@ export function EditCourseModules({ course, modules }: EditCourseModulesProps) {
                   <div>{item.title}</div>
                   <div className="text-xs opacity-60">{item.description}</div>
                 </div>
+
+                <div>
+                  <button className="btn btn-soft btn-ghost btn-circle">
+                    <MoreVertical />
+                  </button>
+                </div>
               </li>
             ))}
           </ReactSortable>
 
           <EditModuleModal
             courseId={course.id}
-            onEdit={(module) => {
-              setState((prev) => [...prev, module]);
-            }}
-            nextPosition={state.length}
+            onEdit={(_module) => refetch()}
+            nextPosition={data.length}
           />
         </div>
 
-        <div className="col-span-2 hidden sm:block xl:col-span-4">
+        <div className="hidden sm:block md:col-span-2 xl:col-span-3">
           <div className="mockup-window bg-base-200 border p-4">
             <div className="flex justify-center">
               <div className="list">
-                {state.map((module) => (
-                  <div key={module.id} className='list-row'>
+                {data.map((module) => (
+                  <div key={module.id} className="list-row">
                     <SingleCourseModule module={module} />
                   </div>
                 ))}

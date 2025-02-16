@@ -94,7 +94,7 @@ export function EditCourse({ course }: EditCourseProps) {
               </Form>
             </div>
 
-            <div className="hidden sm:block col-span-2 xl:col-span-4">
+            <div className="hidden sm:block md:col-span-2 xl:col-span-4">
               <div className="mockup-window border bg-base-300 p-4">
                 <div className="flex justify-center">
                   <div className="max-w-md">

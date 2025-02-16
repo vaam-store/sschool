@@ -19,6 +19,16 @@ export const listModules = cache(
   },
 );
 
+export const listLessons = cache(
+  async (moduleId: string, page: number, size: number) => {
+    return await api.lesson.latestLessons({
+      page,
+      size,
+      moduleId,
+    });
+  },
+);
+
 export const getCourse = cache(async (id: string) => {
   const course = await api.course.getCourse({ id });
 
@@ -34,7 +44,7 @@ export const getModule = cache(async (id: string) => {
 });
 
 export const getLesson = cache(async (id: string) => {
-  const lesson = await api.course.getLesson({ id });
+  const lesson = await api.lesson.getLesson({ id });
 
   if (!lesson) notFound();
   return lesson;

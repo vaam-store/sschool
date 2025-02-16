@@ -33,7 +33,9 @@ export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
       )}
 
       <div className="card-body">
-        <div className="card-title line-clamp-2">{course.name}</div>
+        <div className="card-title line-clamp-2 text-2xl font-bold tracking-wide">
+          {course.name}
+        </div>
         <p className="line-clamp-3">{course.description}</p>
         <div className="card-actions">
           {canEdit && (

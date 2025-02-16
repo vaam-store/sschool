@@ -19,11 +19,12 @@ import AttachesTool from "@editorjs/attaches";
 import ImageTool from "@editorjs/image";
 import Checklist from "@editorjs/checklist";
 import EditorjsList from "@editorjs/list";
-import AIText from "@alkhipce/editorjs-aitext";
 
 export interface ToolOptions {
-  uploadFile: (file: File) => Promise<{ publicUrl: string }>;
-  uploadFileByUrl: (fileUrl: string) => Promise<{ publicUrl: string }>;
+  uploadFile: (file: File) => Promise<{ publicUrl: string } | undefined>;
+  uploadFileByUrl: (
+    fileUrl: string,
+  ) => Promise<{ publicUrl: string } | undefined>;
 }
 
 export const makeTools: (
@@ -32,22 +33,6 @@ export const makeTools: (
   uploadFile,
   uploadFileByUrl,
 }) => ({
-  aiText: {
-    // if you do not use TypeScript you need to remove "as unknown as ToolConstructable" construction
-    // type ToolConstructable imported from @editorjs/editorjs package
-    class: AIText,
-    config: {
-      // here you need to provide your own suggestion provider (e.g., request to your backend)
-      // this callback function must accept a string and return a Promise<string>
-      callback: (text: string) => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve("AI: " + text);
-          }, 1000);
-        });
-      },
-    },
-  },
   delimiter: {
     class: Delimiter,
     inlineToolbar: true,
@@ -74,6 +59,12 @@ export const makeTools: (
       uploader: {
         uploadByFile: async (file: File) => {
           const { success, url } = await uploadFile(file)
+            .then((i) => {
+              if (i) {
+                return i;
+              }
+              throw new Error("Failed to upload file");
+            })
             .then(({ publicUrl: url }) => ({ url, success: 1 }))
             .catch((err) => ({ url: undefined, success: 0, err }));
           return {
@@ -86,6 +77,12 @@ export const makeTools: (
         },
         uploadByUrl: async (fileUrl: string) => {
           const { success, url } = await uploadFileByUrl(fileUrl)
+            .then((i) => {
+              if (i) {
+                return i;
+              }
+              throw new Error("Failed to upload file");
+            })
             .then(({ publicUrl: url }) => ({ url, success: 1 }))
             .catch((err) => ({ url: undefined, success: 0, err }));
           return {

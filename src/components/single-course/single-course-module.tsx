@@ -18,13 +18,13 @@ export function SingleCourseModule({ module }: SingleCourseModuleProps) {
             title={module.meta.thumbnailImage.alt ?? module.title}
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 30vw, 15vw"
           />
-          <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-3xl font-extrabold text-white">
+          <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-3xl font-extrabold text-white md:text-4xl">
             {module.position + 1}
           </div>
         </figure>
       </div>
       <div>
-        <div className="font-bold">{module.title}</div>
+        <div className="text-2xl font-thin tracking-wide">{module.title}</div>
         <p>{module.description}</p>
       </div>
     </div>

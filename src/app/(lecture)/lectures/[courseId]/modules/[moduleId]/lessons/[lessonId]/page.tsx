@@ -5,6 +5,9 @@ import {
   type HasLesson,
   type HasModule,
 } from "@app/hooks/courses";
+import { Editor } from "@app/components/editor";
+import type { OutputData } from "@editorjs/editorjs";
+import { Container } from "@app/components/container";
 
 type ParamsProps = HasCourse & HasModule & HasLesson;
 
@@ -31,7 +34,9 @@ export default async function LectureLessonPage({
 
   return (
     <HydrateClient>
-      Some lesson content page: Created at {lesson.createdAt}
+      <Container>
+        <Editor readOnly initialData={lesson.content as OutputData} />
+      </Container>
     </HydrateClient>
   );
 }

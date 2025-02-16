@@ -7,8 +7,32 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@app/server/api/trpc";
+import { TRPCError } from "@trpc/server";
 
 export const courseRouter = createTRPCRouter({
+  getCourseForDownload: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      if (ctx.session.user.role !== UserRole.ADMIN) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      return await ctx.db.course.findUnique({
+        where: { id: input.id },
+        include: {
+          modules: {
+            include: {
+              lessons: true,
+            },
+          },
+        },
+      });
+    }),
+
   latestCourses: publicProcedure
     .input(
       z.object({
@@ -25,34 +49,6 @@ export const courseRouter = createTRPCRouter({
       return await ctx.db.course.findMany({
         orderBy: { createdAt: "desc" },
         where: { status },
-        skip: input.page * input.size,
-        take: input.size,
-      });
-    }),
-
-  latestLessons: protectedProcedure
-    .input(
-      z.object({
-        moduleId: z.string(),
-        page: z.number().default(0),
-        size: z.number().default(10),
-      }),
-    )
-    .query(async ({ input, ctx }) => {
-      const status =
-        ctx.session.user.role === UserRole.ADMIN
-          ? undefined
-          : CourseStatus.PUBLISHED;
-      return await ctx.db.lesson.findMany({
-        orderBy: { position: "asc" },
-        where: {
-          module: {
-            id: input.moduleId,
-            course: {
-              status,
-            },
-          },
-        },
         skip: input.page * input.size,
         take: input.size,
       });
@@ -103,27 +99,4 @@ export const courseRouter = createTRPCRouter({
 
     return courses ?? null;
   }),
-
-  getLesson: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      }),
-    )
-    .query(async ({ ctx, input: { id } }) => {
-      const status =
-        ctx.session.user.role === UserRole.ADMIN
-          ? undefined
-          : CourseStatus.PUBLISHED;
-      const found = await ctx.db.lesson.findFirst({
-        where: {
-          id,
-          module: {
-            course: { status },
-          },
-        },
-      });
-
-      return found ?? null;
-    }),
 });

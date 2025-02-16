@@ -1,10 +1,11 @@
-import icon from "../icon.svg";
+import icon from "@app/components/icon.svg";
 import { Container } from "@app/components/container";
 import Link from "next/link";
 import Image from "next/image";
 import { LoginButton } from "@app/components/auth";
 import { Menu } from "react-feather";
 import { Suspense } from "react";
+import ThemeToggle from "@app/components/theme";
 
 export function AppNavBar() {
   return (
@@ -27,6 +28,7 @@ export function AppNavBar() {
           </div>
 
           <div className="navbar-end flex gap-4">
+            <ThemeToggle />
             <Suspense fallback={<span className="loading loading-sm" />}>
               <LoginButton />
             </Suspense>
