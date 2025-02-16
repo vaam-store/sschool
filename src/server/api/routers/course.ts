@@ -1,9 +1,6 @@
 import { z } from "zod";
 import { CourseStatus, UserRole } from "@prisma/client";
-import {
-  CourseCreateInputSchema,
-  ModuleCreateInputSchema,
-} from "@app/generated/zod";
+import { CourseCreateInputSchema } from "@app/generated/zod";
 
 import {
   createTRPCRouter,
@@ -28,32 +25,6 @@ export const courseRouter = createTRPCRouter({
       return await ctx.db.course.findMany({
         orderBy: { createdAt: "desc" },
         where: { status },
-        skip: input.page * input.size,
-        take: input.size,
-      });
-    }),
-
-  latestModules: publicProcedure
-    .input(
-      z.object({
-        courseId: z.string(),
-        page: z.number().default(0),
-        size: z.number().default(10),
-      }),
-    )
-    .query(async ({ input, ctx }) => {
-      const status =
-        ctx.session.user.role === UserRole.ADMIN
-          ? undefined
-          : CourseStatus.PUBLISHED;
-      return await ctx.db.module.findMany({
-        orderBy: { position: "asc" },
-        where: {
-          course: {
-            status,
-            id: input.courseId,
-          },
-        },
         skip: input.page * input.size,
         take: input.size,
       });
@@ -105,25 +76,6 @@ export const courseRouter = createTRPCRouter({
       return course;
     }),
 
-  getModule: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      }),
-    )
-    .query(async ({ input, ctx }) => {
-      const status =
-        ctx.session.user.role === UserRole.ADMIN
-          ? undefined
-          : CourseStatus.PUBLISHED;
-
-      const course = await ctx.db.module.findUnique({
-        where: { id: input.id, course: { status } },
-      });
-
-      return course;
-    }),
-
   createCourse: protectedProcedure
     .input(CourseCreateInputSchema)
     .mutation(async ({ ctx, input }) => {
@@ -136,25 +88,6 @@ export const courseRouter = createTRPCRouter({
     .input(CourseCreateInputSchema)
     .mutation(async ({ ctx, input }) => {
       return ctx.db.course.update({
-        data: input,
-        where: {
-          id: input.id,
-        },
-      });
-    }),
-
-  createModule: protectedProcedure
-    .input(ModuleCreateInputSchema)
-    .mutation(async ({ ctx, input }) => {
-      return ctx.db.module.create({
-        data: input,
-      });
-    }),
-
-  updateModule: protectedProcedure
-    .input(ModuleCreateInputSchema)
-    .mutation(async ({ ctx, input }) => {
-      return ctx.db.module.update({
         data: input,
         where: {
           id: input.id,

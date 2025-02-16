@@ -23,9 +23,10 @@ export function EditModule({
   onEdit,
   module,
   courseId,
+  nextPosition,
 }: EditModuleProps & OnEditModuleProps) {
-  const { mutateAsync: create } = api.course.createModule.useMutation();
-  const { mutateAsync: update } = api.course.updateModule.useMutation();
+  const { mutateAsync: create } = api.module.createModule.useMutation();
+  const { mutateAsync: update } = api.module.updateModule.useMutation();
   return (
     <Formik
       validationSchema={toFormikValidationSchema(Schema)}
@@ -34,7 +35,7 @@ export function EditModule({
         title: module?.title ?? "",
         description: module?.description ?? "",
         meta: module?.meta ?? { thumbnailImage: {} },
-        position: module?.position ?? 0,
+        position: module?.position ?? nextPosition,
       }}
       onSubmit={async ({ id, ...rest }, { setSubmitting, resetForm }) => {
         let saved: Module;
@@ -50,7 +51,7 @@ export function EditModule({
             course: { connect: { id: courseId } },
           });
         }
-        setSubmitting(false)
+        setSubmitting(false);
         onEdit(saved);
         resetForm();
       }}

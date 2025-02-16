@@ -11,7 +11,7 @@ export const listCourses = cache(async (page: number, size: number) => {
 
 export const listModules = cache(
   async (courseId: string, page: number, size: number) => {
-    return await api.course.latestModules({
+    return await api.module.latestModules({
       page,
       size,
       courseId,
@@ -27,7 +27,7 @@ export const getCourse = cache(async (id: string) => {
 });
 
 export const getModule = cache(async (id: string) => {
-  const mod = await api.course.getModule({ id });
+  const mod = await api.module.getModule({ id });
 
   if (!mod) notFound();
   return mod;

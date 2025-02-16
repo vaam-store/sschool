@@ -4,22 +4,6 @@
 @plugin "daisyui" {
     themes: light --default;
 }
-@plugin "daisyui/theme" {
-    name: "light";
-    default: true;
-    --color-primary: #2F2CF9;
-    --color-secondary: #8498F4;
-    --color-accent: #8498F4;
-    --color-neutral: #101C25;
-    --color-base-100: #F8F9F9;
-    --color-info: #8498F4;
-    --color-success: #90D033;
-    --color-warning: #FFCB1D;
-    --color-error: #E16A6A;
-    --color-dark-80: #28333B;
-    --color-dark-50: #878D92;
-    --color-dark-20: #F8F9F9;
-}
 
 .btn {
     svg {
@@ -32,7 +16,7 @@
         @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;
 
         span {
-            @apply bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent;
+            @apply bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent;
         }
     }
 }
@@ -43,7 +27,7 @@ article {
             @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;
 
             span {
-                @apply bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent;
+                @apply bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent;
             }
         }
     }

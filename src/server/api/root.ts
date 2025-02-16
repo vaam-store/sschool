@@ -1,5 +1,5 @@
 import { createCallerFactory, createTRPCRouter } from "@app/server/api/trpc";
-import { uploadRouter, courseRouter } from "@app/server/api/routers";
+import { uploadRouter, courseRouter, moduleRouter } from "@app/server/api/routers";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +8,7 @@ import { uploadRouter, courseRouter } from "@app/server/api/routers";
  */
 export const appRouter = createTRPCRouter({
   course: courseRouter,
+  module: moduleRouter,
   upload: uploadRouter,
 });
 

@@ -8,6 +8,7 @@ export interface EditCourseModulesProps {
 export interface EditModuleProps {
   module?: Module;
   courseId: string;
+  nextPosition: number;
 }
 
 export interface OnEditModuleProps {

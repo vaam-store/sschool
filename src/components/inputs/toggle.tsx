@@ -10,15 +10,15 @@ export function ToggleInputComponent<V, F>({
     label: string;
   }) {
   return (
-    <div className="form-control">
-      <label className="label cursor-pointer">
-        <span className="label-text">{props.label ?? field.name}</span>
+    <div className="form-control w-full">
+      <label className="label cursor-pointer w-full">
+        <span className="label-text mr-auto">{props.label ?? field.name}</span>
         <input
           defaultChecked={field.value}
           type="checkbox"
           {...field}
           {...props}
-          className={twMerge("toggle", props.className)}
+          className={twMerge("toggle toggle-primary", props.className)}
         />
       </label>
 

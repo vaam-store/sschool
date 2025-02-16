@@ -23,7 +23,7 @@ export function SingleCourseContent({
 
         <div className="py-4">
           <Link href={`/lectures/${id}`}>
-            <button className="btn btn-primary">
+            <button className="btn btn-soft btn-primary">
               <span>Start learning</span>
               <ArrowRight />
             </button>

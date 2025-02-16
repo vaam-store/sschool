@@ -19,15 +19,15 @@ export type LessonCardProps =
 export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
   const meta = course.meta as Record<string, any>;
   return (
-    <div className="card bg-base-100 outline outline-1">
+    <div className="card bg-base-100 card-border">
       {meta.thumbnailImage?.url && (
         <figure className="relative h-48">
           <Image
             fill
-            objectFit="cover"
-            className="w-full saturate-150"
+            className="w-full object-cover saturate-150"
             src={meta.thumbnailImage.url}
             alt={meta.thumbnailImage.alt}
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 75vw, 30vw"
           />
         </figure>
       )}
@@ -69,12 +69,12 @@ export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
           {!disableLink && (
             <Link href={`/courses/${course.id}`}>
               <button
-                className={twMerge("btn btn-soft btn-primary", [canEdit && "btn-circle"])}
+                className={twMerge("btn btn-soft btn-primary", [
+                  canEdit && "btn-circle",
+                ])}
                 color="ghost"
               >
-                <span
-                  className={twMerge("", [canEdit && "hidden"])}
-                >
+                <span className={twMerge("", [canEdit && "hidden"])}>
                   View course
                 </span>
                 <ArrowRight />
