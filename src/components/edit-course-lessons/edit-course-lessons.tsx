@@ -56,36 +56,41 @@ export function EditModuleLesson({ module }: EditModuleLessonProps) {
           setList={onChange}
           handle=".d-handle"
         >
-          {data.map((lesson) => (
-            <li key={lesson.id} className="list-row items-center">
-              <div>
-                <Grid className="d-handle hover:cursor-pointer" />
-              </div>
-
-              <div>
-                <div className="list-title">{lesson.title}</div>
-                <div className="list-subtitle">{lesson.description}</div>
-              </div>
-
-              <div className="flex flex-row items-center gap-4">
-                <Link
-                  href={`/courses/${module.courseId}/edit/modules/${lesson.moduleId}/lessons/${lesson.id}`}
-                >
-                  <ArrowRight />
-                </Link>
-
-                <div className="relative size-10">
-                  <Image
-                    fill
-                    className="rounded-box object-cover"
-                    src={lesson.meta.thumbnailImage.url}
-                    alt={lesson.meta.thumbnailImage.alt}
-                    sizes="(max-width: 768px) 25vw, (max-width: 1200px) 15vw, 5vw"
-                  />
+          {data.map((lesson) => {
+            const meta = lesson.meta as {
+              thumbnailImage: { url: string; alt: string };
+            };
+            return (
+              <li key={lesson.id} className="list-row items-center">
+                <div>
+                  <Grid className="d-handle hover:cursor-pointer" />
                 </div>
-              </div>
-            </li>
-          ))}
+
+                <div>
+                  <div className="list-title">{lesson.title}</div>
+                  <div className="list-subtitle">{lesson.description}</div>
+                </div>
+
+                <div className="flex flex-row items-center gap-4">
+                  <Link
+                    href={`/courses/${module.courseId}/edit/modules/${lesson.moduleId}/lessons/${lesson.id}`}
+                  >
+                    <ArrowRight />
+                  </Link>
+
+                  <div className="relative size-10">
+                    <Image
+                      fill
+                      className="rounded-box object-cover"
+                      src={meta.thumbnailImage.url}
+                      alt={meta.thumbnailImage.alt}
+                      sizes="(max-width: 768px) 25vw, (max-width: 1200px) 15vw, 5vw"
+                    />
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ReactSortable>
 
         <li className="list-row">

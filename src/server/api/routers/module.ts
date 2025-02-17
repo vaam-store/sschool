@@ -19,7 +19,7 @@ export const moduleRouter = createTRPCRouter({
     )
     .query(async ({ input, ctx }) => {
       const status =
-        ctx.session.user.role === UserRole.ADMIN
+        ctx.session?.user?.role === UserRole.ADMIN
           ? undefined
           : CourseStatus.PUBLISHED;
       return await ctx.db.module.findMany({

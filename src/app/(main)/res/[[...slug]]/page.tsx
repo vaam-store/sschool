@@ -34,8 +34,7 @@ export async function generateMetadata({ params }: Props) {
   if (!content) {
     return null;
   }
-  
-  
+
   return {
     title: `${content.title} | GIS App`,
   };
@@ -50,8 +49,10 @@ export default async function ResourcePage({ params }: Props) {
   const content = await loadRes(slug);
   return (
     <Container>
-      <div className='prose prose-neutral lg:prose-xl mx-auto'>
-        <div dangerouslySetInnerHTML={{ __html: content.contentHtml }} />
+      <div className="prose prose-neutral lg:prose-xl mx-auto">
+        {content.contentHtml && (
+          <div dangerouslySetInnerHTML={{ __html: content.contentHtml }} />
+        )}
       </div>
     </Container>
   );

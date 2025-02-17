@@ -103,6 +103,12 @@ export const makeTools: (
       uploader: {
         uploadByFile: async (file: File) => {
           const { success, url } = await uploadFile(file)
+            .then((i) => {
+              if (i) {
+                return i;
+              }
+              throw new Error("Failed to upload file");
+            })
             .then(({ publicUrl: url }) => ({ url, success: 1 }))
             .catch((err) => ({ url: undefined, success: 0, err }));
           return {

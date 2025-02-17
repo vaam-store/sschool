@@ -1,7 +1,7 @@
 "use client";
 
 import { type EditCourseProps } from "./type";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Container } from "@app/components/container";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -35,14 +35,15 @@ export function EditCourse({ course }: EditCourseProps) {
       <Formik
         validationSchema={toFormikValidationSchema(Schema)}
         initialValues={{
-          id: course?.id ?? null,
           name: course?.name ?? "",
           description: course?.description ?? "",
           status: course?.status ?? CourseStatus.DRAFT,
           meta: course?.meta ?? { canBookmark: false, thumbnailImage: {} },
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          const saved = await (course?.id ? update(values) : create(values));
+          const saved = await (course?.id
+            ? update({ ...values, id: course.id })
+            : create(values));
           setSubmitting(false);
           router.push(`/courses/${saved.id}/edit`);
         }}
@@ -51,36 +52,29 @@ export function EditCourse({ course }: EditCourseProps) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
             <div>
               <Form className="flex flex-col gap-4">
-                <Field
+                <TextareaInputComponent
                   label="Name"
                   name="name"
-                  component={TextareaInputComponent}
                   placeholder="Name"
                 />
-                <Field
+                <TextareaInputComponent
                   label="Description"
                   name="description"
-                  component={TextareaInputComponent}
                   placeholder="Description"
                 />
-                <Field
+                <ToggleInputComponent
                   label="Can bookmark"
                   name="meta.canBookmark"
-                  component={ToggleInputComponent}
                 />
                 {course?.id && (
-                  <Field
-                    label="Status"
-                    name="status"
-                    component={SelectComponent}
-                  >
+                  <SelectComponent label="Status" name="status">
                     <option value={CourseStatus.DRAFT}>
                       {CourseStatus.DRAFT}
                     </option>
                     <option value={CourseStatus.PUBLISHED}>
                       {CourseStatus.PUBLISHED}
                     </option>
-                  </Field>
+                  </SelectComponent>
                 )}
 
                 <FileInputComponent
@@ -95,7 +89,7 @@ export function EditCourse({ course }: EditCourseProps) {
             </div>
 
             <div className="hidden sm:block md:col-span-2 xl:col-span-4">
-              <div className="mockup-window border bg-base-300 p-4">
+              <div className="mockup-window bg-base-300 border p-4">
                 <div className="flex justify-center">
                   <div className="max-w-md">
                     <LessonCard disableLink={true} course={props.values} />

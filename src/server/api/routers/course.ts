@@ -62,7 +62,7 @@ export const courseRouter = createTRPCRouter({
     )
     .query(async ({ input, ctx }) => {
       const status =
-        ctx.session.user.role === UserRole.ADMIN
+        ctx.session?.user?.role === UserRole.ADMIN
           ? undefined
           : CourseStatus.PUBLISHED;
       const course = await ctx.db.course.findUnique({

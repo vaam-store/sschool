@@ -1,18 +1,25 @@
-import { type FieldProps } from "formik";
 import { twMerge } from "tailwind-merge";
+import React from "react";
+import { useField } from "formik";
 
-export function TextInputComponent<V, F>({
-  field,
-  form: { touched, errors },
+export function TextInputComponent({
+  label,
   ...props
-}: FieldProps<V, F> &
-  HTMLInputElement & {
-    label: string;
-  }) {
+}: Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  "defaultChecked" | "defaultValue"
+> & {
+  label: string;
+  name: string;
+}) {
+  const [field, { touched, error }, {}] = useField(props);
   return (
     <label className="form-control w-full">
       <div className="label">
-        <span className="label-text">{props.label ?? field.name}</span>
+        <span className="label-text">{label ?? field.name}</span>
       </div>
       <input
         type="text"
@@ -20,11 +27,9 @@ export function TextInputComponent<V, F>({
         {...props}
         className={twMerge("input input-bordered w-full", props.className)}
       />
-      {touched[field.name] && errors[field.name] && (
+      {touched && error && (
         <div className="label">
-          <span className="label-text-alt text-error">
-            {errors[field.name]}
-          </span>
+          <span className="label-text-alt text-error">{error}</span>
         </div>
       )}
     </label>

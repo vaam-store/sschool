@@ -17,7 +17,10 @@ export type LessonCardProps =
     };
 
 export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
-  const meta = course.meta as Record<string, any>;
+  const meta = course.meta as {
+    thumbnailImage: { url: string; alt: string };
+    canBookmark: boolean;
+  };
   return (
     <div className="card bg-base-100 card-border">
       {meta.thumbnailImage?.url && (

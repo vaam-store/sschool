@@ -1,20 +1,28 @@
-import { type FieldProps } from "formik";
 import { twMerge } from "tailwind-merge";
+import { useField } from "formik";
+import React, { type PropsWithChildren } from "react";
 
-export function SelectComponent<V, F>({
-  field,
-  form: { touched, errors },
+export function SelectComponent({
+  label,
   children,
   ...props
-}: FieldProps<V, F> &
-  HTMLSelectElement & {
+}: PropsWithChildren<
+  Omit<
+    React.DetailedHTMLProps<
+      React.SelectHTMLAttributes<HTMLSelectElement>,
+      HTMLSelectElement
+    >,
+    "defaultChecked" | "defaultValue"
+  > & {
     label: string;
-    children: React.ReactNode;
-  }) {
+    name: string;
+  }
+>) {
+  const [field, { touched, error }, {}] = useField(props);
   return (
     <label className="form-control w-full">
       <div className="label">
-        <span className="label-text">{props.label ?? field.name}</span>
+        <span className="label-text">{label ?? field.name}</span>
       </div>
 
       <select
@@ -25,11 +33,9 @@ export function SelectComponent<V, F>({
         {children}
       </select>
 
-      {touched[field.name] && errors[field.name] && (
+      {touched && error && (
         <div className="label">
-          <span className="label-text-alt text-error">
-            {errors[field.name]}
-          </span>
+          <span className="label-text-alt text-error">{error}</span>
         </div>
       )}
     </label>

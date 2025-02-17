@@ -4,7 +4,7 @@ import { useCallback, useId, useRef } from "react";
 import { Plus } from "react-feather";
 import { api } from "@app/trpc/react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { z } from "zod";
 import { type Lesson } from "@prisma/client";
 import { TextareaInputComponent } from "@app/components/inputs/textarea";
@@ -64,16 +64,14 @@ export function EditLesson({
       }}
     >
       <Form className="flex flex-col gap-4">
-        <Field
+        <TextareaInputComponent
           label="Title"
           name="title"
-          component={TextareaInputComponent}
           placeholder="Title"
         />
-        <Field
+        <TextareaInputComponent
           label="Description"
           name="description"
-          component={TextareaInputComponent}
           placeholder="Description"
         />
 

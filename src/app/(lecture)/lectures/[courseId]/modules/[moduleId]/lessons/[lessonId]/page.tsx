@@ -35,7 +35,10 @@ export default async function LectureLessonPage({
   return (
     <HydrateClient>
       <Container>
-        <Editor readOnly initialData={lesson.content as OutputData} />
+        <Editor
+          readOnly
+          initialData={lesson.content as unknown as OutputData}
+        />
       </Container>
     </HydrateClient>
   );

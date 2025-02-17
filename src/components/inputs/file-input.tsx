@@ -1,11 +1,17 @@
 import { useField } from "formik";
 import { twMerge } from "tailwind-merge";
 import { useUploadFile } from "@app/hooks/upload-file";
+import React from "react";
 
 export function FileInputComponent({
+  label,
   ...props
-}: Partial<HTMLInputElement> & {
+}: React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
   label: string;
+  name: string;
 }) {
   const [field, meta, { setValue }] = useField(props);
   const { mutate } = useUploadFile();
@@ -22,7 +28,7 @@ export function FileInputComponent({
   return (
     <label className="form-control w-full">
       <div className="label">
-        <span className="label-text">{props.label ?? field.name}</span>
+        <span className="label-text">{label ?? field.name}</span>
       </div>
       <input
         type="file"

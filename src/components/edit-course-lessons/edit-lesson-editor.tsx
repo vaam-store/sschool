@@ -16,7 +16,7 @@ export function EditLessonEditor({ lesson }: EditLessonEditorProps) {
     async (data: OutputData) => {
       await mutateAsync({
         id: lesson.id,
-        content: data,
+        content: data as unknown as Record<string, unknown>,
       });
     },
     [lesson.id, mutateAsync],
@@ -24,7 +24,7 @@ export function EditLessonEditor({ lesson }: EditLessonEditorProps) {
   
   return (
     <div>
-      <Editor initialData={lesson.content as OutputData} onChange={onChange} />
+      <Editor initialData={lesson.content as unknown as OutputData} onChange={onChange} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
 
 import { db } from "@app/server/db";
-import { UserRole } from "@prisma/client";
+import { type UserRole } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -20,10 +20,10 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 
-   interface User {
-     // ...other properties
-      role: UserRole;
-   }
+   // interface User {
+   //   // ...other properties
+   //    role: UserRole;
+   // }
 }
 
 /**

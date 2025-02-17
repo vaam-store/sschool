@@ -54,10 +54,9 @@ export function Editor({
         },
         autofocus: true,
         data: initialData,
-        onChange: async () => {
+        onChange: () => {
           if (editor.saver && onChange && !readOnly) {
-            const content = await editor.saver.save();
-            onChange(content);
+            editor.saver.save().then(onChange).catch(console.error);
           }
         },
       });
@@ -72,6 +71,10 @@ export function Editor({
   }, [id, initialData, onChange, readOnly, tools]);
 
   return (
-    <article className="prose prose-neutral lg:prose-xl mx-auto" ref={ref as any} id={id} />
+    <article
+      className="prose prose-neutral lg:prose-xl mx-auto"
+      ref={ref as any}
+      id={id}
+    />
   );
 }

@@ -1,18 +1,25 @@
-import { type FieldProps } from "formik";
+import { useField } from "formik";
 import { twMerge } from "tailwind-merge";
+import React from "react";
 
-export function ToggleInputComponent<V, F>({
-  field,
-  form: { touched, errors },
+export function ToggleInputComponent({
+  label,
   ...props
-}: FieldProps<V, F> &
-  HTMLInputElement & {
-    label: string;
-  }) {
+}: Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  "defaultChecked" | "defaultValue"
+> & {
+  label: string;
+  name: string;
+}) {
+  const [field, { touched, error }, {}] = useField(props);
   return (
     <div className="form-control w-full">
-      <label className="label cursor-pointer w-full">
-        <span className="label-text mr-auto">{props.label ?? field.name}</span>
+      <label className="label w-full cursor-pointer">
+        <span className="label-text mr-auto">{label ?? field.name}</span>
         <input
           defaultChecked={field.value}
           type="checkbox"
@@ -22,11 +29,9 @@ export function ToggleInputComponent<V, F>({
         />
       </label>
 
-      {touched[field.name] && errors[field.name] && (
+      {touched && error && (
         <div className="label">
-          <span className="label-text-alt text-error">
-            {errors[field.name]}
-          </span>
+          <span className="label-text-alt text-error">{error}</span>
         </div>
       )}
     </div>
