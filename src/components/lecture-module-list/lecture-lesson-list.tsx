@@ -5,18 +5,19 @@ import Link from "next/link";
 import { ArrowRight } from "react-feather";
 
 export interface LectureLessonListProps {
-  moduleId: string;
+  parentId: string;
   courseId: string;
 }
 
 export function LectureLessonList({
-  moduleId,
+  parentId,
   courseId,
 }: LectureLessonListProps) {
-  const [lessons] = api.lesson.latestLessons.useSuspenseQuery({
-    moduleId,
+  const [lessons] = api.page.latestPages.useSuspenseQuery({
     page: 0,
     size: 10_000,
+    courseId,
+    parentId,
   });
 
   return (
@@ -25,7 +26,7 @@ export function LectureLessonList({
         <Link
           key={lesson.id}
           className="list-row hover:bg-base-300 flex flex-row justify-between"
-          href={`/lectures/${courseId}/modules/${moduleId}/lessons/${lesson.id}`}
+          href={`/lectures/${courseId}/${parentId}/${lesson.id}`}
         >
           <div className="line-clamp-2 font-thin tracking-tight">
             {lesson.title}

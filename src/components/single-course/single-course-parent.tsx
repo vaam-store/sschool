@@ -1,12 +1,12 @@
-import { type Module } from "@prisma/client";
+import { type Page } from "@prisma/client";
 import Image from "next/image";
 
 export interface SingleCourseModuleProps {
-  module: Module;
+  page: Page;
 }
 
-export function SingleCourseModule({ module }: SingleCourseModuleProps) {
-  const meta = module.meta as {
+export function SingleCoursePage({ page }: SingleCourseModuleProps) {
+  const meta = page.meta as {
     thumbnailImage: { url: string; alt: string };
   };
   return (
@@ -18,17 +18,17 @@ export function SingleCourseModule({ module }: SingleCourseModuleProps) {
             className="rounded-box object-cover contrast-125 grayscale"
             src={meta.thumbnailImage.url}
             alt={meta.thumbnailImage.alt}
-            title={meta.thumbnailImage.alt ?? module.title}
+            title={meta.thumbnailImage.alt ?? page.title}
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 30vw, 15vw"
           />
           <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-3xl font-extrabold text-white md:text-4xl">
-            {module.position + 1}
+            {page.position + 1}
           </div>
         </figure>
       </div>
       <div>
-        <div className="text-2xl font-thin tracking-wide">{module.title}</div>
-        <p>{module.description}</p>
+        <div className="text-2xl font-thin tracking-wide">{page.title}</div>
+        <p>{page.description}</p>
       </div>
     </div>
   );

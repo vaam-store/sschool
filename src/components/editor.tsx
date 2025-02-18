@@ -3,8 +3,6 @@
 import EditorJS, { type OutputData } from "@editorjs/editorjs";
 import { makeTools } from "./tools";
 import { useEffect, useId, useMemo, useRef } from "react";
-import DragDrop from "editorjs-drag-drop";
-import Undo from "editorjs-undo";
 import { useUploadFile } from "@app/hooks/upload-file";
 
 export interface EditorProps {
@@ -13,14 +11,14 @@ export interface EditorProps {
   readOnly?: boolean;
 }
 
+// TODO Creating duplicates
 export function Editor({
   initialData,
   onChange,
   readOnly = false,
 }: EditorProps) {
   const id = useId();
-  const ref = useRef<HTMLDivElement>();
-  const editorRef = useRef<EditorJS>();
+  const editorRef = useRef<EditorJS | null>(null);
   const { mutate } = useUploadFile();
   const tools = useMemo(
     () =>
@@ -38,43 +36,39 @@ export function Editor({
   );
 
   useEffect(() => {
-    if (!editorRef.current && ref.current) {
-      const editor = new EditorJS({
-        readOnly: readOnly,
-        tools: tools,
-        holder: ref.current,
-        onReady: () => {
-          editorRef.current = editor;
-          if (!readOnly) {
-            const undo = new Undo({ editor });
-            new DragDrop(editor);
-
-            undo.initialize(initialData);
-          }
-        },
-        autofocus: true,
-        data: initialData,
-        onChange: () => {
-          if (editor.saver && onChange && !readOnly) {
-            editor.saver.save().then(onChange).catch(console.error);
-          }
-        },
-      });
+    console.log("==>> Creating editor");
+    if (editorRef.current) {
+      console.error("==>> Editor already exists, skipping creation");
+      return;
     }
+    
+    const editor = new EditorJS({
+      readOnly: readOnly,
+      tools: tools,
+      holder: id,
+      autofocus: true,
+      data: initialData,
+      onChange: () => {
+        if (editor.saver && onChange && !readOnly) {
+          editor.saver.save().then(onChange).catch(console.error);
+        }
+      },
+    });
 
+    // Save to ref if you need to access it elsewhere
+    editorRef.current = editor;
+
+    // Cleanup: destroy the editor instance created in THIS effect
     return () => {
-      if (editorRef?.current) {
-        editorRef.current.destroy();
-        editorRef.current = undefined;
+      if (editor && typeof editor.destroy === "function") {
+        console.log("==>> Destroying editor");
+        editor.destroy();
       }
+      editorRef.current = null;
     };
-  }, [id, initialData, onChange, readOnly, tools]);
+  }, []);
 
   return (
-    <article
-      className="prose prose-neutral lg:prose-xl mx-auto"
-      ref={ref as any}
-      id={id}
-    />
+    <article className="prose prose-neutral lg:prose-xl mx-auto" id={id} />
   );
 }

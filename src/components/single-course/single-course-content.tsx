@@ -3,7 +3,7 @@ import { ArrowRight } from "react-feather";
 import Link from "next/link";
 import { Container } from "@app/components/container";
 import { Suspense } from "react";
-import { SingleCourseModuleList } from "./single-course-module-list";
+import { SingleCourseModuleList } from "./single-course-parent-list";
 
 interface SingleCourseContentProps {
   data: Course;

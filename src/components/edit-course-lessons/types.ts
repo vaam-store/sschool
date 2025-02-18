@@ -1,12 +1,12 @@
-import { type Course, type Lesson } from "@prisma/client";
-
-export interface EditCourseLessonsProps {
+import type { Page, Course } from "@prisma/client";
+export interface EditCoursePagesProps {
   course: Course;
 }
 
-export interface EditLessonProps {
-  lesson?: Lesson;
-  moduleId: string;
+export interface EditPageProps {
+  page?: Page;
+  parentPageId?: string;
+  courseId: string;
   nextPosition: number;
-  onEdit: (lesson: Lesson) => void;
+  onEdit: (lesson: Page) => void;
 }

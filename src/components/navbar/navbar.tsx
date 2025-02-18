@@ -9,7 +9,7 @@ import ThemeToggle from "@app/components/theme";
 
 export function AppNavBar() {
   return (
-    <div className="sticky top-0 z-40 mb-4 bg-base-300">
+    <div className="sticky top-0 z-40 bg-base-300">
       <Container className="py-0">
         <nav className="navbar">
           <div className="navbar-start flex gap-4">

@@ -1,0 +1,9 @@
+{
+  "files.readonlyInclude": {
+    "node_modules/**/*": true
+  },
+  "files.exclude": {
+    ".idea": true,
+    ".next": true
+  }
+}

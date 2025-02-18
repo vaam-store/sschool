@@ -6,10 +6,10 @@ import { api } from "@app/trpc/react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { Form, Formik } from "formik";
 import { z } from "zod";
-import { type Lesson } from "@prisma/client";
+import { type Page, PageType } from "@prisma/client";
 import { TextareaInputComponent } from "@app/components/inputs/textarea";
 import { FileInputComponent } from "@app/components/inputs/file-input";
-import { type EditLessonProps } from "./types";
+import { type EditPageProps } from "./types";
 
 const Schema = z.object({
   title: z.string(),
@@ -25,37 +25,46 @@ const Schema = z.object({
     .optional(),
 });
 
-export function EditLesson({
+export function EditPage({
   onEdit,
-  lesson,
-  moduleId,
+  page,
+  parentPageId,
   nextPosition,
-}: EditLessonProps) {
-  const { mutateAsync: create } = api.lesson.createLesson.useMutation();
-  const { mutateAsync: update } = api.lesson.updateLesson.useMutation();
+  courseId,
+}: EditPageProps) {
+  const { mutateAsync: create } = api.page.createPage.useMutation();
+  const { mutateAsync: update } = api.page.updatePage.useMutation();
   return (
     <Formik
       validationSchema={toFormikValidationSchema(Schema)}
       initialValues={{
-        id: lesson?.id ?? null,
-        title: lesson?.title ?? "",
-        description: lesson?.description ?? "",
-        meta: lesson?.meta ?? { thumbnailImage: {} },
-        position: lesson?.position ?? nextPosition,
-        content: lesson?.content ?? {},
+        id: page?.id ?? null,
+        title: page?.title ?? "",
+        description: page?.description ?? "",
+        meta: page?.meta ?? { thumbnailImage: {} },
+        position: page?.position ?? nextPosition,
+        content: page?.content ?? {},
       }}
       onSubmit={async ({ id, ...rest }, { setSubmitting, resetForm }) => {
-        let saved: Lesson;
-        if (lesson?.id) {
+        let saved: Page;
+        if (page?.id) {
           saved = await update({
             ...rest,
             id: id!,
-            module: { connect: { id: moduleId } },
+            parentPage: parentPageId
+              ? { connect: { id: parentPageId } }
+              : undefined,
+            type: PageType.ARTICLE,
+            course: { connect: { id: courseId } },
           });
         } else {
           saved = await create({
             ...rest,
-            module: { connect: { id: moduleId } },
+            parentPage: parentPageId
+              ? { connect: { id: parentPageId } }
+              : undefined,
+            type: PageType.ARTICLE,
+            course: { connect: { id: courseId } },
           });
         }
         setSubmitting(false);
@@ -88,18 +97,18 @@ export function EditLesson({
   );
 }
 
-export function EditLessonModal({
+export function AddPageModal({
   onEdit,
   ...props
-}: Omit<EditLessonProps, "lesson">) {
+}: Omit<EditPageProps, "page">) {
   const modalId = useId();
   const ref = useRef<HTMLDialogElement>(null);
   const onChange = useCallback(
-    (lesson: Lesson) => {
+    (page: Page) => {
       if (ref.current) {
         ref.current.close();
       }
-      onEdit(lesson);
+      onEdit(page);
     },
     [ref, onEdit],
   );
@@ -112,7 +121,7 @@ export function EditLessonModal({
 
   return (
     <>
-      <button className="btn btn-circle btn-soft btn-ghost" onClick={show}>
+      <button className="btn btn-circle btn-soft btn-primary" onClick={show}>
         <Plus />
       </button>
       <dialog
@@ -121,7 +130,7 @@ export function EditLessonModal({
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
-          <EditLesson {...props} onEdit={onChange} />
+          <EditPage {...props} onEdit={onChange} />
 
           <div className="modal-action">
             <form method="dialog">

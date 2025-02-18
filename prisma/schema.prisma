@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "tracing"]
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 generator zod {
@@ -56,7 +56,7 @@ model Course {
   status      CourseStatus @default(DRAFT)
 
   // Relations
-  modules     Module[]
+  pages       Page[]
   enrollments Enrollment[]
 
   @@index([name])
@@ -64,43 +64,33 @@ model Course {
   @@map("courses")
 }
 
-model Module {
-  id          String    @id @default(cuid())
-  createdAt   DateTime? @default(now()) @map("created_at")
-  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
-  meta        Json?
-  courseId    String    @map("course_id")
-  title       String
-  description String
-  position    Int
+enum PageType {
+  ARTICLE
+}
 
-  // Relation: Each module belongs to a course.
-  course  Course   @relation(fields: [courseId], references: [id])
-  lessons Lesson[]
+model Page {
+  id           String    @id @default(cuid())
+  createdAt    DateTime? @default(now()) @map("created_at")
+  updatedAt    DateTime? @default(now()) @updatedAt @map("updated_at")
+  meta         Json?
+  courseId     String    @map("course_id")
+  title        String
+  description  String
+  content      Json
+  type         PageType  @map("page_type")
+  position     Int
+  parentPageId String?   @map("parent_page_id")
+  parentPage   Page?     @relation("ParentPage", fields: [parentPageId], references: [id])
+
+  // Relation: Each page belongs to a course.
+  course     Course       @relation(fields: [courseId], references: [id])
+  children   Page[]       @relation("ParentPage")
+  Assignment Assignment[]
 
   @@index([title])
   @@index([courseId])
-  @@map("modules")
-}
-
-model Lesson {
-  id          String    @id @default(cuid())
-  createdAt   DateTime? @default(now()) @map("created_at")
-  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
-  meta        Json?
-  moduleId    String    @map("module_id")
-  title       String
-  content     Json
-  description String?
-  position    Int
-
-  // Relation: Each lesson belongs to a module.
-  module      Module       @relation(fields: [moduleId], references: [id])
-  assignments Assignment[]
-
-  @@index([title])
-  @@index([moduleId])
-  @@map("lessons")
+  @@index([parentPageId])
+  @@map("pages")
 }
 
 model Assignment {
@@ -108,17 +98,17 @@ model Assignment {
   createdAt   DateTime? @default(now()) @map("created_at")
   updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
   meta        Json?
-  lessonId    String    @map("lesson_id")
+  pageId      String    @map("page_id")
   title       String
   description String?
   dueDate     DateTime  @map("due_date")
 
-  // Relation: Each assignment belongs to a lesson.
-  lesson            Lesson             @relation(fields: [lessonId], references: [id])
+  // Relation: Each assignment belongs to a page.
+  page              Page               @relation(fields: [pageId], references: [id])
   submissions       Submission[]
   submissionMembers SubmissionMember[]
 
-  @@index([lessonId])
+  @@index([pageId])
   @@index([title])
   @@map("assignments")
 }

@@ -11,9 +11,12 @@ export default async function AddCourse() {
   return (
     <>
       <Container>
-        <h1 className='app-title'>Create course</h1>
+        <h1 className="app-title">Create course</h1>
       </Container>
-      <EditCourse />
+
+      <Container>
+        <EditCourse />
+      </Container>
     </>
   );
 }

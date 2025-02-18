@@ -9,11 +9,11 @@ const config = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '19000',
-        pathname: '/sschool/**',
-        search: '',
+        protocol: "http",
+        hostname: "localhost",
+        port: "19000",
+        pathname: "/sschool/**",
+        search: "",
       },
     ],
   },

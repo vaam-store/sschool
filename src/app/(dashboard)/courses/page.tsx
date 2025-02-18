@@ -1,4 +1,4 @@
-import { SchoolList } from "@app/components/school-list";
+import { CourseList } from "@app/components/course-list";
 import { listCourses } from "@app/hooks/courses";
 import { Container } from "@app/components/container";
 import { auth } from "@app/server/auth";
@@ -20,14 +20,17 @@ export default async function AllCoursesPage({}) {
       <div className="mb-4 flex flex-row items-center md:mb-8 md:justify-between">
         <h1 className="app-title">All Courses</h1>
         {session && session.user && session.user.role === UserRole.ADMIN && (
-          <Link className="btn btn-circle btn-soft btn-primary" href="/courses/add">
+          <Link
+            className="btn btn-circle btn-soft btn-primary"
+            href="/courses/add"
+          >
             <Plus />
           </Link>
         )}
       </div>
 
       <Suspense fallback={<span className="loading loading-lg" />}>
-        <SchoolList data={courses} />
+        <CourseList data={courses} />
       </Suspense>
     </Container>
   );

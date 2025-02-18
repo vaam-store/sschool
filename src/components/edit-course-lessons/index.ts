@@ -1,3 +1,3 @@
-export * from './edit-course-lessons';
-export * from './edit-lesson-editor';
-export * from './edit-lesson';
+export * from "./edit-page-lessons";
+export * from "./edit-page-editor";
+export * from "./edit-page";

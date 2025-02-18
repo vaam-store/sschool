@@ -24,11 +24,7 @@ export const courseRouter = createTRPCRouter({
       return await ctx.db.course.findUnique({
         where: { id: input.id },
         include: {
-          modules: {
-            include: {
-              lessons: true,
-            },
-          },
+          pages: true,
         },
       });
     }),

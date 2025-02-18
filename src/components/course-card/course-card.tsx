@@ -1,5 +1,5 @@
 import { type Course } from "@prisma/client";
-import { ArrowRight, Edit, List, Star } from "react-feather";
+import { ArrowRight, Edit, Star } from "react-feather";
 import Link from "next/link";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
@@ -16,7 +16,7 @@ export type LessonCardProps =
       canEdit?: false;
     };
 
-export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
+export function CourseCard({ course, disableLink, canEdit }: LessonCardProps) {
   const meta = course.meta as {
     thumbnailImage: { url: string; alt: string };
     canBookmark: boolean;
@@ -47,14 +47,6 @@ export function LessonCard({ course, disableLink, canEdit }: LessonCardProps) {
               className="btn btn-circle btn-soft btn-primary"
             >
               <Edit />
-            </Link>
-          )}
-          {canEdit && (
-            <Link
-              href={`/courses/${course.id}/edit`}
-              className="btn btn-circle btn-soft btn-primary"
-            >
-              <List />
             </Link>
           )}
 

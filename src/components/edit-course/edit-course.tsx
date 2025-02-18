@@ -2,10 +2,9 @@
 
 import { type EditCourseProps } from "./type";
 import { Form, Formik } from "formik";
-import { Container } from "@app/components/container";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { LessonCard } from "@app/components/lesson-card";
+import { CourseCard } from "@app/components/course-card";
 import { ToggleInputComponent } from "@app/components/inputs/toggle";
 import { TextareaInputComponent } from "@app/components/inputs/textarea";
 import { FileInputComponent } from "@app/components/inputs/file-input";
@@ -13,6 +12,7 @@ import { CourseStatus } from "@prisma/client";
 import { SelectComponent } from "@app/components/inputs/select";
 import { api } from "@app/trpc/react";
 import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 const Schema = z.object({
   name: z.string(),
@@ -26,12 +26,12 @@ const Schema = z.object({
   }),
 });
 
-export function EditCourse({ course }: EditCourseProps) {
+export function EditCourse({ course, large = true }: EditCourseProps) {
   const { mutateAsync: create } = api.course.createCourse.useMutation();
   const { mutateAsync: update } = api.course.updateCourse.useMutation();
   const router = useRouter();
   return (
-    <Container>
+    <>
       <Formik
         validationSchema={toFormikValidationSchema(Schema)}
         initialValues={{
@@ -49,8 +49,13 @@ export function EditCourse({ course }: EditCourseProps) {
         }}
       >
         {(props) => (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
-            <div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7">
+            <div
+              className={twMerge("", [
+                large && "md:col-span-1 xl:col-span-2",
+                !large && "md:col-span-1 xl:col-span-3",
+              ])}
+            >
               <Form className="flex flex-col gap-4">
                 <TextareaInputComponent
                   label="Name"
@@ -88,11 +93,16 @@ export function EditCourse({ course }: EditCourseProps) {
               </Form>
             </div>
 
-            <div className="hidden sm:block md:col-span-2 xl:col-span-4">
+            <div
+              className={twMerge("hidden sm:block", [
+                large && "md:col-span-3 xl:col-span-5",
+                !large && "md:col-span-2 xl:col-span-4",
+              ])}
+            >
               <div className="mockup-window bg-base-300 border p-4">
                 <div className="flex justify-center">
                   <div className="max-w-md">
-                    <LessonCard disableLink={true} course={props.values} />
+                    <CourseCard disableLink={true} course={props.values} />
                   </div>
                 </div>
               </div>
@@ -100,6 +110,6 @@ export function EditCourse({ course }: EditCourseProps) {
           </div>
         )}
       </Formik>
-    </Container>
+    </>
   );
 }
