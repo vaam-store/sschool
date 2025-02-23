@@ -13,6 +13,7 @@ const shouldPwa = (nextConfig: NextConfig): NextConfig => {
     });
     return withPWA(nextConfig);
   }
+
   return nextConfig;
 };
 
@@ -23,7 +24,7 @@ const withImageSizes = (nextConfig: NextConfig): NextConfig => {
       images: {
         ...nextConfig.images,
         remotePatterns: [
-          ...(nextConfig?.images?.remotePatterns || []),
+          ...(nextConfig?.images?.remotePatterns ?? []),
           {
             hostname: '*',
           },
@@ -36,7 +37,7 @@ const withImageSizes = (nextConfig: NextConfig): NextConfig => {
     images: {
       ...nextConfig.images,
       remotePatterns: [
-        ...(nextConfig?.images?.remotePatterns || []),
+        ...(nextConfig?.images?.remotePatterns ?? []),
         {
           protocol: 'https',
           hostname: '*.dev.vymalo.com',
@@ -72,12 +73,11 @@ const withWebpack = (nextConfig: NextConfig): NextConfig => {
       config.optimization.splitChunks = {
         chunks: 'all',
       };
-      return nextConfig.webpack ? nextConfig.webpack!(config, context) : config;
+      return nextConfig.webpack ? nextConfig.webpack(config, context) : config;
     },
   };
 };
 
-/** @type {import("next").NextConfig} */
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,

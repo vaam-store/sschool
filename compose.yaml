@@ -1,3 +1,4 @@
+---
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.1.2
@@ -74,13 +75,14 @@ services:
       - -c
       - |
         set -ex;
-        wget -O /spi/adorsys-gis-theme.jar "https://github.com/ADORSYS-GIS/adorsys-gis-theme/releases/download/v1.0.1/theme-1.0.1.jar"
+        wget -O /spi/adorsys-gis-theme.jar \
+          "https://github.com/ADORSYS-GIS/adorsys-gis-theme/releases/download/v1.0.1/theme-1.0.1.jar"
         echo "Downloaded theme";
         ls -la /spi;
     volumes:
       - spi-theme:/spi
 
 volumes:
-  db: {}
-  minio: {}
-  spi-theme: {}
+  db: { }
+  minio: { }
+  spi-theme: { }
