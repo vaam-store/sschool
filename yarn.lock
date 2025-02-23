@@ -2366,31 +2366,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@t3-oss/env-core@npm:0.10.1":
-  version: 0.10.1
-  resolution: "@t3-oss/env-core@npm:0.10.1"
+"@t3-oss/env-core@npm:0.12.0":
+  version: 0.12.0
+  resolution: "@t3-oss/env-core@npm:0.12.0"
   peerDependencies:
     typescript: ">=5.0.0"
-    zod: ^3.0.0
+    valibot: ^1.0.0-beta.7 || ^1.0.0
+    zod: ^3.24.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/0d86d0453b41dee2f3a84227682c3cd2baf2f5167bfb06893fa9d28b59688bb775fe472c45d3e10efd35962c73e21131bb1763a8b1294d10edb5c8506fb9940a
+    valibot:
+      optional: true
+    zod:
+      optional: true
+  checksum: 10c0/b79d2c291b8996b008ef77fa9b3afb8fd7c4c59e271b65039a52a504a9cdb7492ec88b414e6b5691dc4c2c93077abfac85a5cea00dcfdd083ad94912efc5464b
   languageName: node
   linkType: hard
 
-"@t3-oss/env-nextjs@npm:^0.10.1":
-  version: 0.10.1
-  resolution: "@t3-oss/env-nextjs@npm:0.10.1"
+"@t3-oss/env-nextjs@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@t3-oss/env-nextjs@npm:0.12.0"
   dependencies:
-    "@t3-oss/env-core": "npm:0.10.1"
+    "@t3-oss/env-core": "npm:0.12.0"
   peerDependencies:
     typescript: ">=5.0.0"
-    zod: ^3.0.0
+    valibot: ^1.0.0-beta.7 || ^1.0.0
+    zod: ^3.24.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/475f265c592121490fa29d3fb06af78013e17e9d4d989b0d6832c905db971e0d70c1f2947f127fc0c79a762c2ee3f2c9bf1fe44f71e2f16fb541ca2213910c92
+    valibot:
+      optional: true
+    zod:
+      optional: true
+  checksum: 10c0/f39cae67353c09818b13836cf1f0ab8186058f6fd2f5e8983f43c8601f1cd6948d3a159a2f166420049080ca56e73ba69e483229f21593aba0d6d8f4cf79ef32
   languageName: node
   linkType: hard
 
@@ -9181,7 +9191,7 @@ __metadata:
     "@opentelemetry/sdk-logs": "npm:^0.57.2"
     "@paralleldrive/cuid2": "npm:^2.2.2"
     "@prisma/client": "npm:6"
-    "@t3-oss/env-nextjs": "npm:^0.10.1"
+    "@t3-oss/env-nextjs": "npm:^0.12.0"
     "@tailwindcss/postcss": "npm:^4.0.6"
     "@tailwindcss/typography": "npm:^0.5.16"
     "@tanstack/react-query": "npm:^5.50.0"
