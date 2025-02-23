@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import EditorJS, { type OutputData } from "@editorjs/editorjs";
-import { makeTools } from "./tools";
-import { useEffect, useMemo, useRef } from "react";
-import { useUploadFile } from "@app/hooks/upload-file";
+import { useUploadFile } from '@app/hooks/upload-file';
+import EditorJS, { type OutputData } from '@editorjs/editorjs';
+import { useEffect, useMemo, useRef } from 'react';
+import { makeTools } from './tools';
 
 export interface EditorProps {
   initialData?: OutputData;
@@ -65,13 +65,13 @@ export function Editor({
 
     // Cleanup: destroy the editor instance created in THIS effect
     return () => {
-      if (editor && typeof editor.destroy === "function") {
+      if (editor && typeof editor.destroy === 'function') {
         editor.destroy();
       }
     };
   }, [initialData, onChange, readOnly, tools]);
 
   return (
-    <article className="prose prose-neutral lg:prose-xl mx-auto" ref={ref} />
+    <article className='prose prose-neutral lg:prose-xl mx-auto' ref={ref} />
   );
 }

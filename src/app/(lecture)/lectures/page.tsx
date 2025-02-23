@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
 export default async function LectureAllPage() {
-  return redirect("/courses");
+  return redirect('/courses');
 }

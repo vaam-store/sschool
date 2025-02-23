@@ -1,5 +1,5 @@
-import { type Course } from "@prisma/client";
-import { Container } from "@app/components/container";
+import { Container } from '@app/components/container';
+import { type Course } from '@prisma/client';
 
 interface LectureCourseProps {
   course: Course;

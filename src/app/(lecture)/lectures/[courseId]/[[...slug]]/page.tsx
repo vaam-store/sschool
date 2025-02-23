@@ -1,6 +1,6 @@
-import { LecturePage, LectureCourse } from "@app/components/lecture";
-import { getCourse, getPage } from "@app/hooks/courses";
-import { HydrateClient } from "@app/trpc/server";
+import { LectureCourse, LecturePage } from '@app/components/lecture';
+import { getCourse, getPage } from '@app/hooks/courses';
+import { HydrateClient } from '@app/trpc/server';
 
 interface Props {
   params: Promise<{ slug?: string[]; courseId: string }>;

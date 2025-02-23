@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { api } from "@app/trpc/react";
-import Link from "next/link";
-import { Fragment, Suspense } from "react";
-import { PageListItem } from "@app/components/page-list-item";
-import { PageListItemSkeleton } from "@app/components/skeleton";
+import { PageListItem } from '@app/components/page-list-item';
+import { PageListItemSkeleton } from '@app/components/skeleton';
+import { api } from '@app/trpc/react';
+import Link from 'next/link';
+import { Fragment, Suspense } from 'react';
 
 export interface LecturePageListProps {
   courseId: string;
@@ -27,30 +27,28 @@ export function LecturePageList({
   if (pages.length === 0) {
     return null;
   }
-  
-  const parentSuffix = parentId ? `/${parentId}` : "";
+
+  const parentSuffix = parentId ? `/${parentId}` : '';
 
   return (
     <>
       {pages.map((page) => (
         <Fragment key={page.id}>
           <Link
-            className="hover:cursor-pointer"
-            href={`/lectures/${courseId}${prevParentSuffix}${parentSuffix}/${page.id}`}
-          >
-            <div className="list-row">
+            className='hover:cursor-pointer'
+            href={`/lectures/${courseId}${prevParentSuffix}${parentSuffix}/${page.id}`}>
+            <div className='list-row'>
               <PageListItem isChild={!!parentId} page={page} />
             </div>
           </Link>
 
-          <div className="list pl-8">
+          <div className='list pl-8'>
             <Suspense
               fallback={
-                <div className="list-row">
+                <div className='list-row'>
                   <PageListItemSkeleton />
                 </div>
-              }
-            >
+              }>
               <LecturePageList
                 key={page.id}
                 parentId={page.id}

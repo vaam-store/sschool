@@ -1,9 +1,9 @@
-import { createCallerFactory, createTRPCRouter } from "@app/server/api/trpc";
 import {
   courseRouter,
   pageRouter,
   uploadRouter,
-} from "@app/server/api/routers";
+} from '@app/server/api/routers';
+import { createCallerFactory, createTRPCRouter } from '@app/server/api/trpc';
 
 /**
  * This is the primary router for your server.

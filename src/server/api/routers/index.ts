@@ -1,3 +1,3 @@
-export * from "./course";
-export * from "./upload";
-export * from "./page";
+export * from './course';
+export * from './page';
+export * from './upload';

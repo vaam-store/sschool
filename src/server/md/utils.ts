@@ -1,14 +1,14 @@
-import * as path from "node:path";
-import * as process from "node:process";
-import * as fs from "node:fs";
-import matter from "gray-matter";
-import { unified } from "unified";
-import remarkGfm from "remark-gfm";
-import remarkGithub from "remark-github";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeStringify from "rehype-stringify";
+import matter from 'gray-matter';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as process from 'node:process';
+import rehypeExternalLinks from 'rehype-external-links';
+import rehypeStringify from 'rehype-stringify';
+import remarkGfm from 'remark-gfm';
+import remarkGithub from 'remark-github';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
 
 // Use remark to convert markdown into HTML string
 const processor = unified()
@@ -16,15 +16,15 @@ const processor = unified()
   .use(remarkGithub)
   .use(remarkRehype)
   .use(remarkParse)
-  .use(rehypeExternalLinks, { rel: ["nofollow"], target: "_blank" })
+  .use(rehypeExternalLinks, { rel: ['nofollow'], target: '_blank' })
   .use(rehypeStringify);
 
 export async function loadDocMd(
-  res: "res" = "res",
+  res: 'res' = 'res',
   slug: string,
 ): Promise<Record<string, string>> {
-  const fullPath = path.join(process.cwd(), "docs", res, `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fullPath = path.join(process.cwd(), 'docs', res, `${slug}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -40,5 +40,5 @@ export async function loadDocMd(
 }
 
 export async function loadRes(slug: string): Promise<Record<string, string>> {
-  return loadDocMd("res", slug);
+  return loadDocMd('res', slug);
 }

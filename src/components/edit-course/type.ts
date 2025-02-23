@@ -1,4 +1,4 @@
-import { type Course } from "@prisma/client";
+import { type Course } from '@prisma/client';
 
 export interface EditCourseProps {
   course?: Course;

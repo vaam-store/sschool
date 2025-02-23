@@ -1,6 +1,6 @@
-import { twMerge } from "tailwind-merge";
-import { useField } from "formik";
-import React, { type PropsWithChildren } from "react";
+import { useField } from 'formik';
+import React, { type PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export function SelectComponent({
   label,
@@ -12,7 +12,7 @@ export function SelectComponent({
       React.SelectHTMLAttributes<HTMLSelectElement>,
       HTMLSelectElement
     >,
-    "defaultChecked" | "defaultValue"
+    'defaultChecked' | 'defaultValue'
   > & {
     label: string;
     name: string;
@@ -20,22 +20,21 @@ export function SelectComponent({
 >) {
   const [field, { touched, error }, {}] = useField(props);
   return (
-    <label className="form-control w-full">
-      <div className="label">
-        <span className="label-text">{label ?? field.name}</span>
+    <label className='form-control w-full'>
+      <div className='label'>
+        <span className='label-text'>{label ?? field.name}</span>
       </div>
 
       <select
         {...field}
         {...props}
-        className={twMerge("select select-bordered w-full", props.className)}
-      >
+        className={twMerge('select select-bordered w-full', props.className)}>
         {children}
       </select>
 
       {touched && error && (
-        <div className="label">
-          <span className="label-text-alt text-error">{error}</span>
+        <div className='label'>
+          <span className='label-text-alt text-error'>{error}</span>
         </div>
       )}
     </label>

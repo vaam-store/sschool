@@ -1,13 +1,13 @@
-import { z } from "zod";
-import { CourseStatus, UserRole } from "@prisma/client";
-import { CourseCreateInputSchema } from "@app/generated/zod";
+import { CourseCreateInputSchema } from '@app/generated/zod';
+import { CourseStatus, UserRole } from '@prisma/client';
+import { z } from 'zod';
 
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from "@app/server/api/trpc";
-import { TRPCError } from "@trpc/server";
+} from '@app/server/api/trpc';
+import { TRPCError } from '@trpc/server';
 
 export const courseRouter = createTRPCRouter({
   getCourseForDownload: protectedProcedure
@@ -18,7 +18,7 @@ export const courseRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       if (ctx.session.user.role !== UserRole.ADMIN) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
+        throw new TRPCError({ code: 'UNAUTHORIZED' });
       }
 
       return await ctx.db.course.findUnique({
@@ -43,7 +43,7 @@ export const courseRouter = createTRPCRouter({
           : CourseStatus.PUBLISHED;
 
       return await ctx.db.course.findMany({
-        orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: 'desc' },
         where: { status },
         skip: input.page * input.size,
         take: input.size,
@@ -89,7 +89,7 @@ export const courseRouter = createTRPCRouter({
 
   getLatest: protectedProcedure.query(async ({ ctx }) => {
     const courses = await ctx.db.course.findFirst({
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
       where: { status: CourseStatus.PUBLISHED },
     });
 

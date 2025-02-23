@@ -1,2 +1,2 @@
-export * from "./lecture-course";
-export * from "./lecture-page";
+export * from './lecture-course';
+export * from './lecture-page';

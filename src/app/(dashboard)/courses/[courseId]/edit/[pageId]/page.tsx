@@ -1,5 +1,5 @@
-import { getPage, type HasCourse, type HasPage } from "@app/hooks/courses";
-import { EditPageEditor } from "@app/components/edit-course-lessons";
+import { EditPageEditor } from '@app/components/edit-course-lessons';
+import { getPage, type HasCourse, type HasPage } from '@app/hooks/courses';
 
 type ParamsProps = HasCourse & HasPage;
 
@@ -12,7 +12,7 @@ export default async function EditLessonPage({
   const page = await getPage(pageId);
 
   return (
-    <div className="bg-base-100 px-4 rounded-xl">
+    <div className='bg-base-100 px-4 rounded-xl'>
       <EditPageEditor page={page} />
     </div>
   );

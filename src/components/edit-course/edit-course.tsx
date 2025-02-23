@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { type EditCourseProps } from "./type";
-import { Form, Formik } from "formik";
-import { z } from "zod";
-import { toFormikValidationSchema } from "zod-formik-adapter";
-import { CourseCard } from "@app/components/course-card";
-import { ToggleInputComponent } from "@app/components/inputs/toggle";
-import { TextareaInputComponent } from "@app/components/inputs/textarea";
-import { FileInputComponent } from "@app/components/inputs/file-input";
-import { CourseStatus } from "@prisma/client";
-import { SelectComponent } from "@app/components/inputs/select";
-import { api } from "@app/trpc/react";
-import { useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
+import { CourseCard } from '@app/components/course-card';
+import { FileInputComponent } from '@app/components/inputs/file-input';
+import { SelectComponent } from '@app/components/inputs/select';
+import { TextareaInputComponent } from '@app/components/inputs/textarea';
+import { ToggleInputComponent } from '@app/components/inputs/toggle';
+import { api } from '@app/trpc/react';
+import { CourseStatus } from '@prisma/client';
+import { Form, Formik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
+import { z } from 'zod';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { type EditCourseProps } from './type';
 
 const Schema = z.object({
   name: z.string(),
@@ -35,8 +35,8 @@ export function EditCourse({ course, large = true }: EditCourseProps) {
       <Formik
         validationSchema={toFormikValidationSchema(Schema)}
         initialValues={{
-          name: course?.name ?? "",
-          description: course?.description ?? "",
+          name: course?.name ?? '',
+          description: course?.description ?? '',
           status: course?.status ?? CourseStatus.DRAFT,
           meta: course?.meta ?? { canBookmark: false, thumbnailImage: {} },
         }}
@@ -46,33 +46,31 @@ export function EditCourse({ course, large = true }: EditCourseProps) {
             : create(values));
           setSubmitting(false);
           router.push(`/courses/${saved.id}/edit`);
-        }}
-      >
+        }}>
         {(props) => (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7">
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7'>
             <div
-              className={twMerge("", [
-                large && "md:col-span-1 xl:col-span-2",
-                !large && "md:col-span-1 xl:col-span-3",
-              ])}
-            >
-              <Form className="flex flex-col gap-4">
+              className={twMerge('', [
+                large && 'md:col-span-1 xl:col-span-2',
+                !large && 'md:col-span-1 xl:col-span-3',
+              ])}>
+              <Form className='flex flex-col gap-4'>
                 <TextareaInputComponent
-                  label="Name"
-                  name="name"
-                  placeholder="Name"
+                  label='Name'
+                  name='name'
+                  placeholder='Name'
                 />
                 <TextareaInputComponent
-                  label="Description"
-                  name="description"
-                  placeholder="Description"
+                  label='Description'
+                  name='description'
+                  placeholder='Description'
                 />
                 <ToggleInputComponent
-                  label="Can bookmark"
-                  name="meta.canBookmark"
+                  label='Can bookmark'
+                  name='meta.canBookmark'
                 />
                 {course?.id && (
-                  <SelectComponent label="Status" name="status">
+                  <SelectComponent label='Status' name='status'>
                     <option value={CourseStatus.DRAFT}>
                       {CourseStatus.DRAFT}
                     </option>
@@ -83,25 +81,24 @@ export function EditCourse({ course, large = true }: EditCourseProps) {
                 )}
 
                 <FileInputComponent
-                  label="Thumbnail image"
-                  name="meta.thumbnailImage"
-                  accept="image/png,image/jpeg"
+                  label='Thumbnail image'
+                  name='meta.thumbnailImage'
+                  accept='image/png,image/jpeg'
                 />
-                <button className="btn btn-soft btn-primary" type="submit">
+                <button className='btn btn-soft btn-primary' type='submit'>
                   Submit
                 </button>
               </Form>
             </div>
 
             <div
-              className={twMerge("hidden sm:block", [
-                large && "md:col-span-3 xl:col-span-5",
-                !large && "md:col-span-2 xl:col-span-4",
-              ])}
-            >
-              <div className="mockup-window bg-base-300 border p-4">
-                <div className="flex justify-center">
-                  <div className="max-w-md">
+              className={twMerge('hidden sm:block', [
+                large && 'md:col-span-3 xl:col-span-5',
+                !large && 'md:col-span-2 xl:col-span-4',
+              ])}>
+              <div className='mockup-window bg-base-300 border p-4'>
+                <div className='flex justify-center'>
+                  <div className='max-w-md'>
                     <CourseCard disableLink={true} course={props.values} />
                   </div>
                 </div>

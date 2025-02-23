@@ -1,6 +1,6 @@
-import { cache } from "react";
-import { notFound } from "next/navigation";
-import { api } from "@app/trpc/server";
+import { api } from '@app/trpc/server';
+import { notFound } from 'next/navigation';
+import { cache } from 'react';
 
 export const listCourses = cache(async (page = 0, size = 10) => {
   return await api.course.latestCourses({

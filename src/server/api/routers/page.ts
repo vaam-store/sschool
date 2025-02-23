@@ -1,12 +1,12 @@
-import { z } from "zod";
-import { CourseStatus, UserRole } from "@prisma/client";
-import { PageCreateInputSchema } from "@app/generated/zod";
+import { PageCreateInputSchema } from '@app/generated/zod';
+import { CourseStatus, UserRole } from '@prisma/client';
+import { z } from 'zod';
 
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from "@app/server/api/trpc";
+} from '@app/server/api/trpc';
 
 export const pageRouter = createTRPCRouter({
   latestPages: publicProcedure
@@ -24,7 +24,7 @@ export const pageRouter = createTRPCRouter({
           ? undefined
           : CourseStatus.PUBLISHED;
       return await ctx.db.page.findMany({
-        orderBy: { position: "asc" },
+        orderBy: { position: 'asc' },
         where: {
           course: {
             status,

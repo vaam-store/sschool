@@ -1,74 +1,77 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
+  themes:
+    light --default,
+    dark --prefersdark;
 }
 @plugin "daisyui/theme" {
-    name: "light";
-    default: true;
-    --color-primary: #2F2CF9;
-    --color-secondary: #8498F4;
-    --color-accent: #8498F4;
-    --color-neutral: #101C25;
-    --color-info: #8498F4;
-    --color-success: #90D033;
-    --color-warning: #FFCB1D;
-    --color-error: #E16A6A;
+  name: 'light';
+  default: true;
+  --color-primary: #2f2cf9;
+  --color-secondary: #8498f4;
+  --color-accent: #8498f4;
+  --color-neutral: #101c25;
+  --color-info: #8498f4;
+  --color-success: #90d033;
+  --color-warning: #ffcb1d;
+  --color-error: #e16a6a;
 
-    /* border radius */
-    --radius-selector: 2rem;
-    --radius-field: 0.5rem;
-    --radius-box: 1rem;
+  /* border radius */
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
 }
 
 @plugin "daisyui/theme" {
-    name: "dark";
-    default: false;
-    --color-primary: #2F2CF9;
-    --color-secondary: #8498F4;
-    --color-accent: #8498F4;
-    --color-neutral: #28333B; /* Using dark-80 for a rich dark neutral */
-    --color-info: #8498F4;
-    --color-success: #90D033;
-    --color-warning: #FFCB1D;
-    --color-error: #E16A6A;
+  name: 'dark';
+  default: false;
+  --color-primary: #2f2cf9;
+  --color-secondary: #8498f4;
+  --color-accent: #8498f4;
+  --color-neutral: #28333b; /* Using dark-80 for a rich dark neutral */
+  --color-info: #8498f4;
+  --color-success: #90d033;
+  --color-warning: #ffcb1d;
+  --color-error: #e16a6a;
 
-    /* border radius */
-    --radius-selector: 2rem;
-    --radius-field: 0.5rem;
-    --radius-box: 1rem;
+  /* border radius */
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
 }
 
 .btn {
-    svg {
-        @apply size-[1.4em];
-    }
+  svg {
+    @apply size-[1.4em];
+  }
 }
 
 .big-title {
-    &:first-child {
-        @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;
+  &:first-child {
+    @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;
 
-        span {
-            @apply bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent;
-        }
+    span {
+      @apply bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent;
     }
+  }
 }
 
 article {
-    h1, h2 {
-        &:first-child {
-            @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;
-            @apply bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent;
-        }
+  h1,
+  h2 {
+    &:first-child {
+      @apply text-4xl font-extrabold md:text-5xl lg:text-5xl xl:text-7xl;
+      @apply bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent;
     }
+  }
 }
 
 .app-title {
-    @apply text-3xl font-bold md:text-4xl;
+  @apply text-3xl font-bold md:text-4xl;
 }
 
 main {
-    @apply grid grid-rows-[auto_1fr_auto] h-screen
+  @apply grid h-screen grid-rows-[auto_1fr_auto];
 }

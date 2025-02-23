@@ -1,5 +1,5 @@
-import { signOut } from "@app/server/auth";
-import { Container } from "@app/components/container";
+import { Container } from '@app/components/container';
+import { signOut } from '@app/server/auth';
 import { LogOut } from 'react-feather';
 
 export default async function LogoutPage() {
@@ -9,13 +9,12 @@ export default async function LogoutPage() {
         <h2>Login to SSchool</h2>
         <div>
           <form
-            key="adorsys"
+            key='adorsys'
             action={async () => {
-              "use server";
-              await signOut({ redirectTo: "/" });
-            }}
-          >
-            <button type="submit" className="btn btn-error">
+              'use server';
+              await signOut({ redirectTo: '/' });
+            }}>
+            <button type='submit' className='btn btn-error'>
               <LogOut />
               <span>Do you wanna sign out?</span>
             </button>
@@ -23,5 +22,5 @@ export default async function LogoutPage() {
         </div>
       </div>
     </Container>
-  )
+  );
 }

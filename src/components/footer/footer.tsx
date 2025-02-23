@@ -1,8 +1,8 @@
-import { Container } from "@app/components/container";
+import { Container } from '@app/components/container';
 
 export default function AppFooter() {
   return (
-    <div className="bg-base-200">
+    <div className='bg-base-200'>
       <Container>
         <footer className='footer footer-center'>
           <aside>

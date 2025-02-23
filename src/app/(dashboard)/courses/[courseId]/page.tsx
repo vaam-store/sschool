@@ -1,5 +1,5 @@
-import { getCourse, type HasCourse } from "@app/hooks/courses";
-import { SingleCourseContent } from "@app/components/single-course";
+import { SingleCourseContent } from '@app/components/single-course';
+import { getCourse, type HasCourse } from '@app/hooks/courses';
 
 export async function generateMetadata({
   params,

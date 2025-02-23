@@ -22,7 +22,7 @@ services:
     volumes:
       - ./.docker/keycloak-config/:/opt/keycloak/data/import/:ro
       - spi-theme:/opt/keycloak/providers/themes:ro
-        
+
   postgres:
     image: postgres
     environment:
@@ -79,8 +79,8 @@ services:
         ls -la /spi;
     volumes:
       - spi-theme:/spi
-        
+
 volumes:
-  db: { }
-  minio: { }
-  spi-theme: { }
+  db: {}
+  minio: {}
+  spi-theme: {}

@@ -1,5 +1,5 @@
-import { signIn } from "@app/server/auth";
-import { Container } from "@app/components/container";
+import { Container } from '@app/components/container';
+import { signIn } from '@app/server/auth';
 
 export default async function LoginPage() {
   return (
@@ -8,13 +8,12 @@ export default async function LoginPage() {
         <h2>Login to SSchool</h2>
         <div>
           <form
-            key="adorsys"
+            key='adorsys'
             action={async () => {
-              "use server";
-              await signIn("keycloak", { redirectTo: "/" });
-            }}
-          >
-            <button type="submit" className="btn btn-primary">
+              'use server';
+              await signIn('keycloak', { redirectTo: '/' });
+            }}>
+            <button type='submit' className='btn btn-primary'>
               <span>Sign in with Adorsys</span>
             </button>
           </form>

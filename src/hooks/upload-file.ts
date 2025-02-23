@@ -1,7 +1,7 @@
-import { api } from "@app/trpc/react";
-import { getApiClient } from "@app/utils/axios";
-import { useCallback } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { api } from '@app/trpc/react';
+import { getApiClient } from '@app/utils/axios';
+import { useMutation } from '@tanstack/react-query';
+import { useCallback } from 'react';
 
 export type MinioUploadRequest = Record<string, string>;
 export type MinioUploadResponse = Record<string, string>;

@@ -1,7 +1,7 @@
-import { useField } from "formik";
-import { twMerge } from "tailwind-merge";
-import { useUploadFile } from "@app/hooks/upload-file";
-import React from "react";
+import { useUploadFile } from '@app/hooks/upload-file';
+import { useField } from 'formik';
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export function FileInputComponent({
   label,
@@ -26,23 +26,23 @@ export function FileInputComponent({
     await setValue({ url: publicUrl, alt: file.name });
   };
   return (
-    <label className="form-control w-full">
-      <div className="label">
-        <span className="label-text">{label ?? field.name}</span>
+    <label className='form-control w-full'>
+      <div className='label'>
+        <span className='label-text'>{label ?? field.name}</span>
       </div>
       <input
-        type="file"
+        type='file'
         onChange={onChange}
         {...props}
         className={twMerge(
-          "file-input file-input-bordered w-full",
+          'file-input file-input-bordered w-full',
           props.className,
         )}
       />
 
       {meta.touched && meta.error && (
-        <div className="label">
-          <span className="label-text-alt text-error">{meta.error}</span>
+        <div className='label'>
+          <span className='label-text-alt text-error'>{meta.error}</span>
         </div>
       )}
     </label>

@@ -48,3 +48,6 @@ yarn-error.log*
 generated
 
 *.gz
+
+public/sw.js
+public/workbox-*.js

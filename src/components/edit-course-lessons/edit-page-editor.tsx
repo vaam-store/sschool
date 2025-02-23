@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { Page } from "@prisma/client";
-import { Editor } from "@app/components/editor";
-import { type OutputData } from "@editorjs/editorjs";
-import { api } from "@app/trpc/react";
-import { useCallback } from "react";
+import { Editor } from '@app/components/editor';
+import { api } from '@app/trpc/react';
+import { type OutputData } from '@editorjs/editorjs';
+import type { Page } from '@prisma/client';
+import { useCallback } from 'react';
 
 interface EditLessonEditorProps {
   page: Page;

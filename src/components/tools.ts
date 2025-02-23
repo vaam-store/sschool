@@ -1,24 +1,24 @@
-import Alert from "editorjs-alert";
-import ColorPicker from "editorjs-color-picker";
-import Paragraph from "@editorjs/paragraph";
-import Header from "@editorjs/header";
-import Quote from "@editorjs/quote";
-import Warning from "@editorjs/warning";
-import Delimiter from "@editorjs/delimiter";
-import { type ToolConstructable, type ToolSettings } from "@editorjs/editorjs";
-import InlineCode from "@editorjs/inline-code";
-import Underline from "@editorjs/underline";
-import Marker from "@editorjs/marker";
-import RawTool from "@editorjs/raw";
-import CodeTool from "@editorjs/code";
-import Table from "@editorjs/table";
-import EJLaTeX from "editorjs-latex";
-import Embed from "@editorjs/embed";
-import LinkTool from "@editorjs/link";
-import AttachesTool from "@editorjs/attaches";
-import ImageTool from "@editorjs/image";
-import Checklist from "@editorjs/checklist";
-import EditorjsList from "@editorjs/list";
+import AttachesTool from '@editorjs/attaches';
+import Checklist from '@editorjs/checklist';
+import CodeTool from '@editorjs/code';
+import Delimiter from '@editorjs/delimiter';
+import { type ToolConstructable, type ToolSettings } from '@editorjs/editorjs';
+import Embed from '@editorjs/embed';
+import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
+import InlineCode from '@editorjs/inline-code';
+import LinkTool from '@editorjs/link';
+import EditorjsList from '@editorjs/list';
+import Marker from '@editorjs/marker';
+import Paragraph from '@editorjs/paragraph';
+import Quote from '@editorjs/quote';
+import RawTool from '@editorjs/raw';
+import Table from '@editorjs/table';
+import Underline from '@editorjs/underline';
+import Warning from '@editorjs/warning';
+import Alert from 'editorjs-alert';
+import ColorPicker from 'editorjs-color-picker';
+import EJLaTeX from 'editorjs-latex';
 
 export interface ToolOptions {
   uploadFile: (file: File) => Promise<{ publicUrl: string } | undefined>;
@@ -63,7 +63,7 @@ export const makeTools: (
               if (i) {
                 return i;
               }
-              throw new Error("Failed to upload file");
+              throw new Error('Failed to upload file');
             })
             .then(({ publicUrl: url }) => ({ url, success: 1 }))
             .catch((err) => ({ url: undefined, success: 0, err }));
@@ -81,7 +81,7 @@ export const makeTools: (
               if (i) {
                 return i;
               }
-              throw new Error("Failed to upload file");
+              throw new Error('Failed to upload file');
             })
             .then(({ publicUrl: url }) => ({ url, success: 1 }))
             .catch((err) => ({ url: undefined, success: 0, err }));
@@ -107,7 +107,7 @@ export const makeTools: (
               if (i) {
                 return i;
               }
-              throw new Error("Failed to upload file");
+              throw new Error('Failed to upload file');
             })
             .then(({ publicUrl: url }) => ({ url, success: 1 }))
             .catch((err) => ({ url: undefined, success: 0, err }));
@@ -128,18 +128,18 @@ export const makeTools: (
     class: EditorjsList as unknown as ToolConstructable,
     inlineToolbar: true,
     config: {
-      defaultStyle: "unordered",
+      defaultStyle: 'unordered',
     },
   },
   linkTool: {
     class: LinkTool,
     config: {
-      endpoint: "http://localhost:8008/fetchUrl", // Your backend endpoint for url data fetching,
+      endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching,
     },
   },
   Math: {
     class: EJLaTeX,
-    shortcut: "CMD+SHIFT+L",
+    shortcut: 'CMD+SHIFT+L',
   },
   checklist: {
     class: Checklist,
@@ -162,29 +162,29 @@ export const makeTools: (
   alert: {
     class: Alert,
     inlineToolbar: true,
-    shortcut: "CMD+SHIFT+A",
+    shortcut: 'CMD+SHIFT+A',
     config: {
       alertTypes: [
-        "primary",
-        "secondary",
-        "info",
-        "success",
-        "warning",
-        "danger",
-        "light",
-        "dark",
+        'primary',
+        'secondary',
+        'info',
+        'success',
+        'warning',
+        'danger',
+        'light',
+        'dark',
       ],
-      defaultType: "primary",
-      messagePlaceholder: "Enter something",
+      defaultType: 'primary',
+      messagePlaceholder: 'Enter something',
     },
   },
   inlineCode: {
     class: InlineCode,
-    shortcut: "CMD+SHIFT+I",
+    shortcut: 'CMD+SHIFT+I',
   },
   Marker: {
     class: Marker,
-    shortcut: "CMD+SHIFT+M",
+    shortcut: 'CMD+SHIFT+M',
   },
   ColorPicker: {
     class: ColorPicker as unknown as ToolConstructable,
@@ -195,24 +195,24 @@ export const makeTools: (
   },
   header: {
     class: Header as unknown as ToolConstructable,
-    shortcut: "CMD+SHIFT+H",
+    shortcut: 'CMD+SHIFT+H',
   },
   quote: {
     class: Quote,
     inlineToolbar: true,
-    shortcut: "CMD+SHIFT+O",
+    shortcut: 'CMD+SHIFT+O',
     config: {
-      quotePlaceholder: "Enter a quote",
+      quotePlaceholder: 'Enter a quote',
       captionPlaceholder: "Quote's author",
     },
   },
   warning: {
     class: Warning,
     inlineToolbar: true,
-    shortcut: "CMD+SHIFT+W",
+    shortcut: 'CMD+SHIFT+W',
     config: {
-      titlePlaceholder: "Title",
-      messagePlaceholder: "Message",
+      titlePlaceholder: 'Title',
+      messagePlaceholder: 'Message',
     },
   },
 });

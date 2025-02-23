@@ -1,5 +1,5 @@
-import { EditCourse } from "@app/components/edit-course";
-import { getCourse, type HasCourse } from "@app/hooks/courses";
+import { EditCourse } from '@app/components/edit-course';
+import { getCourse, type HasCourse } from '@app/hooks/courses';
 
 export async function generateMetadata({
   params,
@@ -11,7 +11,7 @@ export async function generateMetadata({
 
   return {
     title: `${course.name} - Edit Course`,
-    description: "Here you can create a new course.",
+    description: 'Here you can create a new course.',
   };
 }
 

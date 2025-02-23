@@ -1,21 +1,21 @@
-import { redirect } from "next/navigation";
-import { loadRes } from "@app/server/md/utils";
-import { Container } from "@app/components/container";
+import { Container } from '@app/components/container';
+import { loadRes } from '@app/server/md/utils';
+import { redirect } from 'next/navigation';
 
 export async function generateStaticParams() {
   return [
     {},
     {
-      slug: "faq",
+      slug: 'faq',
     },
     {
-      slug: "tos",
+      slug: 'tos',
     },
     {
-      slug: "contact",
+      slug: 'contact',
     },
     {
-      slug: "privacy",
+      slug: 'privacy',
     },
   ];
 }
@@ -43,13 +43,13 @@ export async function generateMetadata({ params }: Props) {
 export default async function ResourcePage({ params }: Props) {
   const { slug } = await params;
   if (!slug) {
-    return redirect("/");
+    return redirect('/');
   }
 
   const content = await loadRes(slug);
   return (
     <Container>
-      <div className="prose prose-neutral lg:prose-xl mx-auto">
+      <div className='prose prose-neutral lg:prose-xl mx-auto'>
         {content.contentHtml && (
           <div dangerouslySetInnerHTML={{ __html: content.contentHtml }} />
         )}

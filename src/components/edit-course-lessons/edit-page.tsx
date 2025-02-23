@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useCallback, useId, useRef } from "react";
-import { Plus } from "react-feather";
-import { api } from "@app/trpc/react";
-import { toFormikValidationSchema } from "zod-formik-adapter";
-import { Form, Formik } from "formik";
-import { z } from "zod";
-import { type Page, PageType } from "@prisma/client";
-import { TextareaInputComponent } from "@app/components/inputs/textarea";
-import { FileInputComponent } from "@app/components/inputs/file-input";
-import { type EditPageProps } from "./types";
+import { FileInputComponent } from '@app/components/inputs/file-input';
+import { TextareaInputComponent } from '@app/components/inputs/textarea';
+import { api } from '@app/trpc/react';
+import { type Page, PageType } from '@prisma/client';
+import { Form, Formik } from 'formik';
+import { useCallback, useId, useRef } from 'react';
+import { Plus } from 'react-feather';
+import { z } from 'zod';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { type EditPageProps } from './types';
 
 const Schema = z.object({
   title: z.string(),
@@ -39,8 +39,8 @@ export function EditPage({
       validationSchema={toFormikValidationSchema(Schema)}
       initialValues={{
         id: page?.id ?? null,
-        title: page?.title ?? "",
-        description: page?.description ?? "",
+        title: page?.title ?? '',
+        description: page?.description ?? '',
         meta: page?.meta ?? { thumbnailImage: {} },
         position: page?.position ?? nextPosition,
         content: page?.content ?? {},
@@ -70,26 +70,25 @@ export function EditPage({
         setSubmitting(false);
         onEdit(saved);
         resetForm();
-      }}
-    >
-      <Form className="flex flex-col gap-4">
+      }}>
+      <Form className='flex flex-col gap-4'>
         <TextareaInputComponent
-          label="Title"
-          name="title"
-          placeholder="Title"
+          label='Title'
+          name='title'
+          placeholder='Title'
         />
         <TextareaInputComponent
-          label="Description"
-          name="description"
-          placeholder="Description"
+          label='Description'
+          name='description'
+          placeholder='Description'
         />
 
         <FileInputComponent
-          label="Thumbnail image"
-          name="meta.thumbnailImage"
-          accept="image/png,image/jpeg"
+          label='Thumbnail image'
+          name='meta.thumbnailImage'
+          accept='image/png,image/jpeg'
         />
-        <button className="btn btn-soft btn-primary" type="submit">
+        <button className='btn btn-soft btn-primary' type='submit'>
           Submit
         </button>
       </Form>
@@ -100,7 +99,7 @@ export function EditPage({
 export function AddPageModal({
   onEdit,
   ...props
-}: Omit<EditPageProps, "page">) {
+}: Omit<EditPageProps, 'page'>) {
   const modalId = useId();
   const ref = useRef<HTMLDialogElement>(null);
   const onChange = useCallback(
@@ -121,20 +120,19 @@ export function AddPageModal({
 
   return (
     <>
-      <button className="btn btn-circle btn-soft btn-primary" onClick={show}>
+      <button className='btn btn-circle btn-soft btn-primary' onClick={show}>
         <Plus />
       </button>
       <dialog
         ref={ref}
         id={modalId}
-        className="modal modal-bottom sm:modal-middle"
-      >
-        <div className="modal-box">
+        className='modal modal-bottom sm:modal-middle'>
+        <div className='modal-box'>
           <EditPage {...props} onEdit={onChange} />
 
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
+          <div className='modal-action'>
+            <form method='dialog'>
+              <button className='btn'>Close</button>
             </form>
           </div>
         </div>
