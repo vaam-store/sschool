@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@app/components/container";
 import { Suspense } from "react";
 import { SingleCourseModuleList } from "./single-course-parent-list";
+import { SingleCourseModuleListSkeleton } from "@app/components/skeleton";
 
 interface SingleCourseContentProps {
   data: Course;
@@ -31,7 +32,7 @@ export function SingleCourseContent({
         </div>
 
         <div>
-          <Suspense fallback={<span className="loading loading-lg" />}>
+          <Suspense fallback={<SingleCourseModuleListSkeleton />}>
             <SingleCourseModuleList courseId={id} />
           </Suspense>
         </div>

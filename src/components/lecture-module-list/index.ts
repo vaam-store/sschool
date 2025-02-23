@@ -1,1 +1,1 @@
-export * from './lecture-module-list';
+export * from './lecture-page-list';

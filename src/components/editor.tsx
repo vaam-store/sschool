@@ -2,7 +2,7 @@
 
 import EditorJS, { type OutputData } from "@editorjs/editorjs";
 import { makeTools } from "./tools";
-import { useEffect, useId, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useUploadFile } from "@app/hooks/upload-file";
 
 export interface EditorProps {
@@ -11,14 +11,13 @@ export interface EditorProps {
   readOnly?: boolean;
 }
 
-// TODO Creating duplicates
 export function Editor({
   initialData,
   onChange,
   readOnly = false,
 }: EditorProps) {
-  const id = useId();
-  const editorRef = useRef<EditorJS | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
+  const isReady = useRef(false);
   const { mutate } = useUploadFile();
   const tools = useMemo(
     () =>
@@ -36,16 +35,22 @@ export function Editor({
   );
 
   useEffect(() => {
-    console.log("==>> Creating editor");
-    if (editorRef.current) {
-      console.error("==>> Editor already exists, skipping creation");
+    if (isReady.current) {
       return;
     }
-    
+
+    if (!ref.current) {
+      return;
+    }
+
+    if (!tools) {
+      return;
+    }
+
     const editor = new EditorJS({
       readOnly: readOnly,
       tools: tools,
-      holder: id,
+      holder: ref.current,
       autofocus: true,
       data: initialData,
       onChange: () => {
@@ -56,19 +61,17 @@ export function Editor({
     });
 
     // Save to ref if you need to access it elsewhere
-    editorRef.current = editor;
+    isReady.current = true;
 
     // Cleanup: destroy the editor instance created in THIS effect
     return () => {
       if (editor && typeof editor.destroy === "function") {
-        console.log("==>> Destroying editor");
         editor.destroy();
       }
-      editorRef.current = null;
     };
-  }, []);
+  }, [initialData, onChange, readOnly, tools]);
 
   return (
-    <article className="prose prose-neutral lg:prose-xl mx-auto" id={id} />
+    <article className="prose prose-neutral lg:prose-xl mx-auto" ref={ref} />
   );
 }

@@ -1,13 +1,15 @@
 import { auth } from "@app/server/auth";
 import { redirect } from "next/navigation";
 import icon from "@app/components/icon.svg";
-import { ArrowLeft, Home, Menu } from "react-feather";
+import { ArrowLeft, Edit3, Menu } from "react-feather";
 import Link from "next/link";
 import ThemeToggle from "@app/components/theme";
 import Image from "next/image";
 import { getCourse, type HasCourse } from "@app/hooks/courses";
-import { LectureModuleList } from "@app/components/lecture-module-list";
+import { LecturePageList } from "@app/components/lecture-module-list";
 import { Suspense } from "react";
+import { LecturePageListSkeleton } from "@app/components/skeleton";
+import { UserRole } from "@prisma/client";
 
 export default async function LectureLayout({
   children,
@@ -18,8 +20,13 @@ export default async function LectureLayout({
     return redirect("/login");
   }
 
+  const isAdmin = session.user.role === UserRole.ADMIN;
+
   const { courseId } = await params;
   const course = await getCourse(courseId);
+  const meta = course.meta as {
+    thumbnailImage: { url: string; alt: string };
+  };
 
   return (
     <div id="lecture">
@@ -54,8 +61,8 @@ export default async function LectureLayout({
             className="drawer-overlay"
           />
 
-          <div className="bg-base-200 text-base-content flex min-h-full w-80 flex-col gap-4 py-4">
-            <div className="flex flex-row justify-between px-2">
+          <div className="bg-base-200 text-base-content flex min-h-full w-80 flex-col gap-4">
+            <div className="bg-base-200 border-b-base-300 sticky top-0 z-10 flex flex-row justify-between border-b-2 px-4 py-2">
               <Link
                 className="btn btn-ghost btn-soft btn-circle"
                 href={`/courses/${courseId}`}
@@ -66,33 +73,43 @@ export default async function LectureLayout({
               <div className="flex flex-row gap-4">
                 <ThemeToggle />
 
+                {isAdmin && (
+                  <Link
+                    href={`/courses/${courseId}/edit`}
+                    className="btn btn-soft btn-circle btn-accent"
+                  >
+                    <Edit3 />
+                  </Link>
+                )}
+
                 <Link className="btn btn-ghost btn-soft btn-circle" href="/">
                   <Image src={icon} className="w-8" alt="logo" />
                 </Link>
               </div>
             </div>
 
-            <Link
-              href={`/lectures/${courseId}`}
-              className="hover:bg-base-300 flex flex-row gap-4 px-4 py-4"
-            >
-              <Home />
-              <h3>{course.name}</h3>
-            </Link>
-
-            <div className="h-[calc(100vh-200px)] overflow-y-scroll px-4 py-2">
-              <Suspense fallback={<span className="loading loading-sm" />}>
-                <LectureModuleList courseId={course.id} />
-              </Suspense>
-            </div>
-
-            <div className="px-4">
+            <div className="list min-h-full overflow-y-scroll pb-2">
               <Link
-                className="btn btn-ghost btn-soft btn-circle"
-                href={`/courses/${courseId}`}
+                href={`/lectures/${courseId}`}
+                className="list-row flex flex-row items-center gap-4 hover:cursor-pointer"
               >
-                <ArrowLeft />
+                <div className="relative hidden size-10 md:block">
+                  <Image
+                    fill
+                    className="rounded-box object-cover"
+                    src={meta.thumbnailImage.url}
+                    alt={meta.thumbnailImage.alt}
+                    sizes="(max-width: 768px) 25vw, (max-width: 1200px) 15vw, 5vw"
+                  />
+                </div>
+                <h3 className="line-clamp-2 font-thin tracking-wide md:text-2xl">
+                  {course.name}
+                </h3>
               </Link>
+
+              <Suspense fallback={<LecturePageListSkeleton />}>
+                <LecturePageList courseId={course.id} />
+              </Suspense>
             </div>
           </div>
         </div>

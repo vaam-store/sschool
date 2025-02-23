@@ -1,5 +1,4 @@
 import { CourseList } from "@app/components/course-list";
-import { listCourses } from "@app/hooks/courses";
 import { Container } from "@app/components/container";
 import { auth } from "@app/server/auth";
 import Link from "next/link";
@@ -7,13 +6,13 @@ import { Plus } from "react-feather";
 import { UserRole } from "@prisma/client";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { CourseListSkeleton } from "@app/components/skeleton";
 
 export const metadata: Metadata = {
   title: "All Courses",
 };
 
 export default async function AllCoursesPage({}) {
-  const courses = await listCourses(0, 10);
   const session = await auth();
   return (
     <Container>
@@ -29,8 +28,8 @@ export default async function AllCoursesPage({}) {
         )}
       </div>
 
-      <Suspense fallback={<span className="loading loading-lg" />}>
-        <CourseList data={courses} />
+      <Suspense fallback={<CourseListSkeleton />}>
+        <CourseList />
       </Suspense>
     </Container>
   );

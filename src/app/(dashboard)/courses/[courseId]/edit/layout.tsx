@@ -26,7 +26,9 @@ export default async function EditCourseLayout({
 
   return (
     <div id={`edit-${courseId}`} className="bg-base-200">
-      <EditCoursePages course={course}>{children}</EditCoursePages>
+      <EditCoursePages course={course}>
+        <>{children}</>
+      </EditCoursePages>
     </div>
   );
 }

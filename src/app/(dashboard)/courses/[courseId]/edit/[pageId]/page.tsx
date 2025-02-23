@@ -12,7 +12,7 @@ export default async function EditLessonPage({
   const page = await getPage(pageId);
 
   return (
-    <div className="bg-base-100">
+    <div className="bg-base-100 px-4 rounded-xl">
       <EditPageEditor page={page} />
     </div>
   );

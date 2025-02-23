@@ -1,16 +1,14 @@
-import { type Course, UserRole } from "@prisma/client";
+import { UserRole } from "@prisma/client";
 import { CourseCard } from "@app/components/course-card";
 import { auth } from "@app/server/auth";
+import { listCourses } from "@app/hooks/courses";
 
-export interface SchoolListProps {
-  data: Array<Course>;
-}
-
-export async function CourseList({ data }: SchoolListProps) {
+export async function CourseList() {
+  const courses = await listCourses(0, 10);
   const session = await auth();
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {data.map((course) => (
+      {courses.map((course) => (
         <CourseCard
           canEdit={session?.user.role === UserRole.ADMIN}
           key={course.id}

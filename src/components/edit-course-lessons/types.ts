@@ -8,5 +8,5 @@ export interface EditPageProps {
   parentPageId?: string;
   courseId: string;
   nextPosition: number;
-  onEdit: (lesson: Page) => void;
+  onEdit: (subPage: Page) => void;
 }
