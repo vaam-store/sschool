@@ -1,6 +1,6 @@
 *
 !docs
-!prisma
+!prisma/schema.prisma
 !public/favicon.ico
 !src
 !.eslintignore

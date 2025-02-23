@@ -7,9 +7,3 @@ declare module 'editorjs-latex';
 declare module '@editorjs/raw';
 declare module '@editorjs/marker';
 declare module 'next-compose-plugins';
-
-declare global {
-  interface Window {
-    define: any;
-  }
-}
