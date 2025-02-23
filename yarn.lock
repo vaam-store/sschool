@@ -2604,12 +2604,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trpc/server@npm:^11.0.0-rc.446":
-  version: 11.0.0-rc.741
-  resolution: "@trpc/server@npm:11.0.0-rc.741"
+"@trpc/server@npm:^11.0.0-rc.802":
+  version: 11.0.0-rc.802
+  resolution: "@trpc/server@npm:11.0.0-rc.802"
   peerDependencies:
     typescript: ">=5.7.2"
-  checksum: 10c0/79e2fbaaab6ed412c5bf969b9d9b71f518195593eac1a93cba940ceaae573b3c468dea897875e538283c7e3086a60e9e00a560dcf83e21558fdf53f72ae4bf7d
+  checksum: 10c0/7543436e7b335cdea6d133183767be565d2d25da6932b41deb23b1cafee02be3f970d4e2f353cc9ff923b561d81b137cb5e676ab2f588ae80807a93d4a389dd9
   languageName: node
   linkType: hard
 
@@ -9281,7 +9281,7 @@ __metadata:
     "@tanstack/react-query": "npm:^5.50.0"
     "@trpc/client": "npm:^11.0.0-rc.446"
     "@trpc/react-query": "npm:^11.0.0-rc.446"
-    "@trpc/server": "npm:^11.0.0-rc.446"
+    "@trpc/server": "npm:^11.0.0-rc.802"
     "@types/eslint": "npm:^8.56.10"
     "@types/node": "npm:^22.13.5"
     "@types/react": "npm:^18.3.3"

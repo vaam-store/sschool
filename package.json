@@ -55,7 +55,7 @@
     "@tanstack/react-query": "^5.50.0",
     "@trpc/client": "^11.0.0-rc.446",
     "@trpc/react-query": "^11.0.0-rc.446",
-    "@trpc/server": "^11.0.0-rc.446",
+    "@trpc/server": "^11.0.0-rc.802",
     "@vercel/otel": "^1.10.1",
     "axios": "^1.7.9",
     "editorjs-alert": "^1.1.4",
