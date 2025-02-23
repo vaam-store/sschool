@@ -11,6 +11,10 @@ export const calculateNextTheme = (theme: ThemeType): ThemeType => {
 };
 
 export const loadTheme = (): ThemeType => {
+  if (typeof window === 'undefined') {
+    return defaultTheme;
+  }
+  
   const theme = localStorage.getItem(themeKey);
   switch (theme) {
     case themes.light:

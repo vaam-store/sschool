@@ -44,13 +44,6 @@ export function EditCoursePage({ page }: EditCoursePageProps) {
     },
     [refetch, updatePosition],
   );
-  const meta = useMemo(
-    () =>
-      page.meta as {
-        thumbnailImage: { url: string; alt: string };
-      },
-    [page.meta],
-  );
 
   return (
     <div id={id}>
