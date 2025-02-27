@@ -2580,13 +2580,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trpc/client@npm:^11.0.0-rc.446":
-  version: 11.0.0-rc.741
-  resolution: "@trpc/client@npm:11.0.0-rc.741"
+"@trpc/client@npm:^11.0.0-rc.814":
+  version: 11.0.0-rc.814
+  resolution: "@trpc/client@npm:11.0.0-rc.814"
   peerDependencies:
-    "@trpc/server": 11.0.0-rc.741+caed91ee7
+    "@trpc/server": 11.0.0-rc.814+f490f467f
     typescript: ">=5.7.2"
-  checksum: 10c0/fb88414cb0402675f500e54d0780fd6e14a136f44ad062d6978d6ef06bde8251a7f3a14b749eb3cab94b4750660ce04947c7913dd5fc1f8b2e052482d329b200
+  checksum: 10c0/a90e604968617abcd75fec30105966e333b9df515858565b7e756e40e9ecf7d3a6445d245a18fb91290b1eb0a6a5a684d7310668ba0cdb00313f20e8beca9d20
   languageName: node
   linkType: hard
 
@@ -9279,7 +9279,7 @@ __metadata:
     "@tailwindcss/postcss": "npm:^4.0.6"
     "@tailwindcss/typography": "npm:^0.5.16"
     "@tanstack/react-query": "npm:^5.50.0"
-    "@trpc/client": "npm:^11.0.0-rc.446"
+    "@trpc/client": "npm:^11.0.0-rc.814"
     "@trpc/react-query": "npm:^11.0.0-rc.446"
     "@trpc/server": "npm:^11.0.0-rc.802"
     "@types/eslint": "npm:^8.56.10"
