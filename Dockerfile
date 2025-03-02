@@ -16,7 +16,7 @@ RUN \
     corepack enable && corepack prepare yarn@4.6.0 --activate
 
 RUN \
-    --mount=type=cache,target=/var/cache/apk,sharing=locked,ro \
+    --mount=type=cache,target=/var/cache/apk,sharing=locked \
     apk add libc6-compat=1.2.2-r9
 
 FROM base AS deps
