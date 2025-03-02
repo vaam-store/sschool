@@ -53,7 +53,6 @@ RUN \
   --mount=type=bind,source=./.eslintrc.cjs,target=/app/.eslintrc.cjs \
   --mount=type=bind,source=./.yarnrc.yml,target=/app/.yarnrc.yml \
   --mount=type=bind,source=./next.config.ts,target=/app/next.config.ts \
-  --mount=type=bind,source=./next-env.d.ts,target=/app/next-env.d.ts \
   --mount=type=bind,source=./package.json,target=/app/package.json \
   --mount=type=bind,source=./postcss.config.js,target=/app/postcss.config.js \
   --mount=type=bind,source=./prettier.config.js,target=/app/prettier.config.js \
