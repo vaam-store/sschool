@@ -3,7 +3,7 @@ title: Contact
 slug: contact
 ---
 
-# Contact
+## Contact
 
 This is the contact page. You can write anything you want here.
 
