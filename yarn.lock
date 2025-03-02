@@ -4215,10 +4215,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^5.0.0-beta.8":
-  version: 5.0.0-beta.8
-  resolution: "daisyui@npm:5.0.0-beta.8"
-  checksum: 10c0/5868b86120b1efe8486180710ddb463a0cb3f4a4e2eeb935f02b283f18c30b098d1177d75c8b7c5c61058b03cfb72820f4983e543569a9b5e847bf3a011e06fa
+"daisyui@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "daisyui@npm:5.0.0"
+  checksum: 10c0/54251dbb768a92b6f476514f0ff728dd58fe854cb4ab5bab7f30e6e76dd3d8d8632fe5ffdb9c22aa31d71329188b9648e475090c3d61801f8eab365dc3a831b7
   languageName: node
   linkType: hard
 
@@ -9477,7 +9477,7 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     axios: "npm:^1.7.9"
     cssnano: "npm:^7.0.6"
-    daisyui: "npm:^5.0.0-beta.8"
+    daisyui: "npm:^5.0.0"
     editorjs-alert: "npm:^1.1.4"
     editorjs-color-picker: "npm:^1.0.7"
     editorjs-latex: "npm:^1.0.5"
