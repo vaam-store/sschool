@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml ./
 
 RUN corepack enable && corepack prepare yarn@4.6.0 --activate
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat=1.2.2-r9
 
 FROM base AS deps
 
@@ -64,6 +64,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
 
 EXPOSE 3000
+
+# Check on the health of the container
+HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1",
 
 # set hostname to enable access from outside the container
 ENV HOSTNAME="0.0.0.0"
