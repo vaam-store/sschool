@@ -13,7 +13,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: read
       # To report GitHub Actions status checks
       statuses: write
@@ -30,7 +30,7 @@ jobs:
           node-version: "23"
       
       - name: Install dependencies
-        run: yarn install
+        run: corepack enable && yarn install
 
       - name: Run ESLint and post results
         uses: super-linter/super-linter@v7
