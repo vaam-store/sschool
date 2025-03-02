@@ -57,7 +57,7 @@
     "@trpc/react-query": "^11.0.0-rc.446",
     "@trpc/server": "11.0.0-rc.808",
     "@vercel/otel": "^1.10.1",
-    "axios": "^1.7.9",
+    "axios": "^1.8.1",
     "editorjs-alert": "^1.1.4",
     "editorjs-color-picker": "^1.0.7",
     "editorjs-latex": "^1.0.5",
