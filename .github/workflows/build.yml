@@ -1,4 +1,4 @@
-name: Build Frontend
+name: Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}-frontend
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   docker-build:
@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: '0'
+          submodules: true
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -59,10 +60,24 @@ jobs:
             type=schedule,pattern={{date 'YYYYMMDD-hhmmss' tz='Europe/Berlin'}}
             type=semver,enable=true,priority=900,prefix=,suffix=,pattern=,value=
             type=sha,prefix={{branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha,format=long
+            type=sha,format=long,prefix={{branch}}
           flavor: |
             latest=auto
             suffix=-${{ matrix.environment.name }},onlatest=true
           images: '${{ env.REGISTRY }}/${{ steps.string.outputs.lowercase }}'
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        if: always()
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -74,3 +89,5 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           build-args: ${{ matrix.environment.docker-build-args }}
           platforms: linux/amd64,linux/arm64
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
