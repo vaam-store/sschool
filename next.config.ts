@@ -6,9 +6,9 @@ import './src/env.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-const shouldPwa = (nextConfig: NextConfig): NextConfig => {
+const shouldPwa = async (nextConfig: NextConfig): Promise<NextConfig> => {
   if (!isDev) {
-    const withPWA = require('@ducanh2912/next-pwa').default({
+    const withPWA = (await import('@ducanh2912/next-pwa')).default({
       dest: 'public',
     });
     return withPWA(nextConfig);
@@ -70,9 +70,11 @@ const withWebpack = (nextConfig: NextConfig): NextConfig => {
   return {
     ...nextConfig,
     webpack: (config, context) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       config.optimization.splitChunks = {
         chunks: 'all',
       };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return nextConfig.webpack ? nextConfig.webpack(config, context) : config;
     },
   };
