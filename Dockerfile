@@ -17,7 +17,7 @@ RUN \
 
 RUN \
     --mount=type=cache,target=/var/cache/apk,sharing=locked \
-    apk add libc6-compat=1.2.2-r9
+    apk add libc6-compat
 
 FROM base AS deps
 

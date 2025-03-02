@@ -13,8 +13,8 @@ rules:
     - error
     - always
   comma-dangle:
-    - error
-    - always
+    - warn
+    - never
   no-extra-semi: off
   react/react-in-jsx-scope: off
   '@typescript-eslint/array-type': off
