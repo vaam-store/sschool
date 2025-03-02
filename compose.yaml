@@ -83,6 +83,6 @@ services:
       - spi-theme:/spi
 
 volumes:
-  db: { }
-  minio: { }
-  spi-theme: { }
+  db: {}
+  minio: {}
+  spi-theme: {}

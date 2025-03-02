@@ -13,7 +13,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       packages: read
       # To report GitHub Actions status checks
       statuses: write
@@ -22,13 +22,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: "0"
-          
+          fetch-depth: '0'
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "23"
-      
+          node-version: '23'
+
       - name: Install dependencies
         run: corepack enable && yarn install
 
