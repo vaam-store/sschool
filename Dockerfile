@@ -26,8 +26,8 @@ RUN \
     --mount=type=bind,source=yarn.lock,target=/app/yarn.lock,ro \
     --mount=type=bind,source=package.json,target=/app/package.json,ro \
     --mount=type=bind,source=./prisma,target=/app/prisma,ro \
-    --mount=type=cache,target=/app/node_modules,ro \
-    --mount=type=cache,target=/app/gen,ro \
+    --mount=type=cache,target=/app/node_modules \
+    --mount=type=cache,target=/app/gen \
     yarn install --immutable \
     && cp -R /app/node_modules /app/deps \
     && cp -R /app/gen /app/dep-gen
@@ -62,7 +62,7 @@ RUN \
     --mount=type=bind,source=./prettier.config.js,target=/app/prettier.config.js,ro \
     --mount=type=bind,source=./tsconfig.json,target=/app/tsconfig.json,ro \
     --mount=type=bind,source=./yarn.lock,target=/app/yarn.lock,ro \
-    --mount=type=cache,target=/app/.next,ro \
+    --mount=type=cache,target=/app/.next \
     yarn build \
     && cp -R .next/standalone /app/final-standalone \
     && cp -R .next/static /app/final-static \
