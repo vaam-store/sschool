@@ -9,6 +9,13 @@ extends:
   - 'plugin:@typescript-eslint/recommended-type-checked'
   - 'plugin:@typescript-eslint/stylistic-type-checked'
 rules:
+  semi:
+    - error
+    - always
+  comma-dangle:
+    - error
+    - always
+  no-extra-semi: off
   react/react-in-jsx-scope: off
   '@typescript-eslint/array-type': off
   '@typescript-eslint/consistent-type-definitions': off
