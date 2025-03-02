@@ -13,6 +13,9 @@ RUN apk add --no-cache libc6-compat
 
 FROM base AS deps
 
+# Adding required files for postintall execution
+COPY ./prisma ./
+
 RUN yarn install --immutable
 
 # Rebuild the source code only when needed
@@ -30,7 +33,6 @@ ENV S3_SCHEME=https
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npx prisma generate
 RUN yarn build
 
 FROM base AS runner
