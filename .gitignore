@@ -45,6 +45,7 @@ yarn-error.log*
 # idea files
 .idea
 
+gen
 generated
 
 *.gz

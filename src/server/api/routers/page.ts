@@ -1,4 +1,4 @@
-import { PageCreateInputSchema } from '@app/generated/zod';
+import { PageCreateInputSchema } from '@gen/zod';
 import { CourseStatus, UserRole } from '@prisma/client';
 import { z } from 'zod';
 

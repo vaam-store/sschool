@@ -1,4 +1,3 @@
-import { CourseCreateInputSchema } from '@app/generated/zod';
 import { CourseStatus, UserRole } from '@prisma/client';
 import { z } from 'zod';
 
@@ -8,6 +7,7 @@ import {
   publicProcedure,
 } from '@app/server/api/trpc';
 import { TRPCError } from '@trpc/server';
+import { CourseCreateInputSchema } from "@gen/zod";
 
 export const courseRouter = createTRPCRouter({
   getCourseForDownload: protectedProcedure

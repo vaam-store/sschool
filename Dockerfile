@@ -27,7 +27,10 @@ RUN \
   --mount=type=bind,source=package.json,target=/app/package.json \
   --mount=type=bind,source=./prisma,target=/app/prisma \
   --mount=type=cache,target=/app/node_modules \
-  yarn install --immutable && cp -R /app/node_modules /app/deps
+  --mount=type=cache,target=/app/gen \
+  yarn install --immutable \
+  && cp -R /app/node_modules /app/deps \
+  && cp -R /app/gen /app/dep-gen
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -43,6 +46,7 @@ ENV S3_BUCKET="sschool"
 ENV S3_CDN_URL="https://some.cdn.com"
 
 COPY --from=deps /app/deps ./node_modules
+COPY --from=deps /app/dep-gen ./gen
 
 RUN \
   --mount=type=bind,source=./docs,target=/app/docs \
