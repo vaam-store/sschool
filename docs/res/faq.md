@@ -3,6 +3,6 @@ title: FAQ
 slug: faq
 ---
 
-# FAQ
+## FAQ
 
 Some questions
