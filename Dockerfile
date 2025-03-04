@@ -10,9 +10,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 WORKDIR /app
 
 RUN \
-    --mount=type=bind,source=.yarnrc.yml,target=/app/.yarnrc.yml,ro \
-    --mount=type=bind,source=yarn.lock,target=/app/yarn.lock,ro \
-    --mount=type=bind,source=package.json,target=/app/package.json,ro \
+    --mount=type=bind,source=.yarnrc.yml,target=/app/.yarnrc.yml \
+    --mount=type=bind,source=yarn.lock,target=/app/yarn.lock \
+    --mount=type=bind,source=package.json,target=/app/package.json \
     corepack enable && corepack prepare yarn@4.6.0 --activate
 
 RUN \
@@ -22,10 +22,10 @@ RUN \
 FROM base AS deps
 
 RUN \
-    --mount=type=bind,source=.yarnrc.yml,target=/app/.yarnrc.yml,ro \
-    --mount=type=bind,source=yarn.lock,target=/app/yarn.lock,ro \
-    --mount=type=bind,source=package.json,target=/app/package.json,ro \
-    --mount=type=bind,source=./prisma,target=/app/prisma,ro \
+    --mount=type=bind,source=.yarnrc.yml,target=/app/.yarnrc.yml \
+    --mount=type=bind,source=yarn.lock,target=/app/yarn.lock \
+    --mount=type=bind,source=package.json,target=/app/package.json \
+    --mount=type=bind,source=./prisma,target=/app/prisma \
     --mount=type=cache,target=/app/node_modules \
     --mount=type=cache,target=/app/gen \
     yarn install --immutable \
@@ -49,19 +49,19 @@ COPY --from=deps /app/deps ./node_modules
 COPY --from=deps /app/dep-gen ./gen
 
 RUN \
-    --mount=type=bind,source=./docs,target=/app/docs,ro \
-    --mount=type=bind,source=./prisma,target=/app/prisma,ro \
-    --mount=type=bind,source=./public/favicon.ico,target=/app/public/favicon.ico,ro \
-    --mount=type=bind,source=./src,target=/app/src,ro \
-    --mount=type=bind,source=./.eslintignore,target=/app/.eslintignore,ro \
-    --mount=type=bind,source=./.eslintrc.cjs,target=/app/.eslintrc.cjs,ro \
-    --mount=type=bind,source=./.yarnrc.yml,target=/app/.yarnrc.yml,ro \
-    --mount=type=bind,source=./next.config.ts,target=/app/next.config.ts,ro \
-    --mount=type=bind,source=./package.json,target=/app/package.json,ro \
-    --mount=type=bind,source=./postcss.config.js,target=/app/postcss.config.js,ro \
-    --mount=type=bind,source=./prettier.config.js,target=/app/prettier.config.js,ro \
-    --mount=type=bind,source=./tsconfig.json,target=/app/tsconfig.json,ro \
-    --mount=type=bind,source=./yarn.lock,target=/app/yarn.lock,ro \
+    --mount=type=bind,source=./docs,target=/app/docs \
+    --mount=type=bind,source=./prisma,target=/app/prisma \
+    --mount=type=bind,source=./public/favicon.ico,target=/app/public/favicon.ico \
+    --mount=type=bind,source=./src,target=/app/src \
+    --mount=type=bind,source=./.eslintignore,target=/app/.eslintignore \
+    --mount=type=bind,source=./.eslintrc.cjs,target=/app/.eslintrc.cjs \
+    --mount=type=bind,source=./.yarnrc.yml,target=/app/.yarnrc.yml \
+    --mount=type=bind,source=./next.config.ts,target=/app/next.config.ts \
+    --mount=type=bind,source=./package.json,target=/app/package.json \
+    --mount=type=bind,source=./postcss.config.js,target=/app/postcss.config.js \
+    --mount=type=bind,source=./prettier.config.js,target=/app/prettier.config.js \
+    --mount=type=bind,source=./tsconfig.json,target=/app/tsconfig.json \
+    --mount=type=bind,source=./yarn.lock,target=/app/yarn.lock \
     --mount=type=cache,target=/app/.next \
     yarn build \
     && cp -R .next/standalone /app/final-standalone \
