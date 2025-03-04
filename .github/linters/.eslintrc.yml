@@ -3,9 +3,11 @@
 parserOptions:
   project: true
 plugins:
+  - scss
   - '@typescript-eslint'
 extends:
   - 'next/core-web-vitals'
+  - "plugin:scss/recommended"
 
 # Override settings for TypeScript files
 overrides:
@@ -52,6 +54,12 @@ rules:
     - always
   no-extra-semi: off
   react/react-in-jsx-scope: off
+  scss/at-rule-no-unknown: 
+    - error
+    - ignoreAtRules:
+        - apply
+        - plugin
+
 
 settings:
   import/resolver:
