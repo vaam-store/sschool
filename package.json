@@ -116,6 +116,8 @@
     "prisma": "6",
     "sass": "^1.85.0",
     "stylelint": "^16.15.0",
+    "stylelint-config-recommended": "^15.0.0",
+    "stylelint-config-tailwindcss": "^1.0.0",
     "stylelint-scss": "^6.11.1",
     "tailwindcss": "^4.0.9",
     "typescript": "^5.5.3",

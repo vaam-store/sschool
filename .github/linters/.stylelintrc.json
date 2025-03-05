@@ -1,19 +1,7 @@
 {
   "extends": [
-    "stylelint-config-standard",
-    "stylelint-config-recommended-scss"
-  ],
-  "overrides": [
-    {
-      "extends": [
-        "stylelint-config-recommended-scss"
-      ],
-      "files": [
-        "*.scss",
-        "**/*.scss"
-      ],
-      "customSyntax": "postcss-scss"
-    }
+    "stylelint-config-recommended",
+    "stylelint-config-tailwindcss"
   ],
   "rules": {
     "at-rule-no-unknown": [
@@ -21,9 +9,15 @@
       {
         "ignoreAtRules": [
           "apply",
+          "tailwind",
+          "layer",
+          "variants",
+          "responsive",
+          "screen",
           "plugin"
         ]
       }
-    ]
+    ],
+    "no-descending-specificity": null
   }
 }

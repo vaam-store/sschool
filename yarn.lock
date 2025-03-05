@@ -9919,6 +9919,8 @@ __metadata:
     sharp: "npm:^0.33.5"
     sortablejs: "npm:^1.15.6"
     stylelint: "npm:^16.15.0"
+    stylelint-config-recommended: "npm:^15.0.0"
+    stylelint-config-tailwindcss: "npm:^1.0.0"
     stylelint-scss: "npm:^6.11.1"
     superjson: "npm:^2.2.1"
     tailwind-merge: "npm:^3.0.2"
@@ -10189,6 +10191,25 @@ __metadata:
   peerDependencies:
     postcss: ^8.4.31
   checksum: 10c0/b4d0b280ba274503ecc04111cc11c713e0d65db079fbcd8b42d6350be1cca20e28611eddee93b419aa208176a0d3a5fff83d83ef958d1876713809b6a2787c0c
+  languageName: node
+  linkType: hard
+
+"stylelint-config-recommended@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "stylelint-config-recommended@npm:15.0.0"
+  peerDependencies:
+    stylelint: ^16.13.0
+  checksum: 10c0/de82e675e7d0cdbc486beee1f76002d5a5676247c1780fbe04f6adb617b016033f18f3361f4e99a76fc4d2115fbfc97786d9cf87ee7d90a345e146de35b04ab8
+  languageName: node
+  linkType: hard
+
+"stylelint-config-tailwindcss@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "stylelint-config-tailwindcss@npm:1.0.0"
+  peerDependencies:
+    stylelint: ">=13.13.1"
+    tailwindcss: ">=2.2.16"
+  checksum: 10c0/ceb53eb51512a861b9d786614a3c744a87068ee20bd8e183801fb70aea76503e3ac4e0b077c836bda99a188d38960d7aa93f00fdf95789cd50f9fc269070c083
   languageName: node
   linkType: hard
 
