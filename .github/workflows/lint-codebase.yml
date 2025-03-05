@@ -36,3 +36,6 @@ jobs:
         uses: super-linter/super-linter@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # JS standard is not configurable as it serves as standard way of linting js files, therefore a promoting the community style over a personnal style
+          # Read more at https://standardjs.com/
+          JAVASCRIPT_STANDARD: false

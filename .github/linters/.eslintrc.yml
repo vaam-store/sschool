@@ -1,27 +1,59 @@
 ---
-parser: '@typescript-eslint/parser'
+# Global settings
 parserOptions:
   project: true
 plugins:
   - '@typescript-eslint'
 extends:
   - 'next/core-web-vitals'
-  - 'plugin:@typescript-eslint/recommended-type-checked'
-  - 'plugin:@typescript-eslint/stylistic-type-checked'
+
+# Override settings for TypeScript files
+overrides:
+  - files: ['*.ts', '*.tsx']
+    parser: '@typescript-eslint/parser'
+    extends:
+      - 'plugin:@typescript-eslint/recommended-type-checked'
+      - 'plugin:@typescript-eslint/stylistic-type-checked'
+    rules:
+      '@typescript-eslint/array-type': off
+      '@typescript-eslint/consistent-type-definitions': off
+      '@typescript-eslint/consistent-type-imports':
+        - warn
+        - prefer: type-imports
+          fixStyle: inline-type-imports
+      '@typescript-eslint/no-unused-vars':
+        - warn
+        - argsIgnorePattern: '^_'
+      '@typescript-eslint/require-await': off
+      '@typescript-eslint/no-misused-promises':
+        - warn
+        - checksVoidReturn:
+            attributes: false
+      '@typescript-eslint/no-explicit-any': off
+      '@typescript-eslint/no-unsafe-assignment': off
+
+  # Override settings for JavaScript files
+  - files: ['*.js', '*.jsx']
+    rules:
+      # Add JavaScript-specific rules here
+      # For example:
+      'no-unused-vars': 'warn'
+      # 'no-undef': 'error'
+      # 'semi': ['error', 'always']
+      # 'comma-dangle': ['warn', 'never']
+
+# Common rules for both TypeScript and JavaScript files
 rules:
-  '@typescript-eslint/array-type': off
-  '@typescript-eslint/consistent-type-definitions': off
-  '@typescript-eslint/consistent-type-imports':
+  semi:
+    - error
+    - always
+  comma-dangle:
     - warn
-    - prefer: type-imports
-      fixStyle: inline-type-imports
-  '@typescript-eslint/no-unused-vars':
-    - warn
-    - argsIgnorePattern: '^_'
-  '@typescript-eslint/require-await': off
-  '@typescript-eslint/no-misused-promises':
-    - warn
-    - checksVoidReturn:
-        attributes: false
-  '@typescript-eslint/no-explicit-any': off
-  '@typescript-eslint/no-unsafe-assignment': off
+    - always
+  no-extra-semi: off
+  react/react-in-jsx-scope: off
+
+settings:
+  import/resolver:
+    typescript:
+      project: ../../tsconfig.json

@@ -14,9 +14,11 @@ env:
 jobs:
   docker-build:
     runs-on: ubuntu-latest
-    matrix:
-      environment: 
-        - docker-build-args: S3_ENDPOINT=localhost,S3_PORT=19000,S3_SCHEME=https
+    strategy:
+      matrix:
+        environment:
+          - name: production
+          - docker-build-args: S3_ENDPOINT=localhost,S3_PORT=19000,S3_SCHEME=https
 
     name: Docker image build
 
