@@ -15,7 +15,6 @@ overrides:
       - 'plugin:@typescript-eslint/recommended-type-checked'
       - 'plugin:@typescript-eslint/stylistic-type-checked'
     rules:
-      'react/react-in-jsx-scope': off
       '@typescript-eslint/array-type': off
       '@typescript-eslint/consistent-type-definitions': off
       '@typescript-eslint/consistent-type-imports':
@@ -32,6 +31,26 @@ overrides:
             attributes: false
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/no-unsafe-assignment': off
+
+  # Override settings for JavaScript files
+  - files: ['*.js', '*.jsx']
+    rules:
+      parser: 'espree'
+      'no-unused-vars': 'warn'
+      'no-undef': 'error'
+      extends:
+        - 'eslint:recommended'
+
+# Common rules for both TypeScript and JavaScript files
+rules:
+  semi:
+    - error
+    - always
+  comma-dangle:
+    - warn
+    - always
+  no-extra-semi: off
+  react/react-in-jsx-scope: off
 
 settings:
   import/resolver:
