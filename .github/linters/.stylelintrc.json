@@ -18,6 +18,7 @@
         ]
       }
     ],
+    "at-rule-no-deprecated": null,
     "no-descending-specificity": null
   }
 }
