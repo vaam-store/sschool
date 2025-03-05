@@ -34,12 +34,12 @@ overrides:
 
   # Override settings for JavaScript files
   - files: ['*.js', '*.jsx']
+    parser: 'espree'
+    extends:
+      - 'eslint:recommended'
     rules:
-      parser: 'espree'
       'no-unused-vars': 'warn'
       'no-undef': 'error'
-      extends:
-        - 'eslint:recommended'
 
 # Common rules for both TypeScript and JavaScript files
 rules:
