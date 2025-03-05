@@ -35,6 +35,9 @@ overrides:
   # Override settings for JavaScript files
   - files: ['*.js', '*.jsx']
     parser: 'espree'
+    parserOptions:
+      ecmaVersion: latest
+      sourceType: module
     extends:
       - 'eslint:recommended'
     rules:
