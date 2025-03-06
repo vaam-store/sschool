@@ -43,6 +43,14 @@ overrides:
     rules:
       'no-unused-vars': 'warn'
       'no-undef': 'error'
+      '@typescript-eslint/consistent-type-imports': 'off'
+
+  - files: ['*.json']
+    parser: 'jsonc-eslint-parser'
+    extends:
+      - 'plugin:jsonc/recommended-with-json'
+    rules:
+      semi: off # JSON doesn't use semicolons
 
 # Common rules for both TypeScript and JavaScript files
 rules:
