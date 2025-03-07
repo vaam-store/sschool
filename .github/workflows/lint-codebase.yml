@@ -36,7 +36,7 @@ jobs:
 
       # Install necessary dependencies
       - name: Install missing libraries
-        run: sudo apt-get update && sudo apt-get install -y libstdc++6
+        run: apt-get update && apt-get install -y libstdc++6
 
       - name: Install dependencies
         run: corepack enable && yarn install
