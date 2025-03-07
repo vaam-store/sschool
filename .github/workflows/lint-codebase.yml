@@ -34,6 +34,10 @@ jobs:
         with:
           node-version: '23'
 
+      # Install necessary dependencies
+      - name: Install missing libraries
+        run: sudo apt-get update && sudo apt-get install -y libstdc++6
+
       - name: Install dependencies
         run: corepack enable && yarn install
 
@@ -44,4 +48,4 @@ jobs:
           # JS standard is not configurable as it serves as standard way of linting js files, therefore a promoting the community style over a personnal style
           # Read more at https://standardjs.com/
           VALIDATE_JAVASCRIPT_STANDARD: false
-          FILTER_REGEX_EXCLUDE: "node_modules/|dist/|build/"
+          FILTER_REGEX_EXCLUDE: 'node_modules/|dist/|build/'
