@@ -12,11 +12,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    container:
-      image: github/super-linter:latest
-      env:
-        NODE_OPTIONS: '--max-old-space-size=8192'
-
     permissions:
       contents: read
       packages: read
