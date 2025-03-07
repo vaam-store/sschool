@@ -24,8 +24,8 @@ jobs:
     name: Docker image build
 
     permissions:
-      packages: write
       contents: read
+      packages: write
 
     steps:
       # Checkout the repository code
