@@ -29,10 +29,6 @@ jobs:
         with:
           node-version: '23'
 
-      # Install necessary dependencies
-      - name: Install missing libraries
-        run: apt-get update && apt-get install -y libstdc++6
-
       - name: Install dependencies
         run: corepack enable && yarn install
 
