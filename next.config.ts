@@ -6,11 +6,13 @@ import './src/env.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-const shouldPwa = async (nextConfig: NextConfig): Promise<NextConfig> => {
+const shouldPwa = (nextConfig: NextConfig): Promise<NextConfig> => {
   if (!isDev) {
-    const withPWA = (await import('@ducanh2912/next-pwa')).default({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-member-access
+    const withPWA = require('@ducanh2912/next-pwa').default({
       dest: 'public',
     });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
     return withPWA(nextConfig);
   }
 
