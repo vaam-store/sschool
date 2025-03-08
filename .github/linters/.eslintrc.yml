@@ -40,18 +40,20 @@ overrides:
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/no-unsafe-assignment': off
 
-    settings:
-      import/resolver:
-        typescript:
-          project: ../../tsconfig.json
-
-  # Override settings for non-TypeScript files
-  - files: ['*.js', '*.jsx', '*.json', '*.mjs', '*.cjs', '*.yml', '*.yaml']
+  # Override settings for JavaScript files
+  - files: ['*.js', '*.jsx']
+    parser: 'espree'
     parserOptions:
       ecmaVersion: latest
       sourceType: module
     extends:
       - 'eslint:recommended'
     rules:
-      # 🚀 Disable all TypeScript rules for these files
-      '@typescript-eslint/*': off
+      'no-unused-vars': 'warn'
+      'no-undef': 'error'
+
+# Common rules for both TypeScript and JavaScript files
+settings:
+  import/resolver:
+    typescript:
+      project: ../../tsconfig.json
