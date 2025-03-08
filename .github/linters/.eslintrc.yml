@@ -39,11 +39,14 @@ overrides:
             attributes: false
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/no-unsafe-assignment': off
+      '@typescript-eslint/dot-notation':
+        - error
+        - allowKeywords: true
+
     settings:
       import/resolver:
         typescript:
           project: ../../tsconfig.json
-    
 
   # Override settings for non-TypeScript files
   - files: ['*.js', '*.jsx', '*.json', '*.mjs', '*.cjs', '*.yml', '*.yaml']
