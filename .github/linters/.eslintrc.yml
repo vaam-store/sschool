@@ -42,6 +42,8 @@ overrides:
       '@typescript-eslint/dot-notation':
         - error
         - allowKeywords: true
+      '@typescript-eslint/no-empty-function':
+        ['error', { allow: ['arrowFunctions', 'functions', 'methods'] }]
 
     settings:
       import/resolver:
