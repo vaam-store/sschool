@@ -1,7 +1,8 @@
 ---
 # Global settings
 parserOptions:
-  project: true
+  project: ../../tsconfig.json
+  tsconfigRootDir: ../../
 plugins:
   - '@typescript-eslint'
 extends:
@@ -14,6 +15,9 @@ overrides:
     extends:
       - 'plugin:@typescript-eslint/recommended-type-checked'
       - 'plugin:@typescript-eslint/stylistic-type-checked'
+      - "plugin:@typescript-eslint/recommended"
+      - "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      - "plugin:@typescript-eslint/strict"
     rules:
       react/react-in-jsx-scope: off
       '@typescript-eslint/array-type': off
@@ -32,6 +36,9 @@ overrides:
             attributes: false
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/no-unsafe-assignment': off
+      '@typescript-eslint/no-unused-expressions':
+        - error
+        - allowShortCircuit: false
       '@typescript-eslint/dot-notation':
         - error
         - allowKeywords: true
