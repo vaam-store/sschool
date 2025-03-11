@@ -19,6 +19,7 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx,yml,yaml}\" --cache",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
+    "superlint": "docker pull github/super-linter:latest && docker run --rm -e RUN_LOCAL=true -v $(pwd):/tmp/lint github/super-linter:latest",
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit"
@@ -114,6 +115,10 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "prisma": "6",
     "sass": "^1.85.0",
+    "stylelint": "^16.15.0",
+    "stylelint-config-recommended": "^15.0.0",
+    "stylelint-config-tailwindcss": "^1.0.0",
+    "stylelint-scss": "^6.11.1",
     "tailwindcss": "^4.0.9",
     "typescript": "^5.8.2",
     "webpack": "^5.98.0"

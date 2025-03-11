@@ -50,7 +50,7 @@ export function EditPage({
         if (page?.id) {
           saved = await update({
             ...rest,
-            id: id!,
+            id: page.id,
             parentPage: parentPageId
               ? { connect: { id: parentPageId } }
               : undefined,
