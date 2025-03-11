@@ -32,6 +32,11 @@ overrides:
             attributes: false
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/no-unsafe-assignment': off
+      '@typescript-eslint/dot-notation':
+        - error
+        - allowKeywords: true
+      '@typescript-eslint/no-empty-function':
+        ['error', { allow: ['arrowFunctions', 'functions', 'methods'] }]
 
 # Common rules for both TypeScript and JavaScript files
 settings:
