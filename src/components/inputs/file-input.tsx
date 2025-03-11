@@ -21,10 +21,14 @@ export function FileInputComponent({
       return;
     }
 
-    const file = files.item(0)!;
+    const file = files.item(0);
+    if (!file) {
+      return;
+    }
     const { publicUrl } = await mutate(file);
     await setValue({ url: publicUrl, alt: file.name });
   };
+
   return (
     <label className='form-control w-full'>
       <div className='label'>
