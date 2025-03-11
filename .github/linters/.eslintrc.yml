@@ -14,9 +14,9 @@ overrides:
     extends:
       - 'plugin:@typescript-eslint/recommended-type-checked'
       - 'plugin:@typescript-eslint/stylistic-type-checked'
-      - "plugin:@typescript-eslint/recommended"
-      - "plugin:@typescript-eslint/recommended-requiring-type-checking"
-      - "plugin:@typescript-eslint/strict"
+      - 'plugin:@typescript-eslint/recommended'
+      - 'plugin:@typescript-eslint/recommended-requiring-type-checking'
+      - 'plugin:@typescript-eslint/strict'
     rules:
       react/react-in-jsx-scope: off
       '@typescript-eslint/array-type': off
