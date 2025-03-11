@@ -1,7 +1,7 @@
 ---
 # Global settings
 parserOptions:
-  project: ../../tsconfig.json
+  project: true
 plugins:
   - '@typescript-eslint'
 extends:
