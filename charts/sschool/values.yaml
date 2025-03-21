@@ -1,7 +1,7 @@
 app:
   global:
     labels:
-      app: gis-sschool
+      app: sschool
 
   defaultPodOptions:
     securityContext:
@@ -78,7 +78,7 @@ app:
         S3_ENDPOINT: s3.example.com
         S3_PORT: '443'
         S3_SCHEME: https
-        S3_BUCKET: gis-applications
+        S3_BUCKET: sschool
         S3_CDN_URL: https://s3.example.com
 
   secrets:
@@ -101,7 +101,7 @@ app:
         description: 'Auth configuration for the GIS Application app.'
       stringData:
         AUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
-        AUTH_KEYCLOAK_ID: 'gis-applications'
+        AUTH_KEYCLOAK_ID: 'sschool'
         AUTH_KEYCLOAK_SECRET: 'someSecret'
     db:
       enabled: true
@@ -121,7 +121,7 @@ app:
           - from:
               - podSelector:
                   matchLabels:
-                    app: gis-lms-backend
+                    app: sschool
             ports:
               - protocol: TCP
                 port: 3000

@@ -17,10 +17,10 @@ jobs:
     strategy:
       matrix:
         chart:
-          - gis-applications
+          - sschool
         include:
-          - chart: gis-applications
-            path: charts/gis-applications
+          - chart: sschool
+            path: charts/sschool
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
