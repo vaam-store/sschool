@@ -1,9 +1,18 @@
 ---
 version: 2
 updates:
+  - package-ecosystem: docker
+    directory: '/utils/packages/envsubt'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: daily
-      time: '08:00'
+      interval: weekly
     open-pull-requests-limit: 10

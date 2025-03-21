@@ -6,8 +6,8 @@ import {
   protectedProcedure,
   publicProcedure,
 } from '@app/server/api/trpc';
+import { CourseCreateInputSchema } from '@gen/zod';
 import { TRPCError } from '@trpc/server';
-import { CourseCreateInputSchema } from "@gen/zod";
 
 export const courseRouter = createTRPCRouter({
   getCourseForDownload: protectedProcedure
