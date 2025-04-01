@@ -153,7 +153,7 @@ export function EditCoursePages({
     async (pages: Page[]) => {
       await savePages({
         courseId: course.id,
-        pages,
+        pages: pages as any,
       });
     },
     [course.id, savePages],

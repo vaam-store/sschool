@@ -6,7 +6,6 @@ import { useCallback } from 'react';
 export interface EditorProps {
   initialData?: string;
   onChange?: (data: string) => void;
-  readOnly?: boolean;
 }
 
 export function Editor({ initialData, onChange }: EditorProps) {

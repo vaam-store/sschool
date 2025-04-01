@@ -4,8 +4,8 @@
 !public/favicon.ico
 !src
 !.eslintignore
-!.eslintrc.cjs
 !.yarnrc.yml
+!eslint.config.js
 !next.config.ts
 !next-env.d.ts
 !package.json

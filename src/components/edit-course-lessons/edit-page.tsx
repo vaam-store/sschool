@@ -43,7 +43,7 @@ export function EditPage({
         description: page?.description ?? '',
         meta: page?.meta ?? { thumbnailImage: {} },
         position: page?.position ?? nextPosition,
-        content: page?.content ?? {},
+        content: page?.content ?? '',
       }}
       onSubmit={async ({ id, ...rest }, { setSubmitting, resetForm }) => {
         let saved: Page;

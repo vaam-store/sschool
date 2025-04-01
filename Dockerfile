@@ -45,6 +45,9 @@ ENV S3_SCHEME="https"
 ENV S3_BUCKET="sschool"
 ENV S3_CDN_URL="https://some.cdn.com"
 
+ENV OPENAI_KEY=changeMe
+ENV OPENAI_URL=https://ai.example.api
+
 COPY --from=deps /app/deps ./node_modules
 COPY --from=deps /app/dep-gen ./gen
 
@@ -54,7 +57,7 @@ RUN \
   --mount=type=bind,source=./public/favicon.ico,target=/app/public/favicon.ico \
   --mount=type=bind,source=./src,target=/app/src \
   --mount=type=bind,source=./.eslintignore,target=/app/.eslintignore \
-  --mount=type=bind,source=./.eslintrc.cjs,target=/app/.eslintrc.cjs \
+  --mount=type=bind,source=./eslint.config.js,target=/app/eslint.config.js \
   --mount=type=bind,source=./.yarnrc.yml,target=/app/.yarnrc.yml \
   --mount=type=bind,source=./next.config.ts,target=/app/next.config.ts \
   --mount=type=bind,source=./package.json,target=/app/package.json \
