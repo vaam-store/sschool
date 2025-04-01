@@ -41,6 +41,17 @@ model Activity {
   @@map("activities")
 }
 
+model SchoolPeriod {
+  id        String    @id @default(cuid())
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  startedAt DateTime @map("started_at")
+  endedAt   DateTime @map("ended_at")
+
+  courses Course[] @relation
+}
+
 enum CourseStatus {
   DRAFT
   PUBLISHED
@@ -56,8 +67,9 @@ model Course {
   status      CourseStatus @default(DRAFT)
 
   // Relations
-  pages       Page[]
-  enrollments Enrollment[]
+  pages         Page[]
+  enrollments   Enrollment[]
+  schoolPeriods SchoolPeriod[] @relation
 
   @@index([name])
   @@index([status])

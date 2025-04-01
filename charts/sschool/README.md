@@ -7,7 +7,7 @@ services.
 ## Table of Variables and Usage
 
 | Section      | Variable Name        | Description                                                        |
-|--------------|----------------------|--------------------------------------------------------------------|
+| ------------ | -------------------- | ------------------------------------------------------------------ |
 | ConfigMap    | AUTH_KEYCLOAK_ISSUER | Keycloak issuer URL for authentication settings.                   |
 |              | AUTH_SESSION_MAX_AGE | Maximum session age for Keycloak authentication.                   |
 |              | S3_ENDPOINT          | Endpoint URL for the S3 bucket.                                    |

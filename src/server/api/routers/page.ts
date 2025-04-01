@@ -1,8 +1,9 @@
-import { PageCreateInputSchema } from '@gen/zod';
+import { PageCreateInputSchema, PageCreateManyInputSchema } from '@gen/zod';
 import { CourseStatus, UserRole } from '@prisma/client';
 import { z } from 'zod';
 
 import {
+  adminProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
@@ -56,7 +57,7 @@ export const pageRouter = createTRPCRouter({
       return course;
     }),
 
-  createPage: protectedProcedure
+  createPage: adminProcedure
     .input(PageCreateInputSchema)
     .mutation(async ({ ctx, input }) => {
       return ctx.db.page.create({
@@ -64,7 +65,7 @@ export const pageRouter = createTRPCRouter({
       });
     }),
 
-  updatePage: protectedProcedure
+  updatePage: adminProcedure
     .input(PageCreateInputSchema)
     .mutation(async ({ ctx, input }) => {
       return ctx.db.page.update({
@@ -75,7 +76,7 @@ export const pageRouter = createTRPCRouter({
       });
     }),
 
-  updatePageContent: protectedProcedure
+  updatePageContent: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -93,7 +94,7 @@ export const pageRouter = createTRPCRouter({
       });
     }),
 
-  updatePosition: protectedProcedure
+  updatePosition: adminProcedure
     .input(
       z.array(
         z.object({
@@ -125,5 +126,25 @@ export const pageRouter = createTRPCRouter({
       );
 
       return await ctx.db.$transaction(updates);
+    }),
+
+  savePages: adminProcedure
+    .input(
+      z.object({
+        courseId: z.string(),
+        pages: PageCreateManyInputSchema.array(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Should use a transaction to create the pages but delete old ones first
+      await ctx.db.page.deleteMany({
+        where: {
+          courseId: input.courseId,
+        },
+      });
+
+      return await ctx.db.page.createMany({
+        data: input.pages,
+      });
     }),
 });

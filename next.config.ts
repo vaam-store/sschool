@@ -40,23 +40,11 @@ const withImageSizes = (nextConfig: NextConfig): NextConfig => {
         ...(nextConfig?.images?.remotePatterns ?? []),
         {
           protocol: 'https',
-          hostname: '*.dev.vymalo.com',
-        },
-        {
-          protocol: 'https',
-          hostname: '*.store.vymalo.com',
-        },
-        {
-          protocol: 'https',
-          hostname: '*.vymalo.com',
+          hostname: '*.adorsys.team',
         },
         {
           protocol: 'https',
           hostname: '*.ssegning.me',
-        },
-        {
-          protocol: 'https',
-          hostname: '*.ssegning.com',
         },
       ],
     },

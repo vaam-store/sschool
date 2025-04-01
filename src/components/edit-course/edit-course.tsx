@@ -38,7 +38,7 @@ export function EditCourse({ course, large = true }: EditCourseProps) {
           name: course?.name ?? '',
           description: course?.description ?? '',
           status: course?.status ?? CourseStatus.DRAFT,
-          meta: course?.meta ?? { canBookmark: false, thumbnailImage: {} },
+          meta: course?.meta ?? { canBookmark: false, thumbnailImage: [] },
         }}
         onSubmit={async (values, { setSubmitting }) => {
           const saved = await (course?.id
@@ -81,6 +81,7 @@ export function EditCourse({ course, large = true }: EditCourseProps) {
                 )}
 
                 <FileInputComponent
+                  multiple={false}
                   label='Thumbnail image'
                   name='meta.thumbnailImage'
                   accept='image/png,image/jpeg'

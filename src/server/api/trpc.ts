@@ -13,6 +13,8 @@ import { ZodError } from 'zod';
 
 import { auth } from '@app/server/auth';
 import { db } from '@app/server/db';
+import { openAiClient } from '@app/server/openai';
+import { UserRole } from '@prisma/client';
 
 /**
  * 1. CONTEXT
@@ -31,6 +33,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
 
   return {
     db,
+    openAiClient,
     session,
     ...opts,
   };
@@ -124,6 +127,29 @@ export const protectedProcedure = t.procedure
     if (!ctx.session || !ctx.session.user) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
+    return next({
+      ctx: {
+        // infers the `session` as non-nullable
+        session: { ...ctx.session, user: ctx.session.user },
+      },
+    });
+  });
+
+/**
+ * Protected (authenticated) procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
+ * the session is valid and guarantees `ctx.session.user` is not null.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const adminProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    if (ctx.session?.user?.role !== UserRole.ADMIN) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+
     return next({
       ctx: {
         // infers the `session` as non-nullable

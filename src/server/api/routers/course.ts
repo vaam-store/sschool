@@ -2,25 +2,21 @@ import { CourseStatus, UserRole } from '@prisma/client';
 import { z } from 'zod';
 
 import {
+  adminProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from '@app/server/api/trpc';
 import { CourseCreateInputSchema } from '@gen/zod';
-import { TRPCError } from '@trpc/server';
 
 export const courseRouter = createTRPCRouter({
-  getCourseForDownload: protectedProcedure
+  getCourseForDownload: adminProcedure
     .input(
       z.object({
         id: z.string(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      if (ctx.session.user.role !== UserRole.ADMIN) {
-        throw new TRPCError({ code: 'UNAUTHORIZED' });
-      }
-
       return await ctx.db.course.findUnique({
         where: { id: input.id },
         include: {

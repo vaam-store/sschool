@@ -3,6 +3,11 @@ export interface EditCoursePagesProps {
   course: Course;
 }
 
+export interface GenerateCourseLayoutProps {
+  courseId: string;
+  onEdit: (pages: Page[]) => void;
+}
+
 export interface EditPageProps {
   page?: Page;
   parentPageId?: string;

@@ -11,6 +11,7 @@ import { Eye, Grid, RefreshCw } from 'react-feather';
 import { ReactSortable, type Sortable, type Store } from 'react-sortablejs';
 import { UploadCourse } from '../downloads/upload-course';
 import { AddPageModal } from './edit-page';
+import { GenerateCourseLayoutModal } from './generate-course-layout';
 import { type EditCoursePagesProps } from './types';
 
 interface EditCoursePageProps {
@@ -48,7 +49,9 @@ export function EditCoursePage({ page }: EditCoursePageProps) {
   return (
     <div id={id}>
       <div className='flex flex-row items-center gap-2'>
-        <Grid className='p-handle hover:cursor-grab' />
+        <div className='p-handle hover:cursor-grab'>
+          <Grid />
+        </div>
         <Link href={`/courses/${page.courseId}/edit/${page.id}`}>
           <PageListItem page={page} />
         </Link>
@@ -126,6 +129,7 @@ export function EditCoursePages({
   );
 
   const { mutateAsync: updatePosition } = api.page.updatePosition.useMutation();
+  const { mutateAsync: savePages } = api.page.savePages.useMutation();
 
   const onChange = useCallback(
     async (
@@ -144,6 +148,17 @@ export function EditCoursePages({
     },
     [refetch, updatePosition],
   );
+
+  const createPages = useCallback(
+    async (pages: Page[]) => {
+      await savePages({
+        courseId: course.id,
+        pages,
+      });
+    },
+    [course.id, savePages],
+  );
+
   return (
     <Container>
       <div className='mb-4 flex flex-row items-center gap-4'>
@@ -167,6 +182,11 @@ export function EditCoursePages({
           courseId={course.id}
           onEdit={(_page) => refetch()}
           nextPosition={data.length}
+        />
+
+        <GenerateCourseLayoutModal
+          courseId={course.id}
+          onEdit={(page) => createPages(page)}
         />
       </div>
 

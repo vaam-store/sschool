@@ -29,6 +29,19 @@ export const env = createEnv({
     // Add session environment variables
     AUTH_SESSION_MAX_AGE: z.number().optional(),
     AUTH_SESSION_UPDATE_AGE: z.number().optional(),
+
+    OPENAI_KEY: z.string(),
+    OPENAI_URL: z.string().url(),
+    OPENAI_MAX_TOKENS: z
+      .string()
+      .default('1000')
+      .transform((val) => Number(val)),
+    OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: z
+      .string()
+      .default('50')
+      .transform((val) => Number(val)),
+    OPENAI_PAGE_LAYOUT_MODEL: z.string().default('gpt-4o'),
+    OPENAI_PAGE_CONTENT_MODEL: z.string().default('gemini-2.0-flash-lite'),
   },
 
   /**
@@ -62,6 +75,14 @@ export const env = createEnv({
 
     AUTH_SESSION_MAX_AGE: Number(process.env.AUTH_SESSION_MAX_AGE),
     AUTH_SESSION_UPDATE_AGE: Number(process.env.AUTH_SESSION_UPDATE_AGE),
+
+    OPENAI_KEY: process.env.OPENAI_KEY,
+    OPENAI_URL: process.env.OPENAI_URL,
+    OPENAI_MAX_TOKENS: process.env.OPENAI_MAX_TOKENS,
+    OPENAI_PAGE_LAYOUT_MODEL: process.env.OPENAI_PAGE_LAYOUT_MODEL,
+    OPENAI_PAGE_CONTENT_MODEL: process.env.OPENAI_PAGE_CONTENT_MODEL,
+    OPENAI_PAGE_DESCRIPTION_MAX_TOKEN:
+      process.env.OPENAI_PAGE_DESCRIPTION_MODEL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

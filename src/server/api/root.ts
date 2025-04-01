@@ -1,4 +1,5 @@
 import {
+  courseAiRouter,
   courseRouter,
   pageRouter,
   uploadRouter,
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   course: courseRouter,
   page: pageRouter,
   upload: uploadRouter,
+  courseAi: courseAiRouter,
 });
 
 // export type definition of API
