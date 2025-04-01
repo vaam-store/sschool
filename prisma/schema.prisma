@@ -88,7 +88,7 @@ model Page {
   courseId     String    @map("course_id")
   title        String
   description  String
-  content      Json
+  content      String
   type         PageType  @map("page_type")
   position     Int
   parentPageId String?   @map("parent_page_id")

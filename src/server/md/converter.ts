@@ -6,10 +6,69 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
-export const mdProcessor = unified()
-  .use(remarkGfm)
-  .use(remarkGithub)
-  .use(remarkRehype)
-  .use(remarkParse)
-  .use(rehypeExternalLinks, { rel: ['nofollow'], target: '_blank' })
-  .use(rehypeStringify);
+import rehypeHighlight from 'rehype-highlight';
+import rehypeSanitize from 'rehype-sanitize';
+
+import { twMerge } from 'tailwind-merge';
+import { visit } from 'unist-util-visit';
+
+type NodeType = Record<string, any> & {
+  children: NodeType[];
+  properties: Record<string, any>;
+};
+
+const rehypeHeadingToSpan = () => {
+  return (tree: any) => {
+    visit(tree, 'element', (node: Record<string, any>) => {
+      if (node.tagName === 'h1') {
+        node.children = [
+          {
+            type: 'element',
+            tagName: 'span',
+            properties: {},
+            children: node.children,
+          },
+        ];
+      }
+    });
+  };
+};
+
+const rehypePreCodeHighlight = () => {
+  return (tree: any) => {
+    visit(tree, 'element', (node: NodeType) => {
+      if (node.tagName === 'pre') {
+        for (const child of node.children) {
+          if (child.tagName === 'code') {
+            node.properties.className = twMerge(
+              '!p-0 -mx-4 md:-mx-8 lg:-mx-12 !rounded-box',
+              node.properties.className as string,
+            );
+            child.properties.className = twMerge(
+              '!px-8 !py-4 md:!px-8 lg:!px-12 hljs',
+              child.properties.className as string,
+            );
+          }
+        }
+      }
+    });
+  };
+};
+
+export const markdownToHtml = async (markdown: string) => {
+  const mdProcessor = unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkGithub)
+    .use(remarkRehype)
+    .use(rehypeSanitize)
+    .use(rehypeHeadingToSpan)
+    .use(rehypeStringify)
+    .use(rehypeExternalLinks, { rel: ['nofollow'], target: '_blank' })
+    .use(rehypeHighlight)
+    .use(rehypePreCodeHighlight)
+    .use(rehypeStringify);
+
+  const result = await mdProcessor.process(markdown);
+  return result.toString('utf-8');
+};

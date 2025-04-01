@@ -2,7 +2,7 @@ import matter from 'gray-matter';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as process from 'node:process';
-import { mdProcessor } from './converter';
+import { markdownToHtml } from './converter';
 
 export async function loadDocMd(
   res: 'res' = 'res',
@@ -14,12 +14,11 @@ export async function loadDocMd(
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
 
-  const processedContent = await mdProcessor.process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  const html = await markdownToHtml(matterResult.content);
 
   return {
     slug,
-    contentHtml,
+    contentHtml: html,
     ...matterResult.data,
   };
 }

@@ -1,6 +1,5 @@
 import { Container } from '@app/components/container';
-import { Editor } from '@app/components/editor';
-import { type OutputData } from '@editorjs/editorjs';
+import { markdownToHtml } from '@app/server/md/converter';
 import { type Course, type Page } from '@prisma/client';
 
 interface LecturePageProps {
@@ -9,9 +8,16 @@ interface LecturePageProps {
 }
 
 export async function LecturePage({ page }: LecturePageProps) {
+  const html = await markdownToHtml(page.content);
+
   return (
     <Container>
-      <Editor readOnly initialData={page.content as unknown as OutputData} />
+      {html && (
+        <article
+          className='prose prose-neutral lg:prose-xl mx-auto'
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
     </Container>
   );
 }

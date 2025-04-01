@@ -2,9 +2,7 @@
 
 import { Editor } from '@app/components/editor';
 import { api } from '@app/trpc/react';
-import { type OutputData } from '@editorjs/editorjs';
 import type { Page } from '@prisma/client';
-import EditorJSMarkdownConverter from '@vingeray/editorjs-markdown-converter';
 import { useCallback, useState } from 'react';
 
 interface EditLessonEditorProps {
@@ -12,24 +10,22 @@ interface EditLessonEditorProps {
 }
 
 export function EditPageEditor({ page }: EditLessonEditorProps) {
-  const [data, setData] = useState<OutputData | undefined>(
-    page.content as unknown as OutputData,
-  );
+  const [data, setData] = useState<string | undefined>(page.content as string);
 
   const { mutateAsync: updatePageContent } =
     api.page.updatePageContent.useMutation({
       onSuccess: (data) => {
-        setData(data.content as unknown as OutputData);
+        setData(data.content);
       },
     });
   const { mutateAsync: genCourseLesson, isPending: isGenCourseLessonPending } =
     api.courseAi.genCourseLesson.useMutation({});
 
   const onChange = useCallback(
-    async (data: OutputData) => {
+    async (data: string) => {
       await updatePageContent({
         id: page.id,
-        content: data as unknown as Record<string, unknown>,
+        content: data,
       });
     },
     [page.id, updatePageContent],
@@ -41,13 +37,9 @@ export function EditPageEditor({ page }: EditLessonEditorProps) {
       page_id: page.id,
     });
 
-    const converted = EditorJSMarkdownConverter.toBlocks(result);
-
     await updatePageContent({
       id: page.id,
-      content: {
-        blocks: converted,
-      },
+      content: result,
     });
   }, [genCourseLesson, page.id, page.courseId]);
 

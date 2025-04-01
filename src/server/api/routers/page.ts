@@ -80,7 +80,7 @@ export const pageRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        content: z.object({}).passthrough(),
+        content: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
