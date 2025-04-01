@@ -38,10 +38,9 @@ export const env = createEnv({
       .transform((val) => Number(val)),
     OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: z
       .string()
-      .default('50')
       .transform((val) => Number(val)),
-    OPENAI_PAGE_LAYOUT_MODEL: z.string().default('gpt-4o'),
-    OPENAI_PAGE_CONTENT_MODEL: z.string().default('gemini-2.0-flash-lite'),
+    OPENAI_PAGE_LAYOUT_MODEL: z.string(),
+    OPENAI_PAGE_CONTENT_MODEL: z.string(),
   },
 
   /**
@@ -82,7 +81,7 @@ export const env = createEnv({
     OPENAI_PAGE_LAYOUT_MODEL: process.env.OPENAI_PAGE_LAYOUT_MODEL,
     OPENAI_PAGE_CONTENT_MODEL: process.env.OPENAI_PAGE_CONTENT_MODEL,
     OPENAI_PAGE_DESCRIPTION_MAX_TOKEN:
-      process.env.OPENAI_PAGE_DESCRIPTION_MODEL,
+      process.env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

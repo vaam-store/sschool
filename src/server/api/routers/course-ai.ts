@@ -2,7 +2,9 @@ import { z } from 'zod';
 
 import { env } from '@app/env';
 import { adminProcedure, createTRPCRouter } from '@app/server/api/trpc';
-import { Page, PageType } from '@prisma/client';
+import { type Page, PageType } from '@prisma/client';
+
+const endMarkers = '###====###';
 
 export const courseAiRouter = createTRPCRouter({
   // Generate a course overview plan in a JSON format
@@ -60,7 +62,7 @@ export const courseAiRouter = createTRPCRouter({
           ?.trim()
           .split('\n')
           .filter((title) => title.length > 0)
-          .map((title) => title.trim()) || [];
+          .map((title) => title.trim()) ?? [];
 
       // Step 2: Generate pages for each title
       const pages = await Promise.all(
@@ -79,19 +81,18 @@ export const courseAiRouter = createTRPCRouter({
         - No introduction.
         - No conclusion.
         - No explanation.
+
         `.trim();
 
-          const [pageResponse] = await Promise.all([
-            ctx.openAiClient.chat.completions.create({
-              model: env.OPENAI_PAGE_CONTENT_MODEL,
-              messages: [{ role: 'user', content: pagePrompt }],
-              max_tokens: env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
-              n: 1,
-            }),
-          ]);
+          const pageResponse = await ctx.openAiClient.chat.completions.create({
+            model: env.OPENAI_PAGE_LAYOUT_MODEL,
+            messages: [{ role: 'user', content: pagePrompt }],
+            max_tokens: env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
+            n: 1,
+          });
 
           const description =
-            pageResponse.choices?.[0]?.message?.content?.trim() || '';
+            pageResponse.choices?.[0]?.message?.content?.trim() ?? '';
 
           return {
             title: title,
@@ -183,16 +184,44 @@ export const courseAiRouter = createTRPCRouter({
       - This shall be written in a way that is easy to remember.
       - This shall be written in a way that is easy to apply.
       - This shall be long enough to be a lesson.
+      - You can use Mermaid diagrams. Use it also to illustrate practical examples.
       
       `.trim();
 
-      const contentResponse = await ctx.openAiClient.chat.completions.create({
-        model: env.OPENAI_PAGE_CONTENT_MODEL,
-        messages: [{ role: 'user', content: contentPrompt }],
-        max_tokens: env.OPENAI_MAX_TOKENS * 4,
-        n: 1,
-      });
+      let fullContent = '';
+      let isComplete = false;
+      let attempts = 0;
+      const maxAttempts = 3;
 
-      return contentResponse.choices?.[0]?.message?.content?.trim() || '';
+      while (!isComplete && attempts < maxAttempts) {
+        const currentPrompt =
+          attempts === 0
+            ? contentPrompt
+            : `Continue the following content: ${fullContent}\n\nRemaining content should:${contentPrompt.split('Content:')[1]}`;
+
+        const contentResponse = await ctx.openAiClient.chat.completions.create({
+          model: env.OPENAI_PAGE_CONTENT_MODEL,
+          messages: [{ role: 'user', content: currentPrompt }],
+          max_tokens: env.OPENAI_MAX_TOKENS * 4,
+          n: 1,
+          temperature: 0.7,
+          // Add stop sequences to detect completion
+          stop: [endMarkers],
+        });
+
+        const newContent =
+          contentResponse.choices?.[0]?.message?.content?.trim() ?? '';
+        fullContent += (attempts === 0 ? '' : '\n') + newContent;
+
+        // Check if response is complete (ends with a concluding marker or is significantly sized)
+        isComplete =
+          newContent.length < env.OPENAI_MAX_TOKENS * 4 * 0.9 || // Response is significantly shorter than max
+          newContent.endsWith('.') || // Ends with a period
+          attempts === maxAttempts - 1; // Last attempt
+
+        attempts++;
+      }
+
+      return fullContent;
     }),
 });

@@ -10,14 +10,10 @@ interface EditLessonEditorProps {
 }
 
 export function EditPageEditor({ page }: EditLessonEditorProps) {
-  const [data, setData] = useState<string | undefined>(page.content as string);
+  const [data, setData] = useState<string | undefined>(page.content);
 
   const { mutateAsync: updatePageContent } =
-    api.page.updatePageContent.useMutation({
-      onSuccess: (data) => {
-        setData(data.content);
-      },
-    });
+    api.page.updatePageContent.useMutation();
   const { mutateAsync: genCourseLesson, isPending: isGenCourseLessonPending } =
     api.courseAi.genCourseLesson.useMutation({});
 
@@ -41,7 +37,9 @@ export function EditPageEditor({ page }: EditLessonEditorProps) {
       id: page.id,
       content: result,
     });
-  }, [genCourseLesson, page.id, page.courseId]);
+
+    setData(result);
+  }, [genCourseLesson, page.id, page.courseId, updatePageContent]);
 
   return (
     <div>

@@ -3,11 +3,13 @@
 @import 'tailwindcss';
 
 @plugin "@tailwindcss/typography";
+
 @plugin "daisyui" {
   themes:
     light --default,
     dark --prefersdark;
 }
+
 @plugin "daisyui/theme" {
   name: 'light';
   default: true;
@@ -32,7 +34,8 @@
   --color-primary: #2f2cf9;
   --color-secondary: #8498f4;
   --color-accent: #8498f4;
-  --color-neutral: #28333b; /* Using dark-80 for a rich dark neutral */
+  --color-neutral: #28333b;
+  /* Using dark-80 for a rich dark neutral */
   --color-info: #8498f4;
   --color-success: #90d033;
   --color-warning: #ffcb1d;
@@ -61,6 +64,7 @@
 }
 
 article {
+
   h1,
   h2 {
     &:first-child {
@@ -83,4 +87,10 @@ article {
 
 main {
   @apply grid h-screen grid-rows-[auto_1fr_auto];
+}
+
+code.mermaid {
+  svg {
+    max-width: 100% !important;
+  }
 }

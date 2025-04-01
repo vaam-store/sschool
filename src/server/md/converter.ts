@@ -45,8 +45,33 @@ const rehypePreCodeHighlight = () => {
               node.properties.className as string,
             );
             child.properties.className = twMerge(
-              '!px-8 !py-4 md:!px-8 lg:!px-12 hljs',
+              '!px-8 !py-4 md:!px-8 lg:!px-12',
               child.properties.className as string,
+            );
+          }
+        }
+      }
+    });
+  };
+};
+
+// Custom handler for mermaid diagrams
+const rehypeMermaidCustom = () => {
+  return (tree: any) => {
+    visit(tree, 'element', (node: NodeType) => {
+      if (node.tagName === 'pre') {
+        for (const child of node.children) {
+          if (
+            child.tagName === 'code' &&
+            child.properties.className?.includes('language-mermaid')
+          ) {
+            child.properties.className = twMerge(
+              'mermaid',
+              child.properties.className as string,
+            );
+            node.properties.className = twMerge(
+              'bg-transparent',
+              node.properties.className as string,
             );
           }
         }
@@ -65,6 +90,7 @@ export const markdownToHtml = async (markdown: string) => {
     .use(rehypeHeadingToSpan)
     .use(rehypeStringify)
     .use(rehypeExternalLinks, { rel: ['nofollow'], target: '_blank' })
+    .use(rehypeMermaidCustom) // Use custom mermaid handler
     .use(rehypeHighlight)
     .use(rehypePreCodeHighlight)
     .use(rehypeStringify);

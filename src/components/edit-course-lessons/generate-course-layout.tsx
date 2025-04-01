@@ -43,8 +43,6 @@ export function GenerateCourseLayoutPage({
         </button>
       </div>
 
-      <div className='divider' />
-
       <div className='list'>
         {isPending && <SingleCourseModuleListSkeleton />}
         {data?.map((page) => (
