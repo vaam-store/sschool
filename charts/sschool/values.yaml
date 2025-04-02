@@ -113,8 +113,8 @@ app:
         DATABASE_URL: 'postgresql+ssl://gisapply:gisapply-password@localhost:5432/gisapply?schema=public'
     ai:
       stringData:
-        OPENAI_KEY: ~
-        OPENAI_URL: ~
+        OPENAI_KEY: ""
+        OPENAI_URL: ""
         
         OPENAI_MAX_TOKENS: "1000"
         OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: "50"
