@@ -31,6 +31,8 @@ app:
                 name: '{{ .Release.Name }}-auth'
             - secretRef:
                 name: '{{ .Release.Name }}-db'
+            - secretRef:
+                name: '{{ .Release.Name }}-ai'
 
   service:
     app:
@@ -109,6 +111,15 @@ app:
         description: 'Auth configuration for the GIS Application app.'
       stringData:
         DATABASE_URL: 'postgresql+ssl://gisapply:gisapply-password@localhost:5432/gisapply?schema=public'
+    ai:
+      stringData:
+        OPENAI_KEY: ~
+        OPENAI_URL: ~
+        
+        OPENAI_MAX_TOKENS: "1000"
+        OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: "50"
+        OPENAI_PAGE_LAYOUT_MODEL: "gpt-4o"
+        OPENAI_PAGE_CONTENT_MODEL: "gemini-2.0-flash-lite"
 
   networkpolicies:
     main:

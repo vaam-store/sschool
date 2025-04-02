@@ -34,7 +34,6 @@ export const env = createEnv({
     OPENAI_URL: z.string().url(),
     OPENAI_MAX_TOKENS: z
       .string()
-      .default('1000')
       .transform((val) => Number(val)),
     OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: z
       .string()
