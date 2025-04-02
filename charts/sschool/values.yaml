@@ -51,8 +51,8 @@ app:
     app:
       enabled: true
       annotations: {}
-      #nameOverride: ingress
-      className: 'nginx'
+      nameOverride: ingress
+      #className: 'nginx'
       hosts:
         - host: sschool.example.com
           paths:
