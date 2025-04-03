@@ -70,7 +70,7 @@ app:
     config:
       enabled: true
       annotations:
-        description: 'Common configuration for the GIS Application app.'
+        description: 'Common configuration for the SSchool.'
       data:
         AUTH_KEYCLOAK_ISSUER: https://kec.example.com/realms/main
 
@@ -87,20 +87,26 @@ app:
     s3:
       enabled: true
       annotations:
-        description: 'S3 configuration for the GIS Application app.'
+        description: 'S3 configuration for the SSchool.'
       stringData:
         S3_ACCESS_KEY: 'minio'
         S3_SECRET_KEY: 'minio123'
+    smtp:
+      enabled: true
+      annotations:
+        description: 'SMTP configuration for the SSchool.'
+      stringData:
+        SMTP_URL: 'smtp+ssl://user:password@smtp.example:582'
     otel:
       enabled: true
       annotations:
-        description: 'OTEL configuration for the GIS Application app.'
+        description: 'OTEL configuration for the SSchool.'
       stringData:
         OTEL_EXPORTER_OTLP_ENDPOINT: 'https://otel.example.com'
     auth:
       enabled: true
       annotations:
-        description: 'Auth configuration for the GIS Application app.'
+        description: 'Auth configuration for the SSchool.'
       stringData:
         AUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
         AUTH_KEYCLOAK_ID: 'sschool'
@@ -108,7 +114,7 @@ app:
     db:
       enabled: true
       annotations:
-        description: 'Auth configuration for the GIS Application app.'
+        description: 'Auth configuration for the SSchool.'
       stringData:
         DATABASE_URL: 'postgresql+ssl://gisapply:gisapply-password@localhost:5432/gisapply?schema=public'
     ai:
