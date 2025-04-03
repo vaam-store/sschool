@@ -16,7 +16,7 @@ app:
         app:
           image:
             repository: ghcr.io/adorsys-gis/sschool
-            tag: 2025.4.1
+            tag: 2025.4.3
             pullPolicy: IfNotPresent
 
           # -- ConfigMap to be loaded as environment variables
