@@ -10,7 +10,5 @@ RUN yarn add prisma@6 zod-prisma-types@3
 COPY companions/migrations/entrypoint.sh entrypoint.sh
 COPY prisma .
 
-RUN chmod +x entrypoint.sh
-
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
 
