@@ -33,7 +33,7 @@ jobs:
             dockerfile: "Dockerfile"
           - target: migration
             name: "Migration"
-            suffix: "-migration"
+            suffix: "-migrations"
             dockerfile: "companions/migrations/Dockerfile"
     
     steps:

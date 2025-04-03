@@ -1,8 +1,10 @@
-app:
-  global:
-    labels:
-      app: sschool
+global: 
+  version: "2025.4.4"
+  labels:
+    app: sschool
+    team: adorsys-gis
 
+app:
   defaultPodOptions:
     securityContext:
       runAsUser: 1000
@@ -12,11 +14,20 @@ app:
     main:
       type: deployment
       replicas: 1
+      initContainers: 
+        migrations:
+          image:
+            repository: ghcr.io/adorsys-gis/sschool-migrations
+            tag: "{{ .Values.global.version }}"
+            pullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: '{{ .Release.Name }}-db'
       containers:
         app:
           image:
             repository: ghcr.io/adorsys-gis/sschool
-            tag: 2025.4.3
+            tag: "{{ .Values.global.version }}"
             pullPolicy: IfNotPresent
 
           # -- ConfigMap to be loaded as environment variables
