@@ -82,6 +82,13 @@ services:
     volumes:
       - spi-theme:/spi
 
+  migrations:
+    build:
+      context: ./
+      dockerfile: companions/migrations/Dockerfile
+    environment:
+      DATABASE_URL: "postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public"
+  
 volumes:
   db: {}
   minio: {}

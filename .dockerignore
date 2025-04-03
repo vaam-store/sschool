@@ -1,4 +1,5 @@
 *
+!companions
 !docs
 !prisma/schema.prisma
 !public/favicon.ico

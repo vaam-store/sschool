@@ -15,12 +15,27 @@ jobs:
   docker-build:
     runs-on: ubuntu-latest
 
-    name: Docker image build
+    name: Docker image build for ${{ matrix.name }}
 
     permissions:
       packages: write
       contents: read
-
+    
+    strategy:
+      matrix: 
+        target:
+          - main
+          - migration
+        includes:
+          - target: main
+            name: "Main"
+            suffix: ""
+            dockerfile: "Dockerfile"
+          - target: migration
+            name: "Migration"
+            suffix: "-migration"
+            dockerfile: "companions/migrations/Dockerfile"
+    
     steps:
       # Checkout the repository code
       - name: Checkout code
@@ -65,7 +80,7 @@ jobs:
             type=sha,format=long,prefix={{branch}}
           flavor: |
             latest=auto
-          images: '${{ env.REGISTRY }}/${{ steps.string.outputs.lowercase }}'
+          images: '${{ env.REGISTRY }}/${{ steps.string.outputs.lowercase }}${{ matrix.suffix }}'
 
       - name: Cache Docker layers
         uses: actions/cache@v4
@@ -81,7 +96,7 @@ jobs:
         if: github.event_name != 'pull_request'
         with:
           context: .
-          file: 'Dockerfile'
+          file: ${{ matrix.dockerfile }}
           push: 'true'
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
