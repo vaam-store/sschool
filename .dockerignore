@@ -6,6 +6,7 @@
 !src
 !.eslintignore
 !.yarnrc.yml
+!cache-handler.mjs
 !eslint.config.js
 !next.config.ts
 !next-env.d.ts

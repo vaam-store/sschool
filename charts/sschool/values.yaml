@@ -34,14 +34,18 @@ app:
           envFrom:
             - configMapRef:
                 name: '{{ .Release.Name }}-config'
+            - configMapRef:
+                name: '{{ .Release.Name }}-otel'
+            - configMapRef:
+                name: '{{ .Release.Name }}-redis'
             - secretRef:
                 name: '{{ .Release.Name }}-s3'
-            - secretRef:
-                name: '{{ .Release.Name }}-otel'
             - secretRef:
                 name: '{{ .Release.Name }}-auth'
             - secretRef:
                 name: '{{ .Release.Name }}-db'
+            - secretRef:
+                name: '{{ .Release.Name }}-redis'
             - secretRef:
                 name: '{{ .Release.Name }}-ai'
 
@@ -93,6 +97,18 @@ app:
         S3_SCHEME: https
         S3_BUCKET: sschool
         S3_CDN_URL: https://s3.example.com
+    otel:
+      enabled: true
+      annotations:
+        description: 'OTEL configuration for the SSchool.'
+      data:
+        OTEL_EXPORTER_OTLP_ENDPOINT: 'https://otel.example.com'
+    redis:
+      enabled: true
+      annotations:
+        description: 'Redis configuration for the SSchool.'
+      data:
+        REDIS_PREFIX: 'sschool'
 
   secrets:
     s3:
@@ -108,12 +124,6 @@ app:
         description: 'SMTP configuration for the SSchool.'
       stringData:
         SMTP_URL: 'smtp+ssl://user:password@smtp.example:582'
-    otel:
-      enabled: true
-      annotations:
-        description: 'OTEL configuration for the SSchool.'
-      stringData:
-        OTEL_EXPORTER_OTLP_ENDPOINT: 'https://otel.example.com'
     auth:
       enabled: true
       annotations:
@@ -128,6 +138,9 @@ app:
         description: 'Auth configuration for the SSchool.'
       stringData:
         DATABASE_URL: 'postgresql+ssl://gisapply:gisapply-password@localhost:5432/gisapply?schema=public'
+    redis:
+      stringData:
+        REDIS_URL: 'redis://${redis_host}:${redis_port}'
     ai:
       stringData:
         OPENAI_KEY: ""

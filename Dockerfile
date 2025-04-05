@@ -59,6 +59,7 @@ RUN \
   --mount=type=bind,source=./.eslintignore,target=/app/.eslintignore \
   --mount=type=bind,source=./eslint.config.js,target=/app/eslint.config.js \
   --mount=type=bind,source=./.yarnrc.yml,target=/app/.yarnrc.yml \
+  --mount=type=bind,source=./cache-handler.mjs,target=/app/cache-handler.mjs \
   --mount=type=bind,source=./next.config.ts,target=/app/next.config.ts \
   --mount=type=bind,source=./package.json,target=/app/package.json \
   --mount=type=bind,source=./postcss.config.js,target=/app/postcss.config.js \

@@ -32,14 +32,14 @@ export const env = createEnv({
 
     OPENAI_KEY: z.string(),
     OPENAI_URL: z.string().url(),
-    OPENAI_MAX_TOKENS: z
-      .string()
-      .transform((val) => Number(val)),
+    OPENAI_MAX_TOKENS: z.string().transform((val) => Number(val)),
     OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: z
       .string()
       .transform((val) => Number(val)),
     OPENAI_PAGE_LAYOUT_MODEL: z.string(),
     OPENAI_PAGE_CONTENT_MODEL: z.string(),
+    REDIS_URL: z.string().url().optional(),
+    REDIS_PREFIX: z.string().optional(),
   },
 
   /**
@@ -81,6 +81,8 @@ export const env = createEnv({
     OPENAI_PAGE_CONTENT_MODEL: process.env.OPENAI_PAGE_CONTENT_MODEL,
     OPENAI_PAGE_DESCRIPTION_MAX_TOKEN:
       process.env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
+    REDIS_URL: process.env.REDIS_URL,
+    REDIS_PREFIX: process.env.REDIS_PREFIX,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
