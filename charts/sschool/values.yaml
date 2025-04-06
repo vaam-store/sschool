@@ -1,5 +1,5 @@
 global: 
-  version: "2025.4.4"
+  version: "2025.4.6"
   labels:
     app: sschool
     team: adorsys-gis
