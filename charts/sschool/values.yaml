@@ -13,7 +13,9 @@ app:
   controllers:
     main:
       type: deployment
-      replicas: 1
+      replicas: 2
+      labels:
+        main: main-app
       initContainers: 
         migrations:
           image:
@@ -29,6 +31,14 @@ app:
             repository: ghcr.io/adorsys-gis/sschool
             tag: "{{ .Values.global.version }}"
             pullPolicy: IfNotPresent
+          
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 750m
+              memory: 1Gi
 
           # -- ConfigMap to be loaded as environment variables
           envFrom:

@@ -1,0 +1,11 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "common.names.fullname" . }}-pdb
+  namespace: {{ include "common.names.namespace" . }}
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels: 
+      {{ .Values.app.controllers.main.labels | toYaml | nindent 6 }}
+      {{ .Values.global.labels | toYaml }}
