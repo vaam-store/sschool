@@ -2,6 +2,8 @@ import { Container } from '@app/components/container';
 import { loadRes } from '@app/server/md/utils';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   return [
     {},
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: Props) {
   }
 
   return {
-    title: `${content.title} | GIS App`,
+    title: `${content.title} | Learn`,
   };
 }
 

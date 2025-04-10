@@ -4,6 +4,9 @@ import createRedisHandler from '@neshca/cache-handler/redis-stack';
 import { createClient } from 'redis';
 
 CacheHandler.onCreation(async () => {
+  /**
+   * @type {import('redis').RedisClientType}
+   */
   let client;
 
   try {

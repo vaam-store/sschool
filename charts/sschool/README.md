@@ -25,7 +25,7 @@ services.
 
 ## How to Install
 
-1. Employ the below `values.yaml` content for configuring the GIS Application:
+1. Employ the below `values.yaml` content for configuring the SSchool:
 
 ```yaml
 # Simplified values.yaml configuration file
@@ -34,7 +34,7 @@ configMaps:
   config:
     enabled: true
     annotations:
-      description: 'Common configuration for the GIS Application app.'
+      description: 'Common configuration for the SSchool.'
     data:
       AUTH_KEYCLOAK_ISSUER: https://kec.example.com/realms/main
       AUTH_SESSION_MAX_AGE: '2592000'
@@ -48,20 +48,20 @@ secrets:
   s3:
     enabled: true
     annotations:
-      description: 'S3 configuration for the GIS Application app.'
+      description: 'S3 configuration for the SSchool.'
     stringData:
       S3_ACCESS_KEY: 'minio'
       S3_SECRET_KEY: 'minio123'
   otel:
     enabled: true
     annotations:
-      description: 'OTEL configuration for the GIS Application app.'
+      description: 'OTEL configuration for the SSchool app.'
     stringData:
       OTEL_EXPORTER_OTLP_ENDPOINT: 'https://otel.example.com'
   auth:
     enabled: true
     annotations:
-      description: 'Auth configuration for the GIS Application app.'
+      description: 'Auth configuration for the SSchool app.'
     stringData:
       AUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
       AUTH_KEYCLOAK_ID: 'sschool'
@@ -69,7 +69,7 @@ secrets:
   db:
     enabled: true
     annotations:
-      description: 'Auth configuration for the GIS Application app.'
+      description: 'Auth configuration for the SSchool app.'
     stringData:
       DATABASE_URL: 'postgresql+ssl://gisapply:gisapply-password@localhost:5432/gisapply?schema=public'
 ```
@@ -80,5 +80,5 @@ secrets:
 helm apply ./values.yaml
 ```
 
-By executing the above steps, the GIS application will be tailored according to the config maps and secrets specified in
+By executing the above steps, the SSchool will be tailored according to the config maps and secrets specified in
 the yaml file.

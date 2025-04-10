@@ -1,5 +1,5 @@
-global: 
-  version: "2025.4.6"
+global:
+  version: "2025.4.10"
   labels:
     app: sschool
     team: adorsys-gis
@@ -16,7 +16,7 @@ app:
       replicas: 2
       labels:
         main: main-app
-      initContainers: 
+      initContainers:
         migrations:
           image:
             repository: ghcr.io/adorsys-gis/sschool-migrations
@@ -34,11 +34,11 @@ app:
           
           resources:
             requests:
-              cpu: 250m
-              memory: 512Mi
+              cpu: 125m
+              memory: 256Mi
             limits:
-              cpu: 750m
-              memory: 1Gi
+              cpu: 400m
+              memory: 512Mi
 
           # -- ConfigMap to be loaded as environment variables
           envFrom:
@@ -62,7 +62,7 @@ app:
   service:
     app:
       enabled: true
-      annotations: {}
+      annotations: { }
       nameOverride: service
       type: ClusterIP
       controller: main
@@ -75,7 +75,7 @@ app:
   ingress:
     app:
       enabled: true
-      annotations: {}
+      annotations: { }
       nameOverride: ingress
       #className: 'nginx'
       hosts:
@@ -118,7 +118,7 @@ app:
       annotations:
         description: 'Redis configuration for the SSchool.'
       data:
-        REDIS_PREFIX: 'sschool'
+        REDIS_PREFIX: 'sschool:'
 
   secrets:
     s3:

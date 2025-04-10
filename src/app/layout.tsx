@@ -2,7 +2,9 @@ import '@app/styles/globals.scss';
 
 import { type Metadata } from 'next';
 
+import { ThemeProvider } from '@app/components/theme';
 import { TRPCReactProvider } from '@app/trpc/react';
+import { type PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
   title: 'Learn',
@@ -10,13 +12,13 @@ export const metadata: Metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang='en'>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <ThemeProvider>
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,40 +1,30 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext } from 'react';
 import { Moon, Sun } from 'react-feather';
-import { themeChange } from 'theme-change';
-import { type ThemeType } from './types';
-import { calculateNextTheme, loadTheme, saveTheme } from './utils';
+import { Context } from './context';
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<ThemeType>(loadTheme);
-
-  useEffect(() => {
-    saveTheme(theme);
-  }, [theme]);
-
-  useEffect(() => {
-    themeChange(false);
-    // 👆 false parameter is required for react project
-  }, []);
-
-  const nextTheme = useMemo(() => calculateNextTheme(theme), [theme]);
-
-  const onChange = useCallback(() => {
-    setTheme((prev) => calculateNextTheme(prev));
+  const { setTheme, theme } = useContext(Context);
+  const onChange = useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
+    if (ev.target?.checked) {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
   }, []);
 
   return (
-    <button
-      className='btn btn-circle btn-soft btn-primary'
-      data-set-theme={nextTheme}
-      onClick={onChange}
-      data-click-track-event='theme-toggle'>
-      {/* sun icon */}
-      {theme === 'light' && <Sun />}
+    <label className='toggle toggle-lg text-base-content'>
+      <input
+        onChange={onChange}
+        type='checkbox'
+        className='theme-controller'
+        checked={theme === 'dark'}
+      />
 
-      {/* moon icon */}
-      {theme === 'dark' && <Moon />}
-    </button>
+      <Sun className='swap-off size-5 fill-current' />
+      <Moon className='swap-on size-5 fill-current' />
+    </label>
   );
 }
