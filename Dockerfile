@@ -35,15 +35,19 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 
+
+# This is mandatory and definitive
 ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH="/app/node_modules/sharp"
 ENV SKIP_ENV_VALIDATION=1
+ENV IMAGE_SRC="https:*:,"
 
+# This is mandatory but not definitive
 ENV S3_ENDPOINT="localhost"
 ENV S3_PORT="19000"
 ENV S3_SCHEME="https"
 ENV S3_BUCKET="sschool"
-ENV S3_CDN_URL="https://some.cdn.com"
+#ENV S3_CDN_URL="https://some.cdn.com"
 
 ENV OPENAI_KEY=changeMe
 ENV OPENAI_URL=https://ai.example.api

@@ -2,6 +2,8 @@ import { Container } from '@app/components/container';
 import { loadRes } from '@app/server/md/utils';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   return [
     {},
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: Props) {
   }
 
   return {
-    title: `${content.title} | GIS App`,
+    title: `${content.title} | Learn`,
   };
 }
 
@@ -50,8 +52,8 @@ export default async function ResourcePage({ params }: Props) {
   return (
     <Container>
       <div className='prose prose-neutral lg:prose-xl mx-auto'>
-        {content.contentHtml && (
-          <div dangerouslySetInnerHTML={{ __html: content.contentHtml }} />
+        {content!.contentHtml && (
+          <div dangerouslySetInnerHTML={{ __html: content!.contentHtml }} />
         )}
       </div>
     </Container>

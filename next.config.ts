@@ -28,34 +28,21 @@ const shouldPwa = (nextConfig: NextConfig): NextConfig => {
 };
 
 const withImageSizes = (nextConfig: NextConfig): NextConfig => {
-  if (isDev) {
-    return {
-      ...nextConfig,
-      images: {
-        ...nextConfig.images,
-        remotePatterns: [
-          ...(nextConfig?.images?.remotePatterns ?? []),
-          {
-            hostname: '*',
-          },
-        ],
-      },
-    };
-  }
   return {
     ...nextConfig,
     images: {
       ...nextConfig.images,
       remotePatterns: [
         ...(nextConfig?.images?.remotePatterns ?? []),
-        {
-          protocol: 'https',
-          hostname: '*.adorsys.team',
-        },
-        {
-          protocol: 'https',
-          hostname: '*.ssegning.me',
-        },
+        ...(process.env.IMAGE_SRC ?? '')
+          .split(',')
+          .map((origin) => origin.split(':'))
+          .filter((i) => i.length === 3)
+          .map(([protocol, host, port]) => ({
+            protocol: protocol as 'http' | 'https',
+            hostname: host!,
+            port: port,
+          })),
       ],
     },
   };

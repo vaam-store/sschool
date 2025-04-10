@@ -1,7 +1,7 @@
 import { LoginButton } from '@app/components/auth';
 import { Container } from '@app/components/container';
 import icon from '@app/components/icon.svg';
-import ThemeToggle from '@app/components/theme';
+import { ThemeToggle } from '@app/components/theme';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';

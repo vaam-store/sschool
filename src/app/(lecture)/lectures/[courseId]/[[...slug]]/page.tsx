@@ -2,6 +2,8 @@ import { LectureCourse, LecturePage } from '@app/components/lecture';
 import { getCourse, getPage } from '@app/hooks/courses';
 import { HydrateClient } from '@app/trpc/server';
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ slug?: string[]; courseId: string }>;
 }

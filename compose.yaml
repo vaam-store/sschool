@@ -89,6 +89,36 @@ services:
     environment:
       DATABASE_URL: "postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public"
   
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_URL: "postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public"
+      REDIS_URL: "redis://redis:6379"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://tracking:4318"
+      S3_ENDPOINT: minio
+      AUTH_KEYCLOAK_ISSUER: http://host.docker.internal:9100/realms/adorsys-tm-01
+    depends_on:
+      - redis
+      - postgres
+      - adminer
+      - keycloak
+      - migrations
+      - minio
+  
+  redis:
+    image: bitnami/redis
+    environment:
+      ALLOW_EMPTY_PASSWORD: yes
+    ports:
+      - "6379:6379"
+    
+    
 volumes:
   db: {}
   minio: {}

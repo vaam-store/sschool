@@ -1,20 +1,20 @@
 import icon from '@app/components/icon.svg';
 import { LecturePageList } from '@app/components/lecture-module-list';
 import { LecturePageListSkeleton } from '@app/components/skeleton';
-import ThemeToggle from '@app/components/theme';
+import { ThemeToggle } from '@app/components/theme';
 import { getCourse, type HasCourse } from '@app/hooks/courses';
 import { auth } from '@app/server/auth';
 import { UserRole } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
+import { type PropsWithChildren, Suspense } from "react";
 import { ArrowLeft, Edit3, Menu } from 'react-feather';
 
 export default async function LectureLayout({
   children,
   params,
-}: Readonly<{ children: React.ReactNode; params: Promise<HasCourse> }>) {
+}: PropsWithChildren<{ params: Promise<HasCourse> }>) {
   const session = await auth();
   if (!session) {
     return redirect('/login');
