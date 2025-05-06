@@ -52,8 +52,8 @@ export default async function ResourcePage({ params }: Props) {
   return (
     <Container>
       <div className='prose prose-neutral lg:prose-xl mx-auto'>
-        {content.contentHtml && (
-          <div dangerouslySetInnerHTML={{ __html: content.contentHtml }} />
+        {content!.contentHtml && (
+          <div dangerouslySetInnerHTML={{ __html: content!.contentHtml }} />
         )}
       </div>
     </Container>
