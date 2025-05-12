@@ -12109,7 +12109,7 @@ __metadata:
     sharp: "npm:^0.33.5"
     sortablejs: "npm:^1.15.6"
     superjson: "npm:^2.2.1"
-    tailwind-merge: "npm:^3.0.2"
+    tailwind-merge: "npm:^3.3.0"
     tailwindcss: "npm:^4.0.17"
     typescript: "npm:^5.8.2"
     typescript-eslint: "npm:^8.29.0"
@@ -12464,10 +12464,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "tailwind-merge@npm:3.0.2"
-  checksum: 10c0/73f528345e5130e7690c5c57701155849ae4f0834e0a4bf56bc03e25d4563d45d4905ff9c487a7dce9efdfa18689a223e78365962105ad0e2f2d1226216c66ef
+"tailwind-merge@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "tailwind-merge@npm:3.3.0"
+  checksum: 10c0/a50cd141100486f98541dfab3705712af5860556689b7496dc6b0284374f02d12d5471f0f40035f6bb8b1c749c422060a1f3e5f8900057d8a7786b111c8472e6
   languageName: node
   linkType: hard
 
