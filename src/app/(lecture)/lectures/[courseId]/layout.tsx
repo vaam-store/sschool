@@ -8,7 +8,7 @@ import { UserRole } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { type PropsWithChildren, Suspense } from "react";
+import { type PropsWithChildren, Suspense } from 'react';
 import { ArrowLeft, Edit3, Menu } from 'react-feather';
 
 export default async function LectureLayout({

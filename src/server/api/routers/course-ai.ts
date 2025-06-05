@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { env } from '@app/env';
 import { adminProcedure, createTRPCRouter } from '@app/server/api/trpc';
 import { type Page, PageType } from '@prisma/client';
+import { streamText } from 'ai';
 
 const endMarkers = '###====###';
 
@@ -15,7 +16,7 @@ export const courseAiRouter = createTRPCRouter({
         max_lessons: z.number(),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async function* ({ input, ctx }) {
       const course = await ctx.db.course.findUnique({
         where: { id: input.course_id },
         include: {
@@ -50,25 +51,62 @@ export const courseAiRouter = createTRPCRouter({
       - No conclusion.
       - No explanation.
       `.trim();
-      const layoutResponse = await ctx.openAiClient.chat.completions.create({
-        model: env.OPENAI_PAGE_LAYOUT_MODEL,
+      const { textStream } = streamText({
+        model: ctx.openAiClient.pageLayoutModel,
         messages: [{ role: 'user', content: layoutPrompt }],
-        max_tokens: env.OPENAI_MAX_TOKENS,
-        n: 1,
+        maxTokens: env.OPENAI_MAX_TOKENS,
       });
 
-      const titles =
-        layoutResponse.choices?.[0]?.message?.content
-          ?.trim()
-          .split('\n')
-          .filter((title) => title.length > 0)
-          .map((title) => title.trim()) ?? [];
+      const pages: Page[] = [];
+      let currentIndex = 0;
+      for await (const item of textStream) {
+        if (item == '\n') {
+          // It's a new title
+          currentIndex += 1;
+          continue;
+        }
 
-      // Step 2: Generate pages for each title
-      const pages = await Promise.all(
-        titles.map(async (title, idx) => {
-          const pagePrompt = `
-        Generate a simple, clear, concise and funny description for a course page titled "${title}" based on the course description: ${courseDescription}.
+        if (item.includes('\n')) {
+          const newLineSplits = item.split('\n');
+
+          for (let i = 0; i < newLineSplits.length; i++) {
+            const line = newLineSplits[i]!;
+            pages[i] = {
+              ...pages[i],
+              title: line,
+              content: '{}',
+              description: '',
+              type: PageType.ARTICLE,
+              position: i,
+              courseId: course.id,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            } as Page;
+
+            yield pages;
+          }
+
+          continue;
+        }
+
+        pages[currentIndex] = {
+          ...pages[currentIndex],
+          title: (pages?.[currentIndex]?.title ?? '') + item,
+          content: '{}',
+          description: '',
+          type: PageType.ARTICLE,
+          position: currentIndex,
+          courseId: course.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        } as Page;
+        yield pages;
+      }
+
+      for (let i = 0; i < pages.length; i++) {
+        const page = pages[i];
+        const pagePrompt = `
+        Generate a simple, clear, concise and funny description for a course page titled "${page?.title}" based on the course description: ${courseDescription}.
         
         - You might use emojis.
         - No markdown.
@@ -84,30 +122,20 @@ export const courseAiRouter = createTRPCRouter({
 
         `.trim();
 
-          const pageResponse = await ctx.openAiClient.chat.completions.create({
-            model: env.OPENAI_PAGE_LAYOUT_MODEL,
-            messages: [{ role: 'user', content: pagePrompt }],
-            max_tokens: env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
-            n: 1,
-          });
+        const { textStream: pageResponse } = streamText({
+          model: ctx.openAiClient.pageLayoutModel,
+          messages: [{ role: 'user', content: pagePrompt }],
+          maxTokens: env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
+        });
 
-          const description =
-            pageResponse.choices?.[0]?.message?.content?.trim() ?? '';
-
-          return {
-            title: title,
-            description: description,
-            content: '{}',
-            type: PageType.ARTICLE,
-            position: idx,
-            courseId: course.id,
-            createdAt: new Date(),
-            updatedAt: new Date(),
+        for await (const item of pageResponse) {
+          pages[i] = {
+            ...pages[i],
+            description: (pages[i]?.description ?? '') + item,
           } as Page;
-        }),
-      );
-
-      return pages satisfies Page[];
+          yield pages;
+        }
+      }
     }),
 
   // Generate a course page, in a JSON format
@@ -118,7 +146,7 @@ export const courseAiRouter = createTRPCRouter({
         page_id: z.string(),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async function* ({ input, ctx }) {
       const course = await ctx.db.course.findUnique({
         where: { id: input.course_id },
         include: {
@@ -199,19 +227,21 @@ export const courseAiRouter = createTRPCRouter({
             ? contentPrompt
             : `Continue the following content: ${fullContent}\n\nRemaining content should:${contentPrompt.split('Content:')[1]}`;
 
-        const contentResponse = await ctx.openAiClient.chat.completions.create({
-          model: env.OPENAI_PAGE_CONTENT_MODEL,
+        const { textStream: contentResponse } = streamText({
+          model: ctx.openAiClient.pageContentModel,
           messages: [{ role: 'user', content: currentPrompt }],
-          max_tokens: env.OPENAI_MAX_TOKENS * 4,
-          n: 1,
+          maxTokens: env.OPENAI_MAX_TOKENS * 4,
           temperature: 0.7,
           // Add stop sequences to detect completion
-          stop: [endMarkers],
+          stopSequences: [endMarkers],
         });
 
-        const newContent =
-          contentResponse.choices?.[0]?.message?.content?.trim() ?? '';
-        fullContent += (attempts === 0 ? '' : '\n') + newContent;
+        let newContent = '';
+        for await (const item of contentResponse) {
+          newContent += item;
+          fullContent += (attempts === 0 ? '' : '\n') + item;
+          yield fullContent;
+        }
 
         // Check if response is complete (ends with a concluding marker or is significantly sized)
         isComplete =
@@ -221,7 +251,5 @@ export const courseAiRouter = createTRPCRouter({
 
         attempts++;
       }
-
-      return fullContent;
     }),
 });

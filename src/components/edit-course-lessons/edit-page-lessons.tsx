@@ -1,13 +1,14 @@
 'use client';
 
-import { Container } from '@app/components/container';
 import { PageListItem } from '@app/components/page-list-item';
+import { ThemeToggle } from '@app/components/theme';
 import { api } from '@app/trpc/react';
 import type { Page } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { type PropsWithChildren, useCallback, useId, useMemo } from 'react';
-import { Eye, Grid, RefreshCw } from 'react-feather';
+import { Eye, Grid, RefreshCw, X } from 'react-feather';
 import { ReactSortable, type Sortable, type Store } from 'react-sortablejs';
 import { UploadCourse } from '../downloads/upload-course';
 import { AddPageModal } from './edit-page';
@@ -114,6 +115,7 @@ export function EditCoursePages({
   course,
   children,
 }: PropsWithChildren<EditCoursePagesProps>) {
+  const router = useRouter();
   const { data = [], refetch } = api.page.latestPages.useQuery({
     page: 0,
     size: 10_000,
@@ -160,9 +162,12 @@ export function EditCoursePages({
   );
 
   return (
-    <Container>
+    <div className='mx-auto p-4'>
       <div className='mb-4 flex flex-row items-center gap-4'>
-        <h2 className='app-title'>Edit course</h2>
+        <div>
+          <h2 className='app-title'>Edit course</h2>
+        </div>
+
         <UploadCourse courseId={course.id} />
         <button
           onClick={() => refetch()}
@@ -172,7 +177,7 @@ export function EditCoursePages({
 
         <Link
           href={`/courses/${course.id}`}
-          className='btn btn-soft btn-circle btn-accent'>
+          className='btn btn-soft btn-circle btn-primary'>
           <Eye />
         </Link>
 
@@ -188,10 +193,20 @@ export function EditCoursePages({
           courseId={course.id}
           onEdit={(page) => createPages(page)}
         />
+
+        <div className='grow' />
+
+        <button
+          className='btn btn-primary btn-circle btn-soft'
+          onClick={() => router.back()}>
+          <X />
+        </button>
+
+        <ThemeToggle />
       </div>
 
       <div className='grid grid-cols-1 gap-4 md:grid-cols-6 xl:grid-cols-8'>
-        <div className='static max-h-screen overflow-y-scroll md:col-span-2 xl:col-span-2'>
+        <div className='static max-h-[calc(100vh-100px)] overflow-y-scroll md:col-span-2 xl:col-span-2'>
           <div className='mb-8'>
             <Link
               href={`/courses/${course.id}/edit`}
@@ -224,10 +239,10 @@ export function EditCoursePages({
           </ReactSortable>
         </div>
 
-        <div className='max-h-screen overflow-y-scroll md:col-span-4 xl:col-span-6'>
+        <div className='overflow-y-scroll md:col-span-4 xl:col-span-6'>
           {children}
         </div>
       </div>
-    </Container>
+    </div>
   );
 }

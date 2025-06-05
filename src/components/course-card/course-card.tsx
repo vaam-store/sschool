@@ -36,7 +36,7 @@ export function CourseCard({ course, disableLink, canEdit }: LessonCardProps) {
       )}
 
       <div className='card-body'>
-        <div className='card-title line-clamp-2 text-2xl font-bold tracking-wide'>
+        <div className='card-title line-clamp-2 text-2xl font-bold tracking-wide heading-title'>
           {course.name}
         </div>
         <p className='line-clamp-3'>{course.description}</p>

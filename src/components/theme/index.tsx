@@ -1,10 +1,9 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { type PropsWithChildren, Suspense } from 'react';
+import { Suspense } from 'react';
 
 const ThemeToggleRender = dynamic(() => import('./button'));
-const ThemeProviderRender = dynamic(() => import('./provider'));
 
 export function ThemeToggle() {
   return (
@@ -12,8 +11,4 @@ export function ThemeToggle() {
       <ThemeToggleRender />
     </Suspense>
   );
-}
-
-export function ThemeProvider({ children }: PropsWithChildren) {
-  return <ThemeProviderRender>{children}</ThemeProviderRender>;
 }

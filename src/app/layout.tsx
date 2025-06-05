@@ -2,8 +2,10 @@ import '@app/styles/globals.scss';
 
 import { type Metadata } from 'next';
 
-import { ThemeProvider } from '@app/components/theme';
+import { mainThemes, themeDataKey } from '@app/components/theme/constants';
 import { TRPCReactProvider } from '@app/trpc/react';
+import { HydrateClient } from '@app/trpc/server';
+import { ThemeProvider } from 'next-themes';
 import { type PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
@@ -14,12 +16,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang='en'>
-      <body>
-        <ThemeProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </ThemeProvider>
-      </body>
+    <html lang='en' suppressHydrationWarning>
+      <TRPCReactProvider>
+        <body>
+          <HydrateClient>
+            <ThemeProvider storageKey={themeDataKey} themes={mainThemes}>
+              {children}
+            </ThemeProvider>
+          </HydrateClient>
+        </body>
+      </TRPCReactProvider>
     </html>
   );
 }

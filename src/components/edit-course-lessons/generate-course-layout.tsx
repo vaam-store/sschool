@@ -13,9 +13,9 @@ export function GenerateCourseLayoutPage({
   courseId,
 }: GenerateCourseLayoutProps) {
   const [maxLessons, setMaxLessons] = useState(10);
-  const [data, setData] = useState<Page[]>([]);
+  const [data, setData] = useState<Partial<Page>[]>([]);
   const { mutateAsync: genCoursePlan, isPending } =
-    api.courseAi.genCoursePlan.useMutation({});
+    api.courseAi.genCoursePlan.useMutation();
 
   const onGenCoursePlan = useCallback(async () => {
     const result = await genCoursePlan({
@@ -23,7 +23,10 @@ export function GenerateCourseLayoutPage({
       max_lessons: maxLessons,
     });
 
-    setData(result);
+    for await (const pages of result) {
+      console.log({ pages });
+      setData(pages);
+    }
   }, [genCoursePlan, courseId, maxLessons]);
 
   return (
@@ -57,7 +60,7 @@ export function GenerateCourseLayoutPage({
           <button
             type='button'
             className='btn btn-block btn-primary'
-            onClick={() => onEdit(data)}>
+            onClick={() => onEdit(data as Page[])}>
             Use
           </button>
         </div>

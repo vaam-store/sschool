@@ -2,7 +2,7 @@ import { type Page } from '@prisma/client';
 import Image from 'next/image';
 
 export interface SingleCourseModuleProps {
-  page: Page;
+  page: Partial<Page>;
 }
 
 export function SingleCoursePage({ page }: SingleCourseModuleProps) {
@@ -25,7 +25,7 @@ export function SingleCoursePage({ page }: SingleCourseModuleProps) {
             />
           )}
           <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-3xl font-extrabold text-white md:text-4xl'>
-            {page.position + 1}
+            {(page.position ?? 0) + 1}
           </div>
         </figure>
       </div>

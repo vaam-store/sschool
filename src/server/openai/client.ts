@@ -1,14 +1,21 @@
 import 'server-only';
 
+import { createOpenAI } from '@ai-sdk/openai';
 import { env } from '@app/env';
-import OpenAI from 'openai';
 
 // This is a singleton client for OpenAI API.
-const createOpenAiClient = () =>
-  new OpenAI({
-    apiKey: env.OPENAI_KEY,
+const createOpenAiClient = () => {
+  const openai = createOpenAI({
+    compatibility: 'compatible',
     baseURL: env.OPENAI_URL,
+    apiKey: env.OPENAI_KEY,
   });
+
+  return {
+    pageLayoutModel: openai(env.OPENAI_PAGE_LAYOUT_MODEL),
+    pageContentModel: openai(env.OPENAI_PAGE_CONTENT_MODEL),
+  };
+};
 
 // This is a singleton client for OpenAI API.
 const globalForOpenAI = globalThis as unknown as {
