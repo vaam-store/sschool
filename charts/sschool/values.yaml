@@ -1,8 +1,8 @@
 global:
-  version: "2025.4.10"
+  version: '2025.4.10'
   labels:
     app: sschool
-    team: adorsys-gis
+    team: vaam-store
 
 app:
   defaultPodOptions:
@@ -20,7 +20,7 @@ app:
         migrations:
           image:
             repository: ghcr.io/adorsys-gis/sschool-migrations
-            tag: "{{ .Values.global.version }}"
+            tag: '{{ .Values.global.version }}'
             pullPolicy: IfNotPresent
           envFrom:
             - secretRef:
@@ -29,9 +29,9 @@ app:
         app:
           image:
             repository: ghcr.io/adorsys-gis/sschool
-            tag: "{{ .Values.global.version }}"
+            tag: '{{ .Values.global.version }}'
             pullPolicy: IfNotPresent
-          
+
           resources:
             requests:
               cpu: 125m
@@ -62,7 +62,7 @@ app:
   service:
     app:
       enabled: true
-      annotations: { }
+      annotations: {}
       nameOverride: service
       type: ClusterIP
       controller: main
@@ -75,7 +75,7 @@ app:
   ingress:
     app:
       enabled: true
-      annotations: { }
+      annotations: {}
       nameOverride: ingress
       #className: 'nginx'
       hosts:
@@ -153,13 +153,13 @@ app:
         REDIS_URL: 'redis://${redis_host}:${redis_port}'
     ai:
       stringData:
-        OPENAI_KEY: ""
-        OPENAI_URL: ""
-        
-        OPENAI_MAX_TOKENS: "1000"
-        OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: "50"
-        OPENAI_PAGE_LAYOUT_MODEL: "gpt-4o"
-        OPENAI_PAGE_CONTENT_MODEL: "gemini-2.0-flash-lite"
+        OPENAI_KEY: ''
+        OPENAI_URL: ''
+
+        OPENAI_MAX_TOKENS: '1000'
+        OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: '50'
+        OPENAI_PAGE_LAYOUT_MODEL: 'gpt-4o'
+        OPENAI_PAGE_CONTENT_MODEL: 'gemini-2.0-flash-lite'
 
   networkpolicies:
     main:

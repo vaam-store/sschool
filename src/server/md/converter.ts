@@ -1,7 +1,6 @@
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
-import remarkGithub from 'remark-github';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
@@ -84,11 +83,9 @@ export const markdownToHtml = async (markdown: string) => {
   const mdProcessor = unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkGithub)
     .use(remarkRehype)
     .use(rehypeSanitize)
     .use(rehypeHeadingToSpan)
-    .use(rehypeStringify)
     .use(rehypeExternalLinks, { rel: ['nofollow'], target: '_blank' })
     .use(rehypeMermaidCustom) // Use custom mermaid handler
     .use(rehypeHighlight)

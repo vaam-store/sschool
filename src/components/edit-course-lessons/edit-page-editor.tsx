@@ -33,12 +33,14 @@ export function EditPageEditor({ page }: EditLessonEditorProps) {
       page_id: page.id,
     });
 
-    await updatePageContent({
-      id: page.id,
-      content: result,
-    });
+    for await (const lessonChunk of result) {
+      await updatePageContent({
+        id: page.id,
+        content: lessonChunk,
+      });
 
-    setData(result);
+      setData(lessonChunk);
+    }
   }, [genCourseLesson, page.id, page.courseId, updatePageContent]);
 
   return (

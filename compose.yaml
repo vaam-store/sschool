@@ -23,6 +23,9 @@ services:
     volumes:
       - ./.docker/keycloak-config/:/opt/keycloak/data/import/:ro
       - spi-theme:/opt/keycloak/providers/themes:ro
+    depends_on:
+      download-theme:
+        condition: service_completed_successfully
 
   postgres:
     image: postgres
@@ -47,7 +50,7 @@ services:
       ADMINER_PLUGINS: ${ADMINER_PLUGINS:-tables-filter tinymce}
 
   minio:
-    image: bitnami/minio:latest
+    image: bitnami/minio:2025.4.3
     volumes:
       - minio:/bitnami/minio/data
     ports:
@@ -75,8 +78,8 @@ services:
       - -c
       - |
         set -ex;
-        wget -O /spi/adorsys-gis-theme.jar \
-          "https://github.com/ADORSYS-GIS/adorsys-gis-theme/releases/download/v1.0.1/theme-1.0.1.jar"
+        wget -O /spi/theme-vaam-01.jar \
+          "https://github.com/vymalo/vymalo-keycloak-theme/releases/download/v8cfdfb2/theme-vaam-01.jar"
         echo "Downloaded theme";
         ls -la /spi;
     volumes:
@@ -87,8 +90,8 @@ services:
       context: ./
       dockerfile: companions/migrations/Dockerfile
     environment:
-      DATABASE_URL: "postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public"
-  
+      DATABASE_URL: 'postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public'
+
   app:
     build:
       context: .
@@ -96,29 +99,34 @@ services:
     env_file:
       - .env
     ports:
-      - "3001:3000"
+      - '3001:3000'
     environment:
-      DATABASE_URL: "postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public"
-      REDIS_URL: "redis://redis:6379"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://tracking:4318"
+      DATABASE_URL: 'postgresql://sschool:sschool-password@postgres:5432/sschool?schema=public'
+      REDIS_URL: 'redis://redis:6379'
+      OTEL_EXPORTER_OTLP_ENDPOINT: 'http://tracking:4318'
       S3_ENDPOINT: minio
-      AUTH_KEYCLOAK_ISSUER: http://host.docker.internal:9100/realms/adorsys-tm-01
+      AUTH_KEYCLOAK_ISSUER: http://host.docker.internal:9100/realms/sschool
     depends_on:
-      - redis
-      - postgres
-      - adminer
-      - keycloak
-      - migrations
-      - minio
-  
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_started
+      adminer:
+        condition: service_started
+      keycloak:
+        condition: service_started
+      migrations:
+        condition: service_completed_successfully
+      minio:
+        condition: service_started
+
   redis:
     image: bitnami/redis
     environment:
       ALLOW_EMPTY_PASSWORD: yes
     ports:
-      - "6379:6379"
-    
-    
+      - '6379:6379'
+
 volumes:
   db: {}
   minio: {}

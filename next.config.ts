@@ -28,6 +28,21 @@ const shouldPwa = (nextConfig: NextConfig): NextConfig => {
 };
 
 const withImageSizes = (nextConfig: NextConfig): NextConfig => {
+  if (isDev) {
+    return {
+      ...nextConfig,
+      images: {
+        ...nextConfig.images,
+        remotePatterns: [
+          ...(nextConfig?.images?.remotePatterns || []),
+          {
+            hostname: '*',
+          },
+        ],
+      },
+    };
+  }
+
   return {
     ...nextConfig,
     images: {

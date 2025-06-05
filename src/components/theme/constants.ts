@@ -1,10 +1,5 @@
-import { type ThemeType } from './types';
+import { DARK_THEME, type ThemeType } from '@app/components/theme/types';
 
-export const defaultTheme: ThemeType = 'light';
+export const mainThemes: ThemeType[] = [DARK_THEME, 'vymalo-light-v2'];
 
-export const themes: Record<'dark' | 'light', ThemeType> = {
-  dark: 'dark',
-  light: 'light',
-};
-
-export const themeKey = 'theme';
+export const themeDataKey = 'vaam-theme';

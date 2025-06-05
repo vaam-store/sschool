@@ -1,5 +1,5 @@
-import matter from 'gray-matter';
 import { readFileSync } from 'fs-extra';
+import matter from 'gray-matter';
 import * as path from 'node:path';
 import { markdownToHtml } from './converter';
 

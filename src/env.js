@@ -30,7 +30,7 @@ export const env = createEnv({
     AUTH_SESSION_MAX_AGE: z.number().optional(),
     AUTH_SESSION_UPDATE_AGE: z.number().optional(),
 
-    OPENAI_KEY: z.string(),
+    OPENAI_KEY: z.string().optional(),
     OPENAI_URL: z.string().url(),
     OPENAI_MAX_TOKENS: z.string().transform((val) => Number(val)),
     OPENAI_PAGE_DESCRIPTION_MAX_TOKEN: z

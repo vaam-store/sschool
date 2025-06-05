@@ -20,22 +20,22 @@ jobs:
     permissions:
       packages: write
       contents: read
-    
+
     strategy:
-      matrix: 
+      matrix:
         target:
           - main
           - migration
         include:
           - target: main
-            name: "Main"
-            suffix: ""
-            dockerfile: "Dockerfile"
+            name: 'Main'
+            suffix: ''
+            dockerfile: 'Dockerfile'
           - target: migration
-            name: "Migration"
-            suffix: "-migrations"
-            dockerfile: "companions/migrations/Dockerfile"
-    
+            name: 'Migration'
+            suffix: '-migrations'
+            dockerfile: 'companions/migrations/Dockerfile'
+
     steps:
       # Checkout the repository code
       - name: Checkout code
