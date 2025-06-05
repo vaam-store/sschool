@@ -1,5 +1,5 @@
 global:
-  version: '2025.4.10'
+  version: '2025.6.5'
   labels:
     app: sschool
     team: vaam-store
