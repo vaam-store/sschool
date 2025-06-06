@@ -25,6 +25,14 @@ app:
           envFrom:
             - secretRef:
                 name: '{{ .Release.Name }}-db'
+
+          resources:
+            requests:
+              cpu: 125m
+              memory: 256Mi
+            limits:
+              cpu: 400m
+              memory: 512Mi
       containers:
         app:
           image:
@@ -98,6 +106,7 @@ app:
         description: 'Common configuration for the SSchool.'
       data:
         AUTH_KEYCLOAK_ISSUER: https://kec.example.com/realms/main
+        NEXT_PUBLIC_IMAGE_LOADER_URL: https://imxprox.ssegning.com
 
         AUTH_SESSION_MAX_AGE: '2592000'
         AUTH_SESSION_UPDATE_AGE: '2592000'

@@ -1844,6 +1844,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortedigital/nextjs-cache-handler@npm:^2.0.0-canary5":
+  version: 2.0.0-canary5
+  resolution: "@fortedigital/nextjs-cache-handler@npm:2.0.0-canary5"
+  dependencies:
+    "@rollup/rollup-linux-x64-gnu": "npm:^4.41.1"
+    cluster-key-slot: "npm:1.1.2"
+    lru-cache: "npm:11.1.0"
+  peerDependencies:
+    "@redis/client": ">= 5.1.1"
+    next: ">=15.2.4"
+  dependenciesMeta:
+    "@rollup/rollup-linux-x64-gnu":
+      optional: true
+  checksum: 10c0/069020871e6d41ffc27d6a003866e2b82c50c820c9e929deb81a6c38d037830ac4c21067ab8af018305f38342fa3c1bb13501bf70b97b5dd6942ff533be595cb
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -2549,19 +2566,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neshca/cache-handler@npm:^1.9.0":
-  version: 1.9.0
-  resolution: "@neshca/cache-handler@npm:1.9.0"
-  dependencies:
-    cluster-key-slot: "npm:1.1.2"
-    lru-cache: "npm:10.4.3"
-  peerDependencies:
-    next: ">= 13.5.1 < 15"
-    redis: ">= 4.6"
-  checksum: 10c0/883360e0979181448c8a81886d69e3460d3ea60283ceaaf1941a8bc8255cb1dedf5ba448951cf0cabf9969381a4481777d3c408cd7a5537e7e4d0c13f89544a4
-  languageName: node
-  linkType: hard
-
 "@next/bundle-analyzer@npm:^15.2.4":
   version: 15.3.3
   resolution: "@next/bundle-analyzer@npm:15.3.3"
@@ -3220,6 +3224,13 @@ __metadata:
     rollup:
       optional: true
   checksum: 10c0/6d58fbc6f1024eb4b087bc9bf59a1d655a8056a60c0b4021d3beaeec3f0743503f52467fd89d2cf0e7eccf2831feb40a05ad541a17637ea21ba10b21c2004deb
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-x64-gnu@npm:^4.41.1":
+  version: 4.41.1
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.41.1"
+  conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -6131,7 +6142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^5.0.0, daisyui@npm:^5.0.38":
+"daisyui@npm:^5.0.38":
   version: 5.0.43
   resolution: "daisyui@npm:5.0.43"
   checksum: 10c0/c493eaf699677729d204558aa08d9d80329e80371d32e044fa635b53ffd29c80a87c270aa82b3535e0b25af89c0ab8ba4fec255bf026046ccf3c9018ffcb347e
@@ -9030,7 +9041,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:10.4.3, lru-cache@npm:^10.0.1, lru-cache@npm:^10.2.0":
+"lru-cache@npm:11.1.0":
+  version: 11.1.0
+  resolution: "lru-cache@npm:11.1.0"
+  checksum: 10c0/85c312f7113f65fae6a62de7985348649937eb34fb3d212811acbf6704dc322a421788aca253b62838f1f07049a84cc513d88f494e373d3756514ad263670a64
+  languageName: node
+  linkType: hard
+
+"lru-cache@npm:^10.0.1, lru-cache@npm:^10.2.0":
   version: 10.4.3
   resolution: "lru-cache@npm:10.4.3"
   checksum: 10c0/ebd04fbca961e6c1d6c0af3799adcc966a1babe798f685bb84e6599266599cd95d94630b10262f5424539bc4640107e8a33aa28585374abf561d30d16f4b39fb
@@ -12197,7 +12215,7 @@ __metadata:
     "@ai-sdk/openai": "npm:^1.3.22"
     "@auth/prisma-adapter": "npm:^2.8.0"
     "@ducanh2912/next-pwa": "npm:^10.2.9"
-    "@neshca/cache-handler": "npm:^1.9.0"
+    "@fortedigital/nextjs-cache-handler": "npm:^2.0.0-canary5"
     "@next/bundle-analyzer": "npm:^15.2.4"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.57.2"
@@ -12230,7 +12248,6 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     axios: "npm:^1.8.2"
     cssnano: "npm:^7.0.6"
-    daisyui: "npm:^5.0.0"
     eslint: "npm:^9.23.0"
     eslint-config-next: "npm:^15.2.4"
     formik: "npm:^2.4.6"

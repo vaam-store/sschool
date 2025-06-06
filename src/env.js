@@ -49,6 +49,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_IMAGE_LOADER_URL: z.string().optional(),
   },
 
   /**
@@ -83,6 +84,8 @@ export const env = createEnv({
       process.env.OPENAI_PAGE_DESCRIPTION_MAX_TOKEN,
     REDIS_URL: process.env.REDIS_URL,
     REDIS_PREFIX: process.env.REDIS_PREFIX,
+    
+    NEXT_PUBLIC_IMAGE_LOADER_URL: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

@@ -2,9 +2,9 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
 import withPlugins from 'next-compose-plugins';
 
-import './src/env.js';
+import { env } from '@app/env';
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = env.NODE_ENV !== 'production';
 
 const shouldCache = (nextConfig: NextConfig): NextConfig => {
   if (isDev) {
@@ -42,23 +42,52 @@ const withImageSizes = (nextConfig: NextConfig): NextConfig => {
       },
     };
   }
-
   return {
     ...nextConfig,
     images: {
       ...nextConfig.images,
       remotePatterns: [
-        ...(nextConfig?.images?.remotePatterns ?? []),
-        ...(process.env.IMAGE_SRC ?? '')
-          .split(',')
-          .map((origin) => origin.split(':'))
-          .filter((i) => i.length === 3)
-          .map(([protocol, host, port]) => ({
-            protocol: protocol as 'http' | 'https',
-            hostname: host!,
-            port: port,
-          })),
+        ...(nextConfig?.images?.remotePatterns || []),
+        {
+          protocol: 'https',
+          hostname: '*.dev.vymalo.com',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.store.vymalo.com',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.vymalo.com',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.vaam.com',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.ssegning.me',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.ssegning.com',
+        },
       ],
+    },
+  };
+};
+
+const withImageLoader = (nextConfig: NextConfig): NextConfig => {
+  if (isDev) {
+    return nextConfig;
+  }
+
+  return {
+    ...nextConfig,
+    images: {
+      ...nextConfig.images,
+      loader: 'custom',
+      loaderFile: './image-loader.mjs',
     },
   };
 };
@@ -73,18 +102,22 @@ const withWebpack = (nextConfig: NextConfig): NextConfig => {
       config.optimization.splitChunks = {
         chunks: 'all',
       };
-      return nextConfig.webpack ? nextConfig.webpack(config, context) : config;
+      return nextConfig.webpack?.(config, context) ?? config;
     },
   };
 };
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  images: {
+    imageSizes: [128, 144, 152, 192, 256, 384, 512, 1024],
+  },
   reactStrictMode: true,
 };
 
 export default withPlugins(
   [
+    [withImageLoader],
     [withImageSizes],
     [withWebpack],
     [
