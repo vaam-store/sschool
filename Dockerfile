@@ -1,23 +1,15 @@
 FROM node:24-alpine AS base
 
-LABEL maintainer="Stephane Segning <selastlambou@gmail.com>"
-LABEL org.opencontainers.image.description="NextJS frontend for the Adorsys School"
-
-# Uncomment the following line in case you want to disable telemetry during runtime.
-ENV NEXT_TELEMETRY_DISABLED=1
-
-#
 WORKDIR /app
+
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN \
   --mount=type=bind,source=.yarnrc.yml,target=/app/.yarnrc.yml \
   --mount=type=bind,source=yarn.lock,target=/app/yarn.lock \
   --mount=type=bind,source=package.json,target=/app/package.json \
-  corepack enable && corepack prepare yarn@4.6.0 --activate
-    
-RUN \
-  --mount=type=cache,target=/var/cache/apk,sharing=locked \
-  apk add libc6-compat
+  corepack enable && corepack prepare yarn@4.9.2 --activate
+
 
 FROM base AS deps
 
@@ -40,7 +32,6 @@ FROM base AS builder
 ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH="/app/node_modules/sharp"
 ENV SKIP_ENV_VALIDATION=1
-ENV IMAGE_SRC="https:*:,"
 
 # This is mandatory but not definitive
 ENV S3_ENDPOINT="localhost"
@@ -48,6 +39,8 @@ ENV S3_PORT="19000"
 ENV S3_SCHEME="https"
 ENV S3_BUCKET="sschool"
 #ENV S3_CDN_URL="https://some.cdn.com"
+
+ENV NEXT_PUBLIC_EMGR_CDN="https://emgr.example.com/api/images/resize"
 
 ENV OPENAI_KEY=changeMe
 ENV OPENAI_URL=https://ai.example.api
@@ -64,6 +57,7 @@ RUN \
   --mount=type=bind,source=./eslint.config.js,target=/app/eslint.config.js \
   --mount=type=bind,source=./.yarnrc.yml,target=/app/.yarnrc.yml \
   --mount=type=bind,source=./cache-handler.mjs,target=/app/cache-handler.mjs \
+  --mount=type=bind,source=./image-loader.mjs,target=/app/image-loader.mjs \
   --mount=type=bind,source=./next.config.ts,target=/app/next.config.ts \
   --mount=type=bind,source=./package.json,target=/app/package.json \
   --mount=type=bind,source=./postcss.config.js,target=/app/postcss.config.js \
@@ -76,7 +70,20 @@ RUN \
   && cp -R .next/static /app/final-static \
   && cp -R public /app/final-public
 
-FROM base AS runner
+FROM node:24-alpine
+
+LABEL maintainer="Stephane Segning <selastlambou@gmail.com>"
+LABEL org.opencontainers.image.description="NextJS frontend for the SSchool"
+
+# Uncomment the following line in case you want to disable telemetry during runtime.
+ENV NEXT_TELEMETRY_DISABLED=1    
+
+RUN \
+  --mount=type=cache,target=/var/cache/apk,sharing=locked \
+  apk add libc6-compat
+
+#
+WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000

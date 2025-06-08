@@ -40,6 +40,8 @@ export const env = createEnv({
     OPENAI_PAGE_CONTENT_MODEL: z.string(),
     REDIS_URL: z.string().url().optional(),
     REDIS_PREFIX: z.string().optional(),
+    
+    PLAUSIBLE_URL: z.string().url().optional(),
   },
 
   /**
@@ -49,7 +51,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
-    NEXT_PUBLIC_IMAGE_LOADER_URL: z.string().optional(),
+    NEXT_PUBLIC_EMGR_CDN: z.string().url().optional(),
   },
 
   /**
@@ -85,7 +87,9 @@ export const env = createEnv({
     REDIS_URL: process.env.REDIS_URL,
     REDIS_PREFIX: process.env.REDIS_PREFIX,
     
-    NEXT_PUBLIC_IMAGE_LOADER_URL: process.env.NEXT_PUBLIC_IMAGE_LOADER_URL,
+    PLAUSIBLE_URL: process.env.PLAUSIBLE_URL,
+    
+    NEXT_PUBLIC_EMGR_CDN: process.env.NEXT_PUBLIC_EMGR_CDN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

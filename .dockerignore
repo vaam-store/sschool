@@ -8,6 +8,7 @@
 !.yarnrc.yml
 !cache-handler.mjs
 !eslint.config.js
+!image-loader.mjs
 !next.config.ts
 !next-env.d.ts
 !package.json

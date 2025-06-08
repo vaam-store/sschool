@@ -1,15 +1,14 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "common.names.fullname" $ }}-pdb
-  namespace: {{ include "common.names.namespace" $ }}
+  name: {{ include "bjw-s.common.lib.chart.names.name" $ }}-pdb
+  namespace: {{ $.Release.Namespace }}
   annotations:
-    {{- include "common.annotations.standard" $ | nindent 4 }}
+    {{ include "common.annotations.standard" (dict "rootContext" $ "controllerObject" $.Values.controllers) | nindent 4 }}
   labels:
-    {{- include "common.labels.standard" $ | nindent 4 }}
+    {{ include "bjw-s.common.lib.pod.metadata.labels" (dict "rootContext" $ "controllerObject" $.Values.controllers) | nindent 4 }}
 spec:
   minAvailable: 2
   selector:
-    matchLabels: 
-      {{ .Values.app.controllers.main.labels | toYaml | nindent 6 }}
-      {{ .Values.global.labels | toYaml | nindent 6 }}
+    matchLabels:
+      {{ include "bjw-s.common.lib.metadata.selectorLabels" $ | nindent 6 }}

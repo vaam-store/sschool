@@ -86,6 +86,9 @@ services:
       - spi-theme:/spi
 
   migrations:
+    depends_on:
+      postgres:
+        condition: service_started
     build:
       context: ./
       dockerfile: companions/migrations/Dockerfile

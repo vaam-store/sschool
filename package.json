@@ -1,10 +1,10 @@
 {
   "name": "sschool-app",
-  "version": "2025.6.5",
+  "version": "2025.6.9",
   "private": true,
   "type": "module",
   "repository": {
-    "url": "https://github.com/ADORSYS-GIS/sschool.git"
+    "url": "https://github.com/vaam-store/sschool.git"
   },
   "scripts": {
     "build": "next build",

@@ -1,8 +1,8 @@
 # SSchool App
 
-[![Lint](https://github.com/ADORSYS-GIS/sschool/actions/workflows/lint-codebase.yml/badge.svg)](https://github.com/ADORSYS-GIS/sschool/actions/workflows/lint-codebase.yml)
-[![Dependabot Updates](https://github.com/ADORSYS-GIS/sschool/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/ADORSYS-GIS/sschool/actions/workflows/dependabot/dependabot-updates)
-[![Docker build](https://github.com/ADORSYS-GIS/sschool/actions/workflows/build.yml/badge.svg)](https://github.com/ADORSYS-GIS/sschool/actions/workflows/build.yml)
+[![Lint](https://github.com/vaam-store/sschool/actions/workflows/lint-codebase.yml/badge.svg)](https://github.com/vaam-store/sschool/actions/workflows/lint-codebase.yml)
+[![Dependabot Updates](https://github.com/vaam-store/sschool/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/vaam-store/sschool/actions/workflows/dependabot/dependabot-updates)
+[![Docker build](https://github.com/vaam-store/sschool/actions/workflows/build.yml/badge.svg)](https://github.com/vaam-store/sschool/actions/workflows/build.yml)
 
 ## Description
 
@@ -52,7 +52,7 @@ Before you begin, ensure you have the following installed:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/ADORSYS-GIS/sschool.git
+    git clone https://github.com/vaam-store/sschool.git
     cd sschool
     ```
 
