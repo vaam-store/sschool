@@ -74,7 +74,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "server-only": "^0.0.1",
-    "sharp": "^0.33.5",
+    "sharp": "^0.34.2",
     "sortablejs": "^1.15.6",
     "superjson": "^2.2.1",
     "tailwind-merge": "^3.0.2",
