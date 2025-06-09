@@ -91,7 +91,7 @@ Before you begin, ensure you have the following installed:
 
 The following environment variables can be configured:
 
-- `AUTH_SECRET`: Secret key for NextAuth.
+- `NEXTAUTH_SECRET`: Secret key for NextAuth.
 - `AUTH_KEYCLOAK_ID`, `AUTH_KEYCLOAK_SECRET`, `AUTH_KEYCLOAK_ISSUER`: Keycloak authentication settings.
 - `DATABASE_URL`: PostgreSQL database connection URL.
 - `S3_ENDPOINT`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_PORT`, `S3_SCHEME`, `S3_BUCKET`, `S3_CDN_URL`: S3-compatible storage settings (e.g., MinIO).

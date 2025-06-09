@@ -17,7 +17,7 @@ services.
 |              | S3_CDN_URL           | CDN URL for serving S3 content.                                    |
 | Secret Names | S3_ACCESS_KEY        | Access key for the S3 bucket storage.                              |
 |              | S3_SECRET_KEY        | Secret key for authenticating with the S3 bucket.                  |
-|              | AUTH_SECRET          | Secret key for authentication and security.                        |
+|              | NEXTAUTH_SECRET          | Secret key for authentication and security.                        |
 |              | AUTH_KEYCLOAK_ID     | ID for the Keycloak client in the authentication flow.             |
 |              | AUTH_KEYCLOAK_SECRET | Secret key linked to the Keycloak client for secure communication. |
 |              | DATABASE_URL         | Connection URL for the PostgreSQL database.                        |
@@ -62,7 +62,7 @@ secrets:
     annotations:
       description: 'Auth configuration for the SSchool app.'
     stringData:
-      AUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
+      NEXTAUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
       AUTH_KEYCLOAK_ID: 'sschool'
       AUTH_KEYCLOAK_SECRET: 'someSecret'
   db:

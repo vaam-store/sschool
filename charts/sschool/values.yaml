@@ -142,7 +142,7 @@ secrets:
     annotations:
       description: 'Auth configuration for the SSchool.'
     stringData:
-      AUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
+      NEXTAUTH_SECRET: 'gfhZ+94pqhGDi03RCD/6klIbTd92V5yA8G+oEN9c6pk='
       AUTH_KEYCLOAK_ID: 'sschool'
       AUTH_KEYCLOAK_SECRET: 'someSecret'
   db:
