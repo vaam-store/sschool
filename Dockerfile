@@ -40,7 +40,7 @@ ENV S3_SCHEME="https"
 ENV S3_BUCKET="sschool"
 #ENV S3_CDN_URL="https://some.cdn.com"
 
-ENV NEXT_PUBLIC_EMGR_CDN="https://emgr.example.com/api/images/resize"
+ENV NEXT_PUBLIC_EMGR_CDN="https://emgr.ssegning.com/api/images/resize"
 
 ENV OPENAI_KEY=changeMe
 ENV OPENAI_URL=https://ai.example.api

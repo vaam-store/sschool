@@ -17,7 +17,6 @@ services.
 |              | S3_CDN_URL           | CDN URL for serving S3 content.                                    |
 | Secret Names | S3_ACCESS_KEY        | Access key for the S3 bucket storage.                              |
 |              | S3_SECRET_KEY        | Secret key for authenticating with the S3 bucket.                  |
-|              | SMTP_URL             | URL for the SMTP server connection.                                |
 |              | AUTH_SECRET          | Secret key for authentication and security.                        |
 |              | AUTH_KEYCLOAK_ID     | ID for the Keycloak client in the authentication flow.             |
 |              | AUTH_KEYCLOAK_SECRET | Secret key linked to the Keycloak client for secure communication. |
