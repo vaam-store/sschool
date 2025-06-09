@@ -7,7 +7,7 @@ export default function LargeFooter() {
   return (
     <div className='bg-base-300'>
       <Container>
-        <footer className='footer sm:footer-horizontal p-10'>
+        <footer className='footer sm:footer-horizontal sm:p-10'>
           <aside>
             <Image src={icon} className='fill-current w-24 h-24' alt='logo' />
 

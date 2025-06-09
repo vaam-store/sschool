@@ -1,5 +1,5 @@
 global:
-  version: '2025.6.10'
+  version: '2025.6.11'
   labels:
     app: sschool
     team: vaam-store
@@ -120,7 +120,8 @@ configMaps:
     annotations:
       description: 'OTEL configuration for the SSchool.'
     data:
-      OTEL_EXPORTER_OTLP_ENDPOINT: 'https://otel.example.com'
+      OTEL_EXPORTER_OTLP_ENDPOINT: 'https://otel.example.com:4318'
+      OTEL_EXPORTER_OTLP_PROTOCOL: http
   redis:
     enabled: true
     annotations:

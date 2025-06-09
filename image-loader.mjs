@@ -4,7 +4,9 @@ export default function emgrImageLoader({ src, width, quality, height }) {
   const url = new URL(env.NEXT_PUBLIC_EMGR_CDN);
   url.searchParams.set('format', 'jpg');
 
-  if (!!src) {
+  if (src.startsWith('/')) {
+    url.searchParams.set('url', `${env.NEXT_PUBLIC_EMGR_APP_URL}${src}`);
+  } else {
     url.searchParams.set('url', src);
   }
 

@@ -30,7 +30,6 @@ FROM base AS builder
 
 # This is mandatory and definitive
 ENV NODE_ENV=production
-ENV NEXT_SHARP_PATH="/app/node_modules/sharp"
 ENV SKIP_ENV_VALIDATION=1
 
 # This is mandatory but not definitive
@@ -41,6 +40,7 @@ ENV S3_BUCKET="sschool"
 #ENV S3_CDN_URL="https://some.cdn.com"
 
 ENV NEXT_PUBLIC_EMGR_CDN="https://emgr.ssegning.com/api/images/resize"
+ENV NEXT_PUBLIC_EMGR_APP_URL="https://sschool.app"
 
 ENV OPENAI_KEY=changeMe
 ENV OPENAI_URL=https://ai.example.api
@@ -87,7 +87,6 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV NEXT_SHARP_PATH="/app/node_modules/sharp"
 ENV HOSTNAME="0.0.0.0"
 
 # Create non-root user

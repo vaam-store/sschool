@@ -52,6 +52,7 @@ export const env = createEnv({
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
     NEXT_PUBLIC_EMGR_CDN: z.string().url().optional(),
+    NEXT_PUBLIC_EMGR_APP_URL: z.string().url().optional(),
   },
 
   /**
@@ -90,6 +91,7 @@ export const env = createEnv({
     PLAUSIBLE_URL: process.env.PLAUSIBLE_URL,
     
     NEXT_PUBLIC_EMGR_CDN: process.env.NEXT_PUBLIC_EMGR_CDN,
+    NEXT_PUBLIC_EMGR_APP_URL: process.env.NEXT_PUBLIC_EMGR_APP_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
