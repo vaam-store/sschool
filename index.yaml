@@ -15,4 +15,18 @@ entries:
     urls:
     - https://github.com/vaam-store/sschool/releases/download/sschool-0.3.2/sschool-0.3.2.tgz
     version: 0.3.2
-generated: "2025-06-08T23:35:05.47232069Z"
+  - apiVersion: v2
+    appVersion: 2025.6.10
+    created: "2025-06-09T01:29:17.123462922Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts
+      version: '*'
+    description: A Helm chart for Kubernetes
+    digest: 08b8b572e19f22cca14fc2edf152ef4965c1df7bd93edc895bfc367f20d19683
+    name: sschool
+    type: application
+    urls:
+    - https://github.com/vaam-store/sschool/releases/download/sschool-0.3.2-rc.1/sschool-0.3.2-rc.1.tgz
+    version: 0.3.2-rc.1
+generated: "2025-06-09T01:29:17.123476528Z"
