@@ -96,7 +96,7 @@
     "@vymalo/ui-preset": "^2.0.2",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
-    "eslint": "^9.23.0",
+    "eslint": "^9.29.0",
     "eslint-config-next": "^15.2.4",
     "postcss": "^8.5.2",
     "prettier": "^3.5.3",
