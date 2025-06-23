@@ -4315,9 +4315,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vymalo/ui-preset@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@vymalo/ui-preset@npm:2.0.2"
+"@vymalo/ui-preset@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@vymalo/ui-preset@npm:2.0.3"
   dependencies:
     "@tailwindcss/aspect-ratio": "npm:^0.4.2"
     "@tailwindcss/forms": "npm:^0.5.10"
@@ -4326,7 +4326,7 @@ __metadata:
     daisyui: "npm:^5.0.38"
     tailwindcss: "npm:^4"
     tailwindcss-radix: "npm:^4"
-  checksum: 10c0/0bc32d07a9b6faadf8aea75e388c36b6883ccb8e8aeb4dac8a9b4c84db72c12d6a2fa1d8fa8888af96ff967743cd273a8d897aec4147ffdb51b2fdcfb28be6d2
+  checksum: 10c0/3acbc97ed7abe82c6447c8a542ec2c2ba86ec58a9c95797ad661e07fcf69ec86a223e86e6aad438c56294705be7fdd9f3ad1c02d73d035a15cfbc03eead4c8b4
   languageName: node
   linkType: hard
 
@@ -11955,7 +11955,7 @@ __metadata:
     "@uiw/react-markdown-editor": "npm:^6.1.2"
     "@uiw/react-md-editor": "npm:^4.0.5"
     "@vercel/otel": "npm:^1.10.1"
-    "@vymalo/ui-preset": "npm:^2.0.2"
+    "@vymalo/ui-preset": "npm:^2.0.3"
     ai: "npm:^4.3.16"
     autoprefixer: "npm:^10.4.20"
     axios: "npm:^1.10.0"
