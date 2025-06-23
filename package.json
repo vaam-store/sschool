@@ -84,7 +84,7 @@
     "zod-prisma-types": "^3.2.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.17",
+    "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/typography": "^0.5.16",
     "@types/eslint": "^9.6.1",
     "@types/fs-extra": "^11.0.4",
