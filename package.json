@@ -93,7 +93,7 @@
     "@types/react": "19",
     "@types/react-dom": "^19.0.4",
     "@types/sortablejs": "^1.15.8",
-    "@vymalo/ui-preset": "^2.0.2",
+    "@vymalo/ui-preset": "^2.0.3",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
     "eslint": "^9.29.0",
