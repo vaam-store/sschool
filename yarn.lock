@@ -1818,11 +1818,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortedigital/nextjs-cache-handler@npm:^2.0.0-canary5":
-  version: 2.0.0-canary5
-  resolution: "@fortedigital/nextjs-cache-handler@npm:2.0.0-canary5"
+"@fortedigital/nextjs-cache-handler@npm:^2.0.0-canary7":
+  version: 2.0.0-canary7
+  resolution: "@fortedigital/nextjs-cache-handler@npm:2.0.0-canary7"
   dependencies:
-    "@rollup/rollup-linux-x64-gnu": "npm:^4.41.1"
+    "@rollup/rollup-linux-x64-gnu": "npm:^4.43.0"
     cluster-key-slot: "npm:1.1.2"
     lru-cache: "npm:11.1.0"
   peerDependencies:
@@ -1831,7 +1831,7 @@ __metadata:
   dependenciesMeta:
     "@rollup/rollup-linux-x64-gnu":
       optional: true
-  checksum: 10c0/069020871e6d41ffc27d6a003866e2b82c50c820c9e929deb81a6c38d037830ac4c21067ab8af018305f38342fa3c1bb13501bf70b97b5dd6942ff533be595cb
+  checksum: 10c0/2fc3d8680c7ffa19e899b9e413091ca3bd912f08ace833961e64e69b9e0cd3cb6ac8fc8059fb62eca56acef0752c7000aafcde9dde6c7acd8189eef8d5ceb515
   languageName: node
   linkType: hard
 
@@ -3051,9 +3051,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:^4.41.1":
-  version: 4.42.0
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.42.0"
+"@rollup/rollup-linux-x64-gnu@npm:^4.43.0":
+  version: 4.44.0
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.44.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -11936,7 +11936,7 @@ __metadata:
     "@ai-sdk/openai": "npm:^1.3.22"
     "@auth/prisma-adapter": "npm:^2.8.0"
     "@ducanh2912/next-pwa": "npm:^10.2.9"
-    "@fortedigital/nextjs-cache-handler": "npm:^2.0.0-canary5"
+    "@fortedigital/nextjs-cache-handler": "npm:^2.0.0-canary7"
     "@next/bundle-analyzer": "npm:^15.2.4"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.57.2"
