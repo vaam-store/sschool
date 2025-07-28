@@ -3842,12 +3842,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^24.0.3":
-  version: 24.0.3
-  resolution: "@types/node@npm:24.0.3"
+"@types/node@npm:^24.1.0":
+  version: 24.1.0
+  resolution: "@types/node@npm:24.1.0"
   dependencies:
     undici-types: "npm:~7.8.0"
-  checksum: 10c0/9c3c4e87600d1cf11e291c2fd4bfd806a615455463c30a0ef6dc9c801b3423344d9b82b8084e3ccabce485a7421ebb61a66e9676181bd7d9aea4759998a120d5
+  checksum: 10c0/6c4686bc144f6ce7bffd4cadc3e1196e2217c1da4c639c637213719c8a3ee58b6c596b994befcbffeacd9d9eb0c3bff6529d2bc27da5d1cb9d58b1da0056f9f4
   languageName: node
   linkType: hard
 
@@ -11957,7 +11957,7 @@ __metadata:
     "@types/eslint": "npm:^9.6.1"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/lodash": "npm:^4.17.16"
-    "@types/node": "npm:^24.0.3"
+    "@types/node": "npm:^24.1.0"
     "@types/react": "npm:19"
     "@types/react-dom": "npm:^19.0.4"
     "@types/sortablejs": "npm:^1.15.8"
